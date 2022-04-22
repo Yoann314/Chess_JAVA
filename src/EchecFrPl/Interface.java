@@ -1,6 +1,9 @@
 package EchecFrPl;
 
+import java.awt.event.*;
 import java.awt.*;
+import javax.swing.*;
+
 
 public class Interface {
 
@@ -13,12 +16,12 @@ public class Interface {
 		
 		JPanel panneau = new JPanel(new GridLayout(8,8));
 		
-        /*
+        
 		// BOUTON X O
 		ImageIcon imgX = new ImageIcon("X.png");
-		Image imageX = imgX.getImage().getScaledInstance(100, 100,Image.SCALE_DEFAULT);
-		JButton boutonImageX = new JButton(new ImageIcon(imageX));
-		
+		Image imageX = imgX.getImage().getScaledInstance(50, 50,Image.SCALE_DEFAULT);
+
+		/*
 		ImageIcon imgO = new ImageIcon("Y.jpg");
 		Image imageO = imgO.getImage().getScaledInstance(100, 100,Image.SCALE_DEFAULT);
 		JButton boutonImageO = new JButton(new ImageIcon(imageO));
@@ -28,14 +31,15 @@ public class Interface {
         for (int i = 0; i < boutons.length; i++) {
             for (int j = 0; j < boutons[i].length; j++) {
                 boutons[i][j] = new JButton();
-                //boutons[i][j].setIcon(new ImageIcon(boutonImageX));
+                boutons[i][j].setIcon(new ImageIcon());
 				boutons[i][j].addActionListener(listener);
 				boutons[i][j].setActionCommand(String.valueOf(i)+"-"+String.valueOf(j));
-                boutons[i][j].setPreferredSize(new Dimension(50,50));
+                boutons[i][j].setPreferredSize(new Dimension(80,60));
                 panneau.add(boutons[i][j]);
 
             }
-        } 
+        }
+        
 
         fenetre.add(panneau, BorderLayout.CENTER);
 		fenetre.pack();
@@ -44,13 +48,13 @@ public class Interface {
 		
 	}
 	
-    /*
+    
 	public void afficherPiece(ImageIcon ii, int indiceLigne, int indiceColonne) {
 		boutons[indiceLigne][indiceColonne].setDisabledIcon(ii);
 		boutons[indiceLigne][indiceColonne].setEnabled(false);
 		boutons[indiceLigne][indiceColonne].setIcon(ii);
     }
-    */
+    
 
     public static void main(String[] args) {
         new Interface(null);

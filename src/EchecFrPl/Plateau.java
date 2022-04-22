@@ -2,6 +2,7 @@ package EchecFrPl;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 
 public class Plateau implements ActionListener {
@@ -20,7 +21,7 @@ public class Plateau implements ActionListener {
 		pieces = new Piece[2][16];
 		init(); // on initialise le plateau
 		bouton = new Interface(this);
-		//bouton.afficherPiece();
+		bouton.afficherPiece();
 	}
 
 	/*
@@ -68,11 +69,13 @@ public class Plateau implements ActionListener {
 		pieces[1][7] = new Tour(7,7);
 
 	}
-
 	
 
-	/*
+	public void afficherInitPlateau(int indiceLigne, int indiceColonne) {
+		bouton.afficherPiece(new ImageIcon("X.png"), 0, 0);
+	}
 
+/*
 	public void affichePlateau() {
 		for(int indiceLigne = 0; indiceLigne < 8; indiceLigne++) {
 			for(int indiceColonne = 0; indiceColonne < 8; indiceColonne++) {
@@ -82,6 +85,7 @@ public class Plateau implements ActionListener {
 
 	}
 	*/
+
 	/*	
 	public boolean remplir(int idJoueur, int idLigne, int idCol) {
 		if(grille[idLigne][idCol]!=Case.VIDE)
@@ -98,6 +102,14 @@ public class Plateau implements ActionListener {
 	}
 
 	public static void main (String[] args) {
-
+		Plateau m = new Plateau();
 	}
+	@Override
+		public void ActionPerformed(ActionEvent arg0) {
+			String res = arg0.getActionCommand();
+			String[] coordonnees = res.split("-");
+			int indiceLigne = Integer.parseInt(coordonnees[0]);
+			int indiceColonne = Integer.parseInt(coordonnees[1]);
+			afficherInitPlateau(indiceLigne, indiceColonne);
+		}
 }
