@@ -1,9 +1,16 @@
 package EchecFrPl;
 
+import javax.swing.ImageIcon;
+
 public class Plateau {
 
 	private Case[][] grille; 
 	private Piece[][] pieces;
+	private ImageIcon image;
+	
+	public ImageIcon getImage() {
+		return image;
+	}
 	
 	public Plateau(){
 		grille = new Case[8][8]; // on indique les dimensions de la grille
@@ -37,6 +44,8 @@ public class Plateau {
 		pieces[1][5] = new Fou(7,5);
 		pieces[1][6] = new Cavalier(7,6);
 		pieces[1][7] = new Tour(7,7);
+		
+		grille[pieces[0][0].indiceLigne][pieces[0][0].indiceColonne].getImage();
 
 		for(int indiceLigne = 3; indiceLigne = 6; indiceLigne++) {
 			for(int indiceColonne = 0; indiceColonne < grille[indiceLigne].length; indiceColonne++) {
