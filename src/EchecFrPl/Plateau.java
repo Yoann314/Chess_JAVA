@@ -1,12 +1,15 @@
 package EchecFrPl;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
+import java.awt.*;
 
-public class Plateau {
+
+public class Plateau implements ActionListener {
 
 	private Case[][] grille; 
 	private Piece[][] pieces;
 	private ImageIcon image;
+	Interface bouton;
 	
 	public ImageIcon getImage() {
 		return image;
@@ -16,9 +19,28 @@ public class Plateau {
 		grille = new Case[8][8]; // on indique les dimensions de la grille
 		pieces = new Piece[2][16];
 		init(); // on initialise le plateau
+		bouton = new Interface(this);
+		//bouton.afficherPiece();
 	}
+
+	/*
+	ImageIcon image = new ImageIcon("IMG_8094.jpeg");
+        Image img = image.getImage().getScaledInstance(40, -1, Image.SCALE_DEFAULT);
+        JButton buttonX = new JButton(new ImageIcon(img));
+
+		JButton[][] boutons = new JButton[3][3];
+        for (int i = 0; i < boutons.length; i++) {
+            for (int j = 0; j < boutons[i].length; j++) {
+                boutons[i][j] = new JButton(new ImageIcon(buttonX));//new ImageIcon(img));
+                boutons[i][j].setPreferredSize(new Dimension(50,50));
+                panneau.add(boutons[i][j]);
+			}
+		}
+	*/
+
+
 			
-	public void init(){
+	public void init() {
 		pieces[0][0] = new Tour(0,0);
 		pieces[0][1] = new Cavalier(0,1);
 		pieces[0][2] = new Fou(0,2);
@@ -44,16 +66,22 @@ public class Plateau {
 		pieces[1][5] = new Fou(7,5);
 		pieces[1][6] = new Cavalier(7,6);
 		pieces[1][7] = new Tour(7,7);
-		
-		grille[pieces[0][0].indiceLigne][pieces[0][0].indiceColonne].getImage();
 
-		for(int indiceLigne = 3; indiceLigne = 6; indiceLigne++) {
-			for(int indiceColonne = 0; indiceColonne < grille[indiceLigne].length; indiceColonne++) {
-				grille[indiceLigne][indiceColonne] = Case.VIDE;
-			}
-		}
 	}
 
+	
+
+	/*
+
+	public void affichePlateau() {
+		for(int indiceLigne = 0; indiceLigne < 8; indiceLigne++) {
+			for(int indiceColonne = 0; indiceColonne < 8; indiceColonne++) {
+				grille[pieces[][].indiceLigne][pieces[][].indiceColonne] = new JButton(new ImageIcon("/Echec.fr.pl/src/EchecFrPl/images/reine_draft1.png").getImage().getScaledInstance(100,  100, Image.SCALE_DEFAULT))
+			}
+		}
+
+	}
+	*/
 	/*	
 	public boolean remplir(int idJoueur, int idLigne, int idCol) {
 		if(grille[idLigne][idCol]!=Case.VIDE)
@@ -63,6 +91,7 @@ public class Plateau {
 		
 	}
 	*/
+	
 	
 	public boolean verifierGagnant() {
 		return false;
