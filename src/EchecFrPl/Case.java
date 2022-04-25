@@ -1,11 +1,10 @@
-package EchecFrPl;
-
+package src.EchecFrPl;
 
 import java.awt.*;
 import javax.swing.*;
 
 public enum Case {
-	//VIDE(" ", null),
+	VIDE(" ", 0),
 	Pion("Pion", 1 ),
 	Tour("Tour", 5),
 	Cavalier("Cavalier", 3),
@@ -25,10 +24,6 @@ public enum Case {
 		}	//constructeaur prive
 	
 	public String affiche() {return affichage;}
-	
-	public ImageIcon getImage() {
-		return image;
-	}
 	
 	public boolean isEqual(String x) {return affichage == x; }
 }

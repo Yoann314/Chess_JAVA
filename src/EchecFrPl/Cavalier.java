@@ -1,10 +1,12 @@
-package EchecFrPl;
+package src.EchecFrPl;
 
-public class Cavalier {
+public class Cavalier extends Piece {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public Cavalier(String c, int indL, int indCol) {
+		this.setCouleur(c);
+		this.ligne = indL;
+		this.colonne = indCol;
+		
 	}
 
 }

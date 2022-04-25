@@ -1,29 +1,36 @@
-package EchecFrPl;
+package src.EchecFrPl;
 
 public abstract class Piece {
-    private String joueur;
-    public int indiceLigne;
-    public int indiceColonne;
-    private int value;
+    private String couleur;
+    protected int ligne;
+	protected int colonne;
+    protected int value;
 
-    public String getJoueur() {
-        return joueur;
-    }
+    public void JOueur(String c) { 
+    	this.setCouleur(c); 
+    	}
+    
+    public String getCouleur() {
+		return couleur;
+	}
 
-    public int getIndiceLigne() {
-        return indiceLigne;
-    }
+	public void setCouleur(String couleur) {
+		this.couleur = couleur;
+	}
+	public int getLigne() { 
+		return this.ligne; 
+		}
+	
+	public int getColonne() { 
+		return this.colonne; 
+		}
 
-    public int getIndiceColonne() {
-        return indiceColonne;
-    }
+    public void setCoordonnees(int indL, int indCol) {
+		this.ligne=indL;
+		this.colonne=indCol;
+	}
 
-    public void setCoordonnees(int indiceLigne, int indiceColonne) {
-        this.indiceLigne = indiceLigne;
-        this.indiceColonne = indiceColonne;
-    }
-
-    public int getValue() {
-        return value;
+    public void getValue(int valeurPiece) {
+        this.value = valeurPiece;
     }
 }

@@ -1,10 +1,11 @@
-package EchecFrPl;
+package src.EchecFrPl;
 
-public class Reine {
+public class Reine extends Piece{
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public Reine(String c, int indL, int indCol) {
+		this.setCouleur(c);
+		this.ligne = indL;
+		this.colonne = indCol;
 	}
 
 }

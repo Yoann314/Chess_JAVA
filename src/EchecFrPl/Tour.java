@@ -1,21 +1,12 @@
-package EchecFrPl;
+package src.EchecFrPl;
 
 public class Tour extends Piece {
-	Piece indiceLigne;
-	Piece indiceColonne;
-	Piece value;
-	Plateau grille;
 	
-	public Tour(int indiceLigne, int indiceColonne) {
+	public Tour(String c, int indL, int indCol) {
+		this.setCouleur(c);
+		this.ligne = indL;
+		this.colonne = indCol;
 		
-		
-		//grille[indiceLigne][indiceColonne] = grille[this.indiceLigne][this.indiceColonne];
 	}
-	
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }
+	
