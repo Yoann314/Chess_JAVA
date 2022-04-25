@@ -15,7 +15,32 @@ public class Interface {
 		fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		
 		JPanel panneau = new JPanel(new GridLayout(8,8));
 		
-        
+
+		boutons = new JButton[8][8]; // Creation de plateau
+		for (int i = 0; i < boutons.length; i++) {
+			for (int j = 0; j < boutons[i].length; j++) {
+				boutons[i][j] = new MonBouton();
+				boutons[i][j].addActionListener(listener);
+				boutons[i][j].setActionCommand(String.valueOf(i)+"-"+String.valueOf(j));
+				boutons[i][j].setPreferredSize(new Dimension(80,60));
+
+				if (i % 2 == 0) { // Création du damier noir et blanc
+					if (j % 2 == 0)
+						boutons[i][j].setBackground(Color.WHITE);
+					else
+						boutons[i][j].setBackground(Color.BLACK);
+				}
+
+				else {
+					if (j % 2 == 0)
+						boutons[i][j].setBackground(Color.BLACK);
+					else
+						boutons[i][j].setBackground(Color.WHITE);
+				}
+				panneau.add(boutons[i][j]);
+			}
+		}		
+		/*
 		// BOUTON X O
 		int k = 1;
 
@@ -98,8 +123,7 @@ public class Interface {
 			}
 		});
 		t.start();
-
-
+		*/
         fenetre.add(panneau, BorderLayout.CENTER);
 		fenetre.pack();
 		fenetre.setLocationRelativeTo(null);
@@ -107,13 +131,14 @@ public class Interface {
 		
 	}
 	
-    /*
+	/*
 	public void afficherPiece(ImageIcon ii, int indiceLigne, int indiceColonne) {
 		boutons[indiceLigne][indiceColonne].setDisabledIcon(ii);
 		boutons[indiceLigne][indiceColonne].setEnabled(false);
 		boutons[indiceLigne][indiceColonne].setIcon(ii);
     }
 	*/
+	
     
 
     public static void main(String[] args) {
