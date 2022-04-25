@@ -1,4 +1,4 @@
-package EchecFrPl;
+package src.EchecFrPl;
 
 import java.awt.*;
 import javax.swing.*;

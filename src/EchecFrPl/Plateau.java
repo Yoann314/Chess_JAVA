@@ -1,13 +1,16 @@
 package EchecFrPl;
 
 import javax.swing.*;
+
+import EchecFrPl.Case;
+
 import java.awt.*;
 import java.awt.event.*;
 
 
 public class Plateau implements ActionListener {
 	Interface bouton = new Interface(null);
-	private Case[][] grille; 
+	public static Case[][] grille; 
 	private Piece[][] pieces;
 	private ImageIcon image;
 	int indiceLigne ;
