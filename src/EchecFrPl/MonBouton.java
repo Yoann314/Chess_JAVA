@@ -7,6 +7,10 @@ public class MonBouton extends JButton {
     private Color bg;
     Image img;
 
+    public MonBouton() {
+        super();
+        img = null;
+    }
     public MonBouton(Image i) {
         super();
         img = i;
@@ -20,6 +24,7 @@ public class MonBouton extends JButton {
         super.paintComponent(g);
         g.setColor(bg);
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.drawImage(img, 0, 0, null);
+        if(img!=null)
+            g.drawImage(img, 0, 0, null);
     }
 }
