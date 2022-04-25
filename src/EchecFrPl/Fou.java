@@ -6,7 +6,7 @@ public class Fou extends Piece{
 		this.setCouleur(c);
 		this.ligne = indL;
 		this.colonne = indCol;
-		
+		this.estActif = true;
 
 	}
 

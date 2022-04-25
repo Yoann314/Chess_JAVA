@@ -1,4 +1,4 @@
-package EchecFrPl;
+package src.EchecFrPl;
 
 public class EchecJeu {
 

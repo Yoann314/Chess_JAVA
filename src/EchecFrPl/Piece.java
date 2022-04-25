@@ -5,6 +5,7 @@ public abstract class Piece {
     protected int ligne;
 	protected int colonne;
     protected int value;
+    boolean estActif;
 
     public void JOueur(String c) { 
     	this.setCouleur(c); 
@@ -33,4 +34,16 @@ public abstract class Piece {
     public void getValue(int valeurPiece) {
         this.value = valeurPiece;
     }
-}
+    
+    public boolean getestActif(){ 
+    	return this.estActif; 
+    	}
+    
+    public void estActif(boolean actif){
+		if(actif!=false) this.estActif=false;
+		if(actif==true) this.estActif=true;
+	}
+
+
+	
+	}
