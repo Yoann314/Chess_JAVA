@@ -17,9 +17,15 @@ public class Roi extends Piece {
 			if (indL < 8 && indCol < 8) {
 				if(Plateau.grille[indL][indCol] == Plateau.grille[ligne +1][colonne] ||
 						Plateau.grille[indL][indCol] == Plateau.grille[ligne][colonne+1] ||
-						Plateau.grille[indL][indCol] == Plateau.grille[ligne+1][colonne+1])
+						Plateau.grille[indL][indCol] == Plateau.grille[ligne+1][colonne+1] ||
+						Plateau.grille[indL][indCol] == Plateau.grille[ligne -1][colonne] ||
+						Plateau.grille[indL][indCol] == Plateau.grille[ligne][colonne-1] ||
+						Plateau.grille[indL][indCol] == Plateau.grille[ligne-1][colonne-1] ||
+						Plateau.grille[indL][indCol] == Plateau.grille[ligne+1][colonne-1] ||
+						Plateau.grille[indL][indCol] == Plateau.grille[ligne-1][colonne+1] )
 					return true;
 			}
+			if (this.ligne == indL && this.colonne == indCol) return false; //le piece n'a pas bouge
 			return false;
 			}
 		

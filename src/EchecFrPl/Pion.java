@@ -11,25 +11,36 @@ public class Pion extends Piece{
 		this.colonne = indCol;
 		this.estActif=true;
 	}
-		public boolean deplacementValide(int indL, int indCol) // nouvelles coordonnees 
+		public boolean deplacementValide(int indL, int indCol, String c) // nouvelles coordonnees 
 		{
 			grille = new Plateau();
 			
-			if (indL < 8 && indCol < 8) {
-				if(Plateau.grille[indL][indCol] == Plateau.grille[ligne +1][colonne] ||
-						Plateau.grille[indL][indCol] == Plateau.grille[ligne +2][colonne] &&
+			if (indL < 8 && indCol < 8 && c=="blanc") {
+				if( (Plateau.grille[indL][indCol] == Plateau.grille[ligne -1][colonne +1]  ||
+						Plateau.grille[indL][indCol] == Plateau.grille[ligne -1][colonne -1] )  &&
+						Plateau.grille[indL][indCol] != Case.VIDE)
+					return true;
+			}
+			if (indL < 8 && indCol < 8 && c=="noir") {
+				if( (Plateau.grille[indL][indCol] == Plateau.grille[ligne +1][colonne +1]  ||
+						Plateau.grille[indL][indCol] == Plateau.grille[ligne +1][colonne -1] ) &&
 						Plateau.grille[indL][indCol] != Case.VIDE)
 					return true;
 			}
 			return false;
 			}
 		
-		public boolean peutManger(int indL, int indCol) {
+		public boolean peutManger(int indL, int indCol, String c) {
 			grille = new Plateau();
 			
-			if (indL < 8 && indCol < 8) {
-				if(Plateau.grille[indL][indCol] == Plateau.grille[ligne +1][colonne +1]  &&
-						Plateau.grille[indL][indCol] != Case.VIDE)
+			if (indL < 8 && indCol < 8 && c=="blanc") {
+				if( Plateau.grille[indL][indCol] == Plateau.grille[ligne -1][colonne +1]  ||
+						Plateau.grille[indL][indCol] == Plateau.grille[ligne -1][colonne -1] )  
+					return true;
+			}
+			if (indL < 8 && indCol < 8 && c=="noir") {
+				if	(Plateau.grille[indL][indCol] == Plateau.grille[ligne +1][colonne +1]  ||
+						Plateau.grille[indL][indCol] == Plateau.grille[ligne +1][colonne -1] )
 					return true;
 			}
 			return false;
