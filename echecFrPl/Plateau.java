@@ -1,95 +1,63 @@
-package EchecFrPl;
+package echecFrPl;
 
 import javax.swing.*;
-
-import EchecFrPl.Case;
-
 import java.awt.*;
 import java.awt.event.*;
-//import
-
 
 public class Plateau implements ActionListener {
 	public static Piece[][] grille;
-	private ImageIcon image;
+	Interface interf;
 	int indiceLigne;
 	int indiceColonne;
 	String blanc;
 	String noir;
 
-	
-	
-	public ImageIcon getImage() {
-		return image;
-	}
-	
+
 	public Plateau(){
 		grille = new Piece[8][8]; // on indique les dimensions de la grille;
-		init(); // on initialise le plateau
+		interf = new Interface(this);
+		//init(); // on initialise le plateau
 		//interfaceJeu = new Interface(this);
 	}
-
-	/*
-	ImageIcon image = new ImageIcon("IMG_8094.jpeg");
-        Image img = image.getImage().getScaledInstance(40, -1, Image.SCALE_DEFAULT);
-        JButton buttonX = new JButton(new ImageIcon(img));
-
-		JButton[][] interfaceJeus = new JButton[3][3];
-        for (int i = 0; i < interfaceJeus.length; i++) {
-            for (int j = 0; j < interfaceJeus[i].length; j++) {
-                interfaceJeus[i][j] = new JButton(new ImageIcon(buttonX));//new ImageIcon(img));
-                interfaceJeus[i][j].setPreferredSize(new Dimension(50,50));
-                panneau.add(interfaceJeus[i][j]);
-			}
-		}
-	*/
-	
-
-
-			
+		
 	public void init() {
-		pieces[0][0] = new Tour(noir,0,0,1);
-		pieces[0][1] = new Cavalier(noir,0,1,2);
-		pieces[0][2] = new Fou(noir,0,2,3);
-		pieces[0][3] = new Reine(noir,0,3,4);
-		pieces[0][4] = new Roi(noir,0,4,5);
-		pieces[0][5] = new Fou(noir,0,5,6);
-		pieces[0][6] = new Cavalier(noir,0,6,7);
-		pieces[0][7] = new Tour(noir,0,7,8);
+		grille[0][0] = new Tour(noir,1);
+		grille[0][1] = new Cavalier(noir,2);
+		grille[0][2] = new Fou(noir,3);
+		grille[0][3] = new Reine(noir,,4);
+		grille[0][4] = new Roi(noir,5);
+		grille[0][5] = new Fou(noir,6);
+		grille[0][6] = new Cavalier(noir,7);
+		grille[0][7] = new Tour(noir,8);
 
 		int l = 9;
-		for(int i = 8; i < 16; i++){
-			pieces[0][i] = new Pion(noir,1,i,l);
+		for(int i = 0; i < 8; i++){
+			grille[1][i] = new Pion(noir,1,i,l);
 			l++;
 		}
 
-		for(int i = 8; i < 16; i++){
-			pieces[1][i] = new Pion(blanc,6,i,l);
+		for(int i = 0; i < 8; i++){
+			grille[6][i] = new Pion(blanc,6,i,l);
 			l++;
 		}
 
-		pieces[1][0] = new Tour(blanc,7,0,25);
-		pieces[1][1] = new Cavalier(blanc,7,1,26);
-		pieces[1][2] = new Fou(blanc,7,2,27);
-		pieces[1][3] = new Reine(blanc,7,3,28);
-		pieces[1][4] = new Roi(blanc,7,4,29);
-		pieces[1][5] = new Fou(blanc,7,5,30);
-		pieces[1][6] = new Cavalier(blanc,7,6,31);
-		pieces[1][7] = new Tour(blanc,7,7,32);
-		
+		grille[7][0] = new Tour(blanc,25);
+		grille[7][1] = new Cavalier(blanc,26);
+		grille[7][2] = new Fou(blanc,27);
+		grille[7][3] = new Reine(blanc,28);
+		grille[7][4] = new Roi(blanc,29);
+		grille[7][5] = new Fou(blanc,30);
+		grille[7][6] = new Cavalier(blanc,31);
+		grille[7][7] = new Tour(blanc,32);
 
-		int k=0; l=0;
 		for (int i = 0; i < grille.length; i++) {
 			for (int j = 0; j < grille[i].length; j++) {
-				grille[i][j] = pieces[k][l]; l++;
-
-				if (j== grille[i].length-1) k++;
-
+				interf.bouton[i][j].setIcon(grille[i][j].getImage());
 			}
 		}
-		
 
 	}
+
 	
 	/*
 	public void affichePlateauDepart() {
@@ -104,14 +72,15 @@ public class Plateau implements ActionListener {
 	*/
 	
 
-	
-	public boolean remplir(int idJoueur, int idLigne, int idCol) {
+	/*	
+	public boolean remplir(int idLigne, int idCol) {
 		if(grille[idLigne][idCol]!=Case.VIDE)
 			return false;
 		grille[idLigne][idCol] = Case.values()[idJoueur+1]; //on met +1 car à l'indice 0 on à VIDE, donc l'indice du J1 est à 1 dans Case
 		return true;
 		
 	}
+	*/
 	
 	
 	
@@ -122,6 +91,7 @@ public class Plateau implements ActionListener {
 	public static void main (String[] args) {
 		Plateau m = new Plateau();
 	}
+
 	@Override
 		public void actionPerformed(ActionEvent arg0) {
 			String res = arg0.getActionCommand();
