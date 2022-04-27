@@ -1,4 +1,4 @@
-package src.EchecFrPl;
+package EchecFrPl;
 import java.awt.*;
 
 public class Cavalier extends Piece {

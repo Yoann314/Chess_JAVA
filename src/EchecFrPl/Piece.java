@@ -1,4 +1,4 @@
-package src.EchecFrPl;
+package EchecFrPl;
 
 import javax.swing.ImageIcon;
 import java.awt.*;
@@ -11,12 +11,12 @@ public abstract class Piece {
     boolean estActif;
 	Image img;
 
-	protected Piece(int k){
+	public Piece(int k){ // le nom de l'image part 1
 		ImageIcon imgX = new ImageIcon("src/images/"+k+".png");
 		img = imgX.getImage().getScaledInstance(50, -1,Image.SCALE_DEFAULT);
 	}
 
-    public void JOueur(String c) { 
+    public void Joueur(String c) { 
     	this.setCouleur(c); 
     }
     

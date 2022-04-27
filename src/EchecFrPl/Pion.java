@@ -1,4 +1,4 @@
-package src.EchecFrPl;
+package EchecFrPl;
 
 public class Pion extends Piece{
 	

@@ -1,7 +1,7 @@
-package src.EchecFrPl;
+package EchecFrPl;
 
-import java.awt.*;
-import javax.swing.*;
+//import java.awt.*;
+//import javax.swing.*;
 
 public enum Case {
 	VIDE(" ", 0),
@@ -12,18 +12,15 @@ public enum Case {
 	Reine("Reine", 10),
 	Roi("Roi", -1);
 	
-	//new ImageIcon(new ImageIcon("/Echec.fr.pl/src/EchecFrPl/images/reine_draft1.png").getImage().getScaledInstance(100,  100, Image.SCALE_DEFAULT))
-
 	private int value;
-	
 	private String affichage;
 	
-	private Case(String aff, int value) {
+	private Case(String aff, int value) { //constructeaur prive
 		affichage = aff;
 		this.value = value;
-		}	//constructeaur prive
+	}	
 	
-	public String affiche() {return affichage;}
+	// public String affiche() {return affichage;}
 	
-	public boolean isEqual(String x) {return affichage == x; }
+	// public boolean isEqual(String x) {return affichage == x; }
 }
