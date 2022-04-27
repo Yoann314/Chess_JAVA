@@ -19,6 +19,11 @@ public abstract class Piece {
     public void Joueur(String c) { 
     	this.setCouleur(c); 
     }
+		
+	
+	public Image getImage(){
+		return img;
+	}
     
     public String getCouleur() {
 		return couleur;
