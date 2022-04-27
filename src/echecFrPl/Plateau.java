@@ -24,7 +24,7 @@ public class Plateau implements ActionListener {
 		grille[0][0] = new Tour(noir,1);
 		grille[0][1] = new Cavalier(noir,2);
 		grille[0][2] = new Fou(noir,3);
-		grille[0][3] = new Reine(noir,,4);
+		grille[0][3] = new Reine(noir,4);
 		grille[0][4] = new Roi(noir,5);
 		grille[0][5] = new Fou(noir,6);
 		grille[0][6] = new Cavalier(noir,7);
@@ -32,12 +32,12 @@ public class Plateau implements ActionListener {
 
 		int l = 9;
 		for(int i = 0; i < 8; i++){
-			grille[1][i] = new Pion(noir,1,i,l);
+			grille[1][i] = new Pion(noir,l);
 			l++;
 		}
 
 		for(int i = 0; i < 8; i++){
-			grille[6][i] = new Pion(blanc,6,i,l);
+			grille[6][i] = new Pion(blanc,l);
 			l++;
 		}
 
@@ -52,10 +52,12 @@ public class Plateau implements ActionListener {
 
 		for (int i = 0; i < grille.length; i++) {
 			for (int j = 0; j < grille[i].length; j++) {
-				interf.bouton[i][j].setIcon(grille[i][j].getImage());
+				if (grille[i][j] != null) {
+					interf.bouton[i][j].setIcon(grille[i][j].getTheImage());
+					System.out.println(grille[i].length);
+				}
 			}
 		}
-
 	}
 
 	
@@ -71,7 +73,6 @@ public class Plateau implements ActionListener {
 	}
 	*/
 	
-
 	/*	
 	public boolean remplir(int idLigne, int idCol) {
 		if(grille[idLigne][idCol]!=Case.VIDE)
@@ -90,6 +91,7 @@ public class Plateau implements ActionListener {
 
 	public static void main (String[] args) {
 		Plateau m = new Plateau();
+		m.init();
 	}
 
 	@Override
