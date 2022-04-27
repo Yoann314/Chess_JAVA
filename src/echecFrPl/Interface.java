@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class Interface {
 
-    public JButton[][] bouton;
+    public MonBouton[][] bouton;
 	public JLabel trunToPlayDisplay;
 
     public Interface(ActionListener listener) {
@@ -15,7 +15,7 @@ public class Interface {
 
 		JPanel panneau = new JPanel(new GridLayout(8,8));
 		
-		bouton = new JButton[8][8]; // Creation de plateau
+		bouton = new MonBouton[8][8]; // Creation de plateau
 		for (int i = 0; i < bouton.length; i++) {
 			for (int j = 0; j < bouton[i].length; j++) {
 				bouton[i][j] = new MonBouton();
@@ -144,6 +144,4 @@ public class Interface {
 		bouton[indiceLigne][indiceColonne].setEnabled(false);
 		bouton[indiceLigne][indiceColonne].setIcon(ii);
     }
-
-
 }
