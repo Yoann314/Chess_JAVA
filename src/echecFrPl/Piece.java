@@ -18,6 +18,10 @@ public abstract class Piece {
 		img = imgX.getImage().getScaledInstance(50, -1,Image.SCALE_DEFAULT);
 	}
 
+	public Image getTheImage() {
+		return img;
+	}
+
     public void Joueur(String c) { 
     	this.setCouleur(c); 
     }
