@@ -1,4 +1,4 @@
-package EchecFrPl;
+package echecFrPl;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -7,7 +7,6 @@ import javax.swing.*;
 public class Interface {
 
     public JButton[][] bouton;
-	// private Timer t;
 	public JLabel trunToPlayDisplay;
 
     public Interface(ActionListener listener) {
@@ -22,7 +21,7 @@ public class Interface {
 				bouton[i][j] = new MonBouton();
 				bouton[i][j].addActionListener(listener);
 				bouton[i][j].setActionCommand(String.valueOf(i)+"-"+String.valueOf(j));
-				bouton[i][j].setPreferredSize(new Dimension(80,80));
+				bouton[i][j].setPreferredSize(new Dimension(100,100));
 
 				if (i % 2 == 0) { // Création du damier noir et blanc
 					if (j % 2 == 0)
@@ -46,10 +45,7 @@ public class Interface {
 		Tour rrr = new Tour("blanc",0,0,1);
 		bouton[1][1].add(Piece(1));
 		panneau.add(bouton[1][1]);
-		*/
-
-
-		/*
+	
 		// BOUTON X O
 		int k = 1;
 
@@ -140,7 +136,6 @@ public class Interface {
 		fenetre.pack();
 		fenetre.setLocationRelativeTo(null);
 		fenetre.setVisible(true);
-		
 	}
 	
 	
@@ -149,11 +144,6 @@ public class Interface {
 		bouton[indiceLigne][indiceColonne].setEnabled(false);
 		bouton[indiceLigne][indiceColonne].setIcon(ii);
     }
-	
-	
-    
 
-    public static void main(String[] args) {
-        new Interface(null);
-    }
+
 }
