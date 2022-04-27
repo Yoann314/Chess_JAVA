@@ -15,13 +15,21 @@ public class Pion extends Piece{
 			grille = new Plateau();
 			
 			if (indLigneArrive < 8 && indColArrive < 8 && c=="blanc") {
-				if( Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -1][indColDepart +1]  ||
-						Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -1][indColDepart -1] ) 
+				if( Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -1][indColDepart] ) 
 					return true;
 			}
+			
+			if (indLigneArrive < 8 && indColArrive < 8 && c=="blanc" && indLigneDepart == 6) {
+				if( Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -2][indColDepart] ) 
+					return true;
+			}
+			
 			if (indLigneArrive < 8 && indColArrive < 8 && c=="noir") {
-				if( Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +1][indColDepart +1]  ||
-						Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +1][indColDepart -1] ) 
+				if( Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +1][indColDepart]  ) 
+					return true;
+			}
+			if (indLigneArrive < 8 && indColArrive < 8 && c=="noir" && indLigneDepart == 1) {
+				if( Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +2][indColDepart] ) 
 					return true;
 			}
 			return false;
