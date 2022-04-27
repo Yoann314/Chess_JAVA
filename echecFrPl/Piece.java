@@ -1,4 +1,4 @@
-package EchecFrPl;
+package echecFrPl;
 
 import javax.swing.ImageIcon;
 import java.awt.*;
