@@ -7,6 +7,7 @@ public class Pion extends Piece{
 	public Pion(String c, int img) {
 		super(img);
 		this.setCouleur(c);
+		this.setForme("pion");
 		this.estActif=true;
 		this.value = 1;
 	}
