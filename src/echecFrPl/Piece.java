@@ -4,16 +4,17 @@ import javax.swing.ImageIcon;
 import java.awt.*;
 
 public abstract class Piece {
+	public int indLigneDepart; // modif dans le actionlistener 
+	public int indColDepart;
+    public int indLigneArrive;
+	public int indColArrive;
+	
     private String couleur;
-    protected int indLigneDepart;
-	protected int indColDepart;
-    protected int indLigneArrive;
-	protected int indColArrive;
     protected int value;
     boolean estActif;
 	Image img;
 
-	public Piece(int k){ // le nom de l'image part 1
+	public Piece(int k) { // le nom de l'image part 1
 		ImageIcon imgX = new ImageIcon("src/images/"+k+".png");
 		img = imgX.getImage().getScaledInstance(50, -1,Image.SCALE_DEFAULT);
 	}
