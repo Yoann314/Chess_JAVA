@@ -6,45 +6,45 @@ public class Pion extends Piece{
 
 	public Pion(String c, int img) {
 		super(img);
-		this.setCouleur(c);
-		this.setForme("pion");
-		this.estActif=true;
+		this.getCouleur();
+		//this.setForme("pion");
+		this.estActif = true;
 		this.value = 1;
 	}
-		public boolean deplacementValide(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive, String c) // nouvelles coordonnees 
-		{
+		public boolean deplacementValide() {// nouvelles coordonnees 
+		
 			grille = new Plateau();
 			
-			if (indLigneArrive < 8 && indColArrive < 8 && c=="blanc") {
+			if (indLigneArrive < 8 && indColArrive < 8 && couleur.equals("blanc")) {
 				if( Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -1][indColDepart] ) 
 					return true;
 			}
 			
-			if (indLigneArrive < 8 && indColArrive < 8 && c=="blanc" && indLigneDepart == 6) {
+			if (indLigneArrive < 8 && indColArrive < 8 && couleur.equals("blanc") && indLigneDepart == 6) {
 				if( Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -2][indColDepart] ) 
 					return true;
 			}
 			
-			if (indLigneArrive < 8 && indColArrive < 8 && c=="noir") {
+			if (indLigneArrive < 8 && indColArrive < 8 && couleur.equals("noir")) {
 				if( Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +1][indColDepart]  ) 
 					return true;
 			}
-			if (indLigneArrive < 8 && indColArrive < 8 && c=="noir" && indLigneDepart == 1) {
+			if (indLigneArrive < 8 && indColArrive < 8 && couleur.equals("noir") && indLigneDepart == 1) {
 				if( Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +2][indColDepart] ) 
 					return true;
 			}
 			return false;
 			}
 		
-		public boolean peutManger(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive, String c) {
+		public boolean peutManger() {
 			grille = new Plateau();
 			
-			if (indLigneArrive < 8 && indColArrive < 8 && c=="blanc") {
+			if (indLigneArrive < 8 && indColArrive < 8 && couleur.equals("blanc")) {
 				if( Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -1][indColDepart +1]  ||
 						Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -1][indColDepart -1] )  
 					return true;
 			}
-			if (indLigneArrive < 8 && indColArrive < 8 && c=="noir") {
+			if (indLigneArrive < 8 && indColArrive < 8 && couleur.equals("noir")) {
 				if	(Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +1][indColDepart +1]  ||
 						Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +1][indColDepart -1] )
 					return true;

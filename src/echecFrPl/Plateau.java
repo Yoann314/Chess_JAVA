@@ -55,10 +55,23 @@ public class Plateau implements ActionListener {
 		interf.bouton[indLigneArrive][indColArrive].setIcon(grille[indLigneArrive][indColArrive].getTheImage());
 		grille[indLigneDepart][indColDepart] = null;
 		interf.bouton[indLigneDepart][indColDepart].setIcon((Image)null);
+		indiceLiDepAC=-1;
 	}
 	
 	public boolean verifierGagnant() {
 		return false;
+	}
+
+	public void recupererCoord(int indiceLiArrAC, int indiceColArrAC) {
+		if (this.indiceLiDepAC == -1) {
+			this.indiceLiDepAC = indiceLiArrAC;
+			this.indiceColDepAC = indiceColArrAC;
+		}
+			
+		if (this.indiceLiDepAC != indiceLiArrAC || this.indiceColDepAC != indiceColArrAC) {
+
+			indiceLiDepAC=-1;
+		}
 	}
 
 	@Override
@@ -69,17 +82,25 @@ public class Plateau implements ActionListener {
 		int indiceColArrAC = Integer.parseInt(coordonnéesListener[1]);
 		
 		if (grille[indiceLiArrAC][indiceColArrAC] == null) {
-				
+			
 		}
 
-		if(indiceLiDepAC == -1) {
+		//recupererCoord(indiceLiDepAC, indiceColDepAC);
+		//System.out.println();
+		
+		if (indiceLiDepAC == -1) {
 			indiceLiDepAC = indiceLiArrAC;
 			indiceColDepAC = indiceColArrAC;
 		}
 			
 		if (indiceLiDepAC != indiceLiArrAC || indiceColDepAC != indiceColArrAC) {
-			bouger(indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC);
-			indiceLiDepAC=-1;
+			System.out.println("################################");
+			grille[indiceLiDepAC][indiceColDepAC].setCoordonneesDepart(indiceLiDepAC, indiceColDepAC);
+			grille[indiceLiDepAC][indiceColDepAC].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);
+			System.out.println(grille[indiceLiDepAC][indiceColDepAC]);
+			if (grille[indiceLiDepAC][indiceColDepAC].deplacementValide()) { // indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC, "blanc"
+				bouger(indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC);
+			}		
 		}
 	}
 }

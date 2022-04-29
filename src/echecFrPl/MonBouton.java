@@ -15,7 +15,7 @@ public class MonBouton extends JButton {
     public MonBouton(Image i) {
         super();
         img = i;
-        int wI = img.getWidth(null);
+        int wI = img.getWidth(null); // valeur non utiliser mais c'est normal car sans ca on a un bug d'affichage
     }
 
     public void setBackground(Color background){

@@ -1,8 +1,6 @@
 package echecFrPl;
 import java.util.Random;
 
-import javax.swing.JLabel;
-
 public class EchecJeu {
 
 	public void turn() {
@@ -16,12 +14,13 @@ public class EchecJeu {
 		return false;
 	}
 	
-	
+	/*
 	public void Roque(int LigneRoi, int ColRoi, int LigneTour, int ColTour) {
 		int nouvelleLigneRoi = LigneTour;
 		int nouvelleColonneRoi = ColTour;
 		int nouvelleLigneTour = LigneRoi;
 		int nouvelleColonneTour = ColRoi;
+		
 		if (Piece.forme =="roi") {
 			Plateau.grille[nouvelleLigneRoi][nouvelleColonneRoi] = Plateau.grille[LigneRoi][ColRoi];
 			//Plateau.getActionPerformed();
@@ -30,13 +29,13 @@ public class EchecJeu {
 		}
 		}
 	}
+	*/
 	
+	/*
 	public boolean RoiEnEchec(Piece p) {
 		Roi r;
 			int indLigneDepartRoi = r.indLigneDepart; 
 			int indColDepartRoi = r.indColDepart; 
-			int indLigneArriveRoi = r.indLigneArrive;
-			int indColArriveRoi = r.indColArrive;
 			String couleurRoi;
 		
 		
@@ -45,10 +44,13 @@ public class EchecJeu {
 		}
 		return false;
 	}
+	*/
 	
 
 	public static void main(String[] args) {
 		Plateau pl = new Plateau();
+
+
 		/*
 		pl.init();
 		if (commencer()) {

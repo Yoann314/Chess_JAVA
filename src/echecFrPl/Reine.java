@@ -6,12 +6,12 @@ public class Reine extends Piece {
 	
 	public Reine(String c, int img) {
 		super(img);
-		this.setCouleur(c);
-		this.setForme("reine");
+		this.getCouleur();
+		//this.setForme("reine");
 		this.estActif=true;
 		this.value = 10;
 	}
-		public boolean deplacementValide(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive, String c) // nouvelles coordonnees 
+		public boolean deplacementValide() // nouvelles coordonnees 
 		{
 			if (indLigneArrive < 8 && indColArrive < 8) {		
 				

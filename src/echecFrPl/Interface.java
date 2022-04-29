@@ -52,11 +52,4 @@ public class Interface {
 		fenetre.pack();
 		fenetre.setLocationRelativeTo(null);
 	}
-	
-	
-	public void afficherPiece(ImageIcon ii, int indiceLigne, int indiceColonne) {
-		bouton[indiceLigne][indiceColonne].setDisabledIcon(ii);
-		bouton[indiceLigne][indiceColonne].setEnabled(false);
-		bouton[indiceLigne][indiceColonne].setIcon(ii);
-    }
 }

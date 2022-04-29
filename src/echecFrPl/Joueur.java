@@ -1,6 +1,5 @@
-package EchecFrPl;
+package echecFrPl;
 
-import javax.swing.JOptionPane;
 
 public class Joueur {
 	String pseudo;
@@ -16,5 +15,4 @@ public class Joueur {
 
 	public static void main(String[] args) {
 	}
-
 }
