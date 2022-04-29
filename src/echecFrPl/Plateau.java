@@ -13,7 +13,9 @@ public class Plateau implements ActionListener {
 
 	public Plateau(){
 		grille = new Piece[8][8]; // on indique les dimensions de la grille;
+		init();
 		interf = new Interface(this);
+		interf.fenetre.setVisible(true);
 		indiceLiDepAC = -1;
 	}
 		
@@ -46,14 +48,6 @@ public class Plateau implements ActionListener {
 		grille[7][5] = new Fou(blanc,30);
 		grille[7][6] = new Cavalier(blanc,31);
 		grille[7][7] = new Tour(blanc,32);
-
-		for (int i = 0; i < grille.length; i++) {
-			for (int j = 0; j < grille[i].length; j++) {
-				if (grille[i][j] != null) {
-					interf.bouton[i][j].setIcon(grille[i][j].getTheImage());
-				}
-			}
-		}
 	}
 	
 	public void bouger(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive) {
@@ -65,11 +59,6 @@ public class Plateau implements ActionListener {
 	
 	public boolean verifierGagnant() {
 		return false;
-	}
-
-	public static void main (String[] args) {
-		Plateau m = new Plateau();
-		m.init();
 	}
 
 	@Override
