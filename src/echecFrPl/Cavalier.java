@@ -7,10 +7,11 @@ public class Cavalier extends Piece {
 	public Cavalier(String c, int img) {
 		super(img);
 		this.setCouleur(c);
+		this.setForme("cavalier");
 		this.estActif=true;
 		this.value = 3;
 	}
-	public boolean deplacementValide(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive) // nouvelles coordonnees 
+	public boolean deplacementValide(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive, String c) // nouvelles coordonnees 
 	{
 		grille = new Plateau();
 		
