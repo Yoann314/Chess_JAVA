@@ -1,23 +1,20 @@
 package echecFrPl;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class Plateau implements ActionListener {
 	public static Piece[][] grille;
 	Interface interf;
-	int indiceLigne;
-	int indiceColonne;
 	String blanc;
 	String noir;
-
+	int indiceLiDepAC;
+	int indiceColDepAC;
 
 	public Plateau(){
 		grille = new Piece[8][8]; // on indique les dimensions de la grille;
 		interf = new Interface(this);
-		//init(); // on initialise le plateau
-		//interfaceJeu = new Interface(this);
+		indiceLiDepAC = -1;
 	}
 		
 	public void init() {
@@ -54,36 +51,17 @@ public class Plateau implements ActionListener {
 			for (int j = 0; j < grille[i].length; j++) {
 				if (grille[i][j] != null) {
 					interf.bouton[i][j].setIcon(grille[i][j].getTheImage());
-					System.out.println(grille[i].length);
 				}
 			}
 		}
 	}
-
 	
-	/*
-	public void affichePlateauDepart() {
-		for(int indCol = 0; indCol < 8; indCol++) {
-			interfaceJeu.afficherPiece(image, 0, indCol);
-		}
-		
-			for(int intCol = 1; intCol < 8; intCol++) {
-				interfaceJeu.afficherPiece(image, 1, intCol);
-			}
+	public void bouger(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive) {
+		grille[indLigneArrive][indColArrive] = grille[indLigneDepart][indColDepart];
+		interf.bouton[indLigneArrive][indColArrive].setIcon(grille[indLigneArrive][indColArrive].getTheImage());
+		grille[indLigneDepart][indColDepart] = null;
+		interf.bouton[indLigneDepart][indColDepart].setIcon((Image)null);
 	}
-	*/
-	
-	/*	
-	public boolean remplir(int idLigne, int idCol) {
-		if(grille[idLigne][idCol]!=Case.VIDE)
-			return false;
-		grille[idLigne][idCol] = Case.values()[idJoueur+1]; //on met +1 car à l'indice 0 on à VIDE, donc l'indice du J1 est à 1 dans Case
-		return true;
-		
-	}
-	*/
-	
-	
 	
 	public boolean verifierGagnant() {
 		return false;
@@ -95,12 +73,20 @@ public class Plateau implements ActionListener {
 	}
 
 	@Override
-		public void actionPerformed(ActionEvent arg0) {
-			String res = arg0.getActionCommand();
-			String[] coordonnees = res.split("-");
-			int indiceLigne = Integer.parseInt(coordonnees[0]);
-			int indiceColonne = Integer.parseInt(coordonnees[1]);
-			//affichePlateauDepart();
-		}
+	public void actionPerformed(ActionEvent ae) {
+		String a = ae.getActionCommand();
+		String[] coordonnéesListener = a.split("-");
+		int indiceLiArrAC = Integer.parseInt(coordonnéesListener[0]);
+		int indiceColArrAC = Integer.parseInt(coordonnéesListener[1]);
 
+		if(indiceLiDepAC == -1) {
+			indiceLiDepAC = indiceLiArrAC;
+			indiceColDepAC = indiceColArrAC;
+		}
+			
+		if (indiceLiDepAC != indiceLiArrAC || indiceColDepAC != indiceColArrAC) {
+			bouger(indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC);
+			indiceLiDepAC=-1;
+		}
+	}
 }
