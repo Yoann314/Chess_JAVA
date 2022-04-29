@@ -20,8 +20,10 @@ public class Interface {
 			for (int j = 0; j < bouton[i].length; j++) {
 				if(plateau.grille[i][j] != null)
 					bouton[i][j] = new MonBouton(plateau.grille[i][j].getTheImage());
+				
 				else
 					bouton[i][j] = new MonBouton();
+				
 				bouton[i][j].addActionListener(plateau);
 				bouton[i][j].setActionCommand(String.valueOf(i)+"-"+String.valueOf(j));
 				bouton[i][j].setPreferredSize(new Dimension(100,100));
