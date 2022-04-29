@@ -4,20 +4,24 @@ import javax.swing.ImageIcon;
 import java.awt.*;
 
 public abstract class Piece {
-	public int indLigneDepart; // modif dans le actionlistener 
-	public int indColDepart;
-    public int indLigneArrive;
-	public int indColArrive;
-	
     private String couleur;
+    public static String forme;
+    protected int indLigneDepart;
+	protected int indColDepart;
+    protected int indLigneArrive;
+	protected int indColArrive;
     protected int value;
     boolean estActif;
+    public abstract boolean deplacementValide(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive, String couleur);
 	Image img;
 
-	public Piece(int k) { // le nom de l'image part 1
+	public Piece(int k){ // le nom de l'image part 1
 		ImageIcon imgX = new ImageIcon("src/images/"+k+".png");
 		img = imgX.getImage().getScaledInstance(50, -1,Image.SCALE_DEFAULT);
 	}
+	public void setForme(String f) { 
+		Piece.forme=f; 
+		}
 
 	public Image getTheImage() {
 		return img;
@@ -71,4 +75,9 @@ public abstract class Piece {
 		if(actif!=false) this.estActif=false;
 		if(actif==true) this.estActif=true;
 	}
+    
+    public boolean getdeplacementValide() {
+    	return this.deplacementValide(this.indLigneDepart,this.indColDepart, this.indLigneArrive, this.indColArrive, this.couleur);
+    }
+    
 }
