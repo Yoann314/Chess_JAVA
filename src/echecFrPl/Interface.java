@@ -1,6 +1,5 @@
 package echecFrPl;
 
-import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
@@ -10,7 +9,7 @@ public class Interface {
 	public JLabel trunToPlayDisplay;
 	public JFrame fenetre;
 
-    public Interface(ActionListener listener) {
+    public Interface(Plateau plateau) {
         fenetre = new JFrame("Chess.fr.pl"); 
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -19,8 +18,11 @@ public class Interface {
 		bouton = new MonBouton[8][8]; // Creation de plateau
 		for (int i = 0; i < bouton.length; i++) {
 			for (int j = 0; j < bouton[i].length; j++) {
-				bouton[i][j] = new MonBouton();
-				bouton[i][j].addActionListener(listener);
+				if(plateau.grille[i][j] != null)
+					bouton[i][j] = new MonBouton(plateau.grille[i][j].getTheImage());
+				else
+					bouton[i][j] = new MonBouton();
+				bouton[i][j].addActionListener(plateau);
 				bouton[i][j].setActionCommand(String.valueOf(i)+"-"+String.valueOf(j));
 				bouton[i][j].setPreferredSize(new Dimension(100,100));
 
@@ -47,7 +49,6 @@ public class Interface {
 		fenetre.add(trunToPlayDisplay, BorderLayout.PAGE_END);
 		fenetre.pack();
 		fenetre.setLocationRelativeTo(null);
-		fenetre.setVisible(true);
 	}
 	
 	
