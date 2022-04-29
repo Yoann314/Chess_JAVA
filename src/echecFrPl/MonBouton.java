@@ -15,6 +15,8 @@ public class MonBouton extends JButton {
     public MonBouton(Image i) {
         super();
         img = i;
+        int wI = img.getWidth(null);
+        System.out.println(wI);
     }
 
     public void setBackground(Color background){
@@ -22,14 +24,20 @@ public class MonBouton extends JButton {
     }
 
     public void setIcon(Image ic){
-        this.img = ic;
+        img = ic;
+        repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(bg);
         g.fillRect(0, 0, getWidth(), getHeight());
-        if(img!=null)
-            g.drawImage(img, 0, 0, null);
+        if(img!=null){
+            Dimension dim = getPreferredSize();
+            int wI = img.getWidth(null);
+            int hI = img.getHeight(null);
+            System.out.println(dim + " " + wI);
+            g.drawImage(img, (dim.width-wI)/2, (dim.height-hI)/2, null);
+        }
     }
 }
