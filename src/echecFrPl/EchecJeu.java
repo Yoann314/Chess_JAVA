@@ -15,6 +15,37 @@ public class EchecJeu {
 		if(tour % 2 == 0) return true;
 		return false;
 	}
+	
+	
+	public void Roque(int LigneRoi, int ColRoi, int LigneTour, int ColTour) {
+		int nouvelleLigneRoi = LigneTour;
+		int nouvelleColonneRoi = ColTour;
+		int nouvelleLigneTour = LigneRoi;
+		int nouvelleColonneTour = ColRoi;
+		if (Piece.forme =="roi") {
+			Plateau.grille[nouvelleLigneRoi][nouvelleColonneRoi] = Plateau.grille[LigneRoi][ColRoi];
+			//Plateau.getActionPerformed();
+		if (Piece.forme == "tour") {
+			Plateau.grille[nouvelleLigneTour][nouvelleColonneTour] = Plateau.grille[LigneTour][ColTour];
+		}
+		}
+	}
+	
+	public boolean RoiEnEchec(Piece p) {
+		Roi r;
+			int indLigneDepartRoi = r.indLigneDepart; 
+			int indColDepartRoi = r.indColDepart; 
+			int indLigneArriveRoi = r.indLigneArrive;
+			int indColArriveRoi = r.indColArrive;
+			String couleurRoi;
+		
+		
+		if (p.deplacementValide(p.indLigneDepart, p.indColDepart, p.indLigneArrive, p.indColArrive, p.getCouleur()) ) {
+			if (p.indLigneDepart == indLigneDepartRoi) return true;
+		}
+		return false;
+	}
+	
 
 	public static void main(String[] args) {
 		Plateau pl = new Plateau();
