@@ -67,6 +67,10 @@ public class Plateau implements ActionListener {
 		String[] coordonnéesListener = a.split("-");
 		int indiceLiArrAC = Integer.parseInt(coordonnéesListener[0]);
 		int indiceColArrAC = Integer.parseInt(coordonnéesListener[1]);
+		
+		if (grille[indiceLiArrAC][indiceColArrAC] == null) {
+				
+		}
 
 		if(indiceLiDepAC == -1) {
 			indiceLiDepAC = indiceLiArrAC;
