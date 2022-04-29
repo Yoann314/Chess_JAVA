@@ -7,10 +7,11 @@ public class Roi extends Piece {
 	public Roi(String c, int img) {
 		super(img);
 		this.setCouleur(c);
+		this.setForme("roi");
 		this.estActif=true;
 		this.value = -1;
 	}
-		public boolean deplacementValide(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive) // nouvelles coordonnees 
+		public boolean deplacementValide(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive, String c) // nouvelles coordonnees 
 		{
 			grille = new Plateau();
 			if (indLigneArrive < 8 && indColArrive < 8) {
