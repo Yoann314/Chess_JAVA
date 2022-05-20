@@ -5,16 +5,20 @@ import javax.swing.*;
 
 public class Interface {
 
-    public MonBouton[][] bouton;
-	public JLabel trunToPlayDisplay;
+	//public JLabel trunToPlayDisplay;
 	public JFrame fenetre;
+
+	public JPanel panneau, scoreStart, scoreEnd, contScoreNoir, contScoreBlanc, cimetiereNoir, cimetiereBlanc, interfaceComplete; // cont pour contenant
+	public JLabel scoreNoir, scoreBlanc;
+
+	public MonBouton[][] bouton;
 
     public Interface(Plateau plateau) {
         fenetre = new JFrame("Chess.fr.pl"); 
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JPanel panneau = new JPanel(new GridLayout(8,8));
-		
+		// Plateau avec tout les bouttons
+		panneau = new JPanel(new GridLayout(8,8));
 		bouton = new MonBouton[8][8]; // Creation de plateau
 		for (int i = 0; i < bouton.length; i++) {
 			for (int j = 0; j < bouton[i].length; j++) {
@@ -44,11 +48,37 @@ public class Interface {
 				panneau.add(bouton[i][j]);
 			}
 		}
-		trunToPlayDisplay = new JLabel("");
-        
-		fenetre.setLayout(new BorderLayout());
-		fenetre.add(panneau, BorderLayout.CENTER);
-		fenetre.add(trunToPlayDisplay, BorderLayout.PAGE_END);
+
+		// Score + Cimetière
+		scoreStart = new JPanel();
+		scoreEnd = new JPanel();
+
+		contScoreNoir = new JPanel(new GridLayout(2,1));
+		cimetiereNoir = new JPanel(new GridLayout(2,8));
+
+		contScoreBlanc = new JPanel(new GridLayout(2,1));
+		cimetiereBlanc = new JPanel(new GridLayout(2,8));
+
+		scoreNoir = new JLabel("Score des Noirs : ", JLabel.LEFT);
+		scoreBlanc = new JLabel("Score des Blancs : ", JLabel.LEFT);
+
+		contScoreNoir.add(cimetiereNoir);
+		contScoreNoir.add(scoreNoir);
+
+		contScoreBlanc.add(cimetiereBlanc);
+		contScoreBlanc.add(scoreBlanc);
+
+		scoreStart.add(contScoreNoir);
+		scoreEnd.add(contScoreBlanc);
+
+		// Concatenation de toutes les différentes partie de l'interface
+		interfaceComplete = new JPanel(new BorderLayout());
+		interfaceComplete.add(panneau, BorderLayout.CENTER);
+		interfaceComplete.add(scoreStart, BorderLayout.PAGE_START);
+		interfaceComplete.add(scoreEnd, BorderLayout.PAGE_END);
+
+
+		fenetre.add(interfaceComplete);
 		fenetre.pack();
 		fenetre.setLocationRelativeTo(null);
 	}
