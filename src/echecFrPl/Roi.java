@@ -5,8 +5,8 @@ public class Roi extends Piece {
 	Plateau grille;
 
 	public Roi(String c, int img) {
-		super(img);
-		this.getCouleur();
+		super(c, img);
+		this.getCouleur(c);
 		//this.setForme("roi");
 		this.estActif=true;
 		this.value = -1;

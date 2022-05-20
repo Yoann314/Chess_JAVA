@@ -5,8 +5,8 @@ public class Reine extends Piece {
 	
 	
 	public Reine(String c, int img) {
-		super(img);
-		this.getCouleur();
+		super(c, img);
+		this.getCouleur(c);
 		//this.setForme("reine");
 		this.estActif=true;
 		this.value = 10;
@@ -17,13 +17,11 @@ public class Reine extends Piece {
 				
 				//diagonale
 				int absDiff = Math.abs(indLigneDepart - indLigneArrive);
-				if (indLigneArrive == (indLigneDepart+absDiff) && indColArrive == (indColDepart+absDiff)) return true;
-				if (indLigneArrive == (indLigneDepart-absDiff) && indColArrive == (indColDepart-absDiff)) return true;
-				
-				if (indLigneArrive == indLigneDepart && indColArrive == indColDepart) return false; //le piece n'a pas bouge
-	
-				if (indLigneArrive == indLigneDepart || indColArrive == indColDepart) return true; //verticale ou horizontale
-				
+				int absDiffCol = Math.abs(indColDepart - indColArrive);
+				if (indLigneArrive == (indLigneDepart+absDiff) && indColArrive == (indColDepart+absDiffCol)) return true;
+				if (indLigneArrive == (indLigneDepart-absDiff) && indColArrive == (indColDepart-absDiffCol)) return true;
+				if (indLigneArrive == (indLigneDepart+absDiff) && indColArrive == (indColDepart-absDiffCol)) return true;
+				if (indLigneArrive == (indLigneDepart-absDiff) && indColArrive == (indColDepart+absDiffCol)) return true;
 				}
 			return false;
 			}

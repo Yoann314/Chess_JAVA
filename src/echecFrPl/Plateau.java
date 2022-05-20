@@ -100,7 +100,9 @@ public class Plateau implements ActionListener {
 			System.out.println(grille[indiceLiDepAC][indiceColDepAC]);
 			if (grille[indiceLiDepAC][indiceColDepAC].deplacementValide()) { // indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC, "blanc"
 				bouger(indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC);
+				
 			}		
 		}
 	}
+	
 }

@@ -3,8 +3,8 @@ public class Tour extends Piece {
 	
 	
 	public Tour(String c, int img) {
-		super(img);
-		this.getCouleur();
+		super(c, img);
+		this.getCouleur(c);
 		//this.setForme("tour");
 		this.estActif=true;
 		this.value = 5;

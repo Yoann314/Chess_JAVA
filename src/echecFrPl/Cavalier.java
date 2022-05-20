@@ -5,8 +5,8 @@ public class Cavalier extends Piece {
 	Plateau grille;
 
 	public Cavalier(String c, int img) {
-		super(img);
-		this.getCouleur();
+		super(c, img);
+		this.getCouleur(c);
 		//this.setForme("cavalier");
 		this.estActif=true;
 		this.value = 3;
@@ -15,18 +15,17 @@ public class Cavalier extends Piece {
 	{
 		grille = new Plateau();
 		
-		if (indLigneArrive < 8 && indColArrive < 8) {
-			if(		Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +1][indColDepart -2] || 
-					Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +1][indColDepart +2] ||
-					Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +2][indColDepart -1] ||
-					Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +2][indColDepart +1] ||
-					Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -1][indColDepart -2] ||
-					Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -1][indColDepart +2] ||
-					Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -2][indColDepart -1] ||
-					Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -2][indColDepart +1])
-				return true;
-		}
-		if (indLigneDepart == indLigneArrive && indColDepart == indColArrive) return false; //le piece n'a pas bouge
+		//if (indLigneArrive < 8 && indColArrive < 8) {
+			if(		Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +1][indColDepart -2]) return true;
+			if(		Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +1][indColDepart +2]) return true;
+			if(		Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +2][indColDepart -1]) return true;
+			if(		Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart +2][indColDepart +1]) return true;
+			if(		Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -1][indColDepart -2]) return true;
+			if(		Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -1][indColDepart +2]) return true;
+			if(		Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -2][indColDepart -1]) return true;
+			if(		Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -2][indColDepart +1]) return true;
+		//}
+		if (indLigneDepart == indLigneArrive || indColDepart == indColArrive) return false; // piece n'a pas bouge
 		return false;
 		}
 

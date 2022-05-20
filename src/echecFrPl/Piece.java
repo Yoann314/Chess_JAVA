@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 import java.awt.*;
 
 public abstract class Piece {
-    protected String couleur;
+    public String couleur;
     // public static String forme;
     protected int indLigneDepart;
 	protected int indColDepart;
@@ -15,9 +15,10 @@ public abstract class Piece {
     public abstract boolean deplacementValide();
 	Image img;
 
-	public Piece(int k){ // le nom de l'image part 1
+	public Piece(String c, int k){ // le nom de l'image part 1
 		ImageIcon imgX = new ImageIcon("src/images/"+k+".png");
 		img = imgX.getImage().getScaledInstance(50, -1,Image.SCALE_DEFAULT);
+		couleur = c;
 	}
 	
 	/*
@@ -40,7 +41,8 @@ public abstract class Piece {
     }
 	*/
     
-    public String getCouleur() {
+    public String getCouleur(String c) {
+    	couleur = c;
 		return couleur;
 	}
 	public void setCouleur(String couleur) {
