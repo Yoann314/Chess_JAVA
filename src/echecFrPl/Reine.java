@@ -13,17 +13,19 @@ public class Reine extends Piece {
 	}
 		public boolean deplacementValide() // nouvelles coordonnees 
 		{
-			if (indLigneArrive < 8 && indColArrive < 8) {		
-				
-				//diagonale
-				int absDiff = Math.abs(indLigneDepart - indLigneArrive);
-				int absDiffCol = Math.abs(indColDepart - indColArrive);
-				if (indLigneArrive == (indLigneDepart+absDiff) && indColArrive == (indColDepart+absDiffCol)) return true;
-				if (indLigneArrive == (indLigneDepart-absDiff) && indColArrive == (indColDepart-absDiffCol)) return true;
-				if (indLigneArrive == (indLigneDepart+absDiff) && indColArrive == (indColDepart-absDiffCol)) return true;
-				if (indLigneArrive == (indLigneDepart-absDiff) && indColArrive == (indColDepart+absDiffCol)) return true;
-				}
-			return false;
+			if (indLigneArrive < 8 && indColArrive < 8) {			
+				if (indLigneDepart == indLigneArrive && indColDepart == indColArrive) return false; //le piece n'a pas bouge
+				if (indLigneDepart == indLigneArrive || indColDepart == indColArrive) return true; //verticale ou horizontale
 			}
+				//diagonale
+				for(int i=0; i<= 8; i++){
+		    		if(indLigneDepart+i==indLigneArrive && indColDepart+i==indColArrive)return true;
+		    		if(indLigneDepart-i==indLigneArrive && indColDepart-i==indColArrive)return true;
+		    		if(indLigneDepart+i==indLigneArrive && indColDepart-i==indColArrive)return true;
+		    		if(indLigneDepart-i==indLigneArrive && indColDepart+i==indColArrive)return true; 	
+			}
+			return false;
+			
 		}
+}
 	
