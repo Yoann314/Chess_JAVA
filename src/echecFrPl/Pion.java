@@ -13,11 +13,14 @@ public class Pion extends Piece {
 	public boolean deplacementValide() // nouvelles coordonnees 
 	{
 		if (indLigneArrive < 8 && indColArrive < 8) {
-			if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart) return true;
-			if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart) return true;
-			if(indLigneDepart == 1 && indLigneArrive == indLigneDepart +2 && indColArrive == indColDepart) return true;
-			if(indLigneDepart == 6 && indLigneArrive == indLigneDepart -2 && indColArrive == indColDepart) return true;
-			
+			if (Plateau.grille[indLigneDepart][indColDepart].getCouleur(couleur).equals("noir")) {
+				if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart) return true;
+				if(indLigneDepart == 1 && indLigneArrive == indLigneDepart +2 && indColArrive == indColDepart) return true;
+			}
+			if (Plateau.grille[indLigneDepart][indColDepart].getCouleur(couleur).equals("blanc") ) {
+				if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart) return true;
+				if(indLigneDepart == 6 && indLigneArrive == indLigneDepart -2 && indColArrive == indColDepart) return true;
+			}
 		if (indLigneDepart == indLigneArrive) return false; //le piece n'a pas bouge
 		}
 		return false;
