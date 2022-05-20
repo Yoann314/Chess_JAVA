@@ -12,6 +12,7 @@ public class Roi extends Piece {
 	
 	public boolean deplacementValide() // nouvelles coordonnees 
 	{
+		if (!cheminOk()) return false;
 		if (indLigneArrive < 8 && indColArrive < 8) {
 			if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart) return true;
 			if(indLigneArrive == indLigneDepart && indColArrive == indColDepart +1) return true;
@@ -25,4 +26,11 @@ public class Roi extends Piece {
 		if (indLigneDepart == indLigneArrive && indColDepart == indColArrive) return false; //le piece n'a pas bouge
 		return false;
 		}
-		}
+	
+	public boolean cheminOk() 
+	{
+		if (Plateau.grille[indLigneArrive][indColArrive] != null && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur) return false;
+		
+		return true;
+	}
+}

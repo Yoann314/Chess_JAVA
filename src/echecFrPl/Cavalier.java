@@ -12,7 +12,7 @@ public class Cavalier extends Piece {
 	
 	public boolean deplacementValide() // nouvelles coordonnees 
 	{
-		
+		if (!cheminOk()) return false;
 		if (indLigneArrive < 8 && indColArrive < 8) {
 			if(indLigneArrive == indLigneDepart -2 && indColArrive == indColDepart+1) return true;
 			if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart-2) return true;
@@ -26,5 +26,10 @@ public class Cavalier extends Piece {
 		}
 		return false;
 		}
-
+	public boolean cheminOk() 
+	{
+		if (Plateau.grille[indLigneArrive][indColArrive] != null && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur) return false;
+		
+		return true;
+	}
 }

@@ -12,6 +12,7 @@ public class Pion extends Piece {
 	
 	public boolean deplacementValide() // nouvelles coordonnees 
 	{
+		if (!cheminOk()) return false;
 		if (indLigneArrive < 8 && indColArrive < 8) {
 			if (Plateau.grille[indLigneDepart][indColDepart].getCouleur(couleur).equals("noir")) {
 				if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart) return true;
@@ -25,6 +26,19 @@ public class Pion extends Piece {
 		}
 		return false;
 		}
+	public boolean cheminOk() 
+	{
+		if (Plateau.grille[indLigneArrive][indColArrive] != null && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur) return false;
+		if (indLigneDepart > indLigneArrive) {
+			if(Plateau.grille[indLigneDepart-1][indColArrive] != null) return false;
+			if(Plateau.grille[indLigneDepart-2][indColArrive] != null) return false;
+		}
+		if (indLigneDepart < indLigneArrive) {
+			if(Plateau.grille[indLigneDepart+1][indColArrive] != null) return false;
+			if(Plateau.grille[indLigneDepart+2][indColArrive] != null) return false;
+		}
+		return true;
+	}
 
 	public boolean peutManger() {
 		
