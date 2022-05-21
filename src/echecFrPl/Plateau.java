@@ -63,15 +63,16 @@ public class Plateau implements ActionListener {
 	public void bouger(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive) {
 		grille[indLigneArrive][indColArrive] = grille[indLigneDepart][indColDepart];
 		interf.bouton[indLigneArrive][indColArrive].setIcon(grille[indLigneArrive][indColArrive].getTheImage());
+
 		grille[indLigneDepart][indColDepart] = vide;
 		interf.bouton[indLigneDepart][indColDepart].setIcon((Image)null);
+		
 		interf.bouton[indiceLiDepAC][indiceColDepAC].setBackground(colorArchive);
-
 		// active les cases pour le joueur suivant
 		if (grille[indLigneArrive][indColArrive].getCouleur() == "blanc")
-				interf.activeCasesNoir();
-			if (grille[indLigneArrive][indColArrive].getCouleur() == "noir") 
-				interf.activeCasesBlanc();
+			interf.activeCasesNoir();
+		if (grille[indLigneArrive][indColArrive].getCouleur() == "noir") 
+			interf.activeCasesBlanc();
 
 		indiceLiDepAC = -1;
 		turn++;
@@ -81,7 +82,7 @@ public class Plateau implements ActionListener {
 		return false;
 	}
 
-	/*
+/*
 	public void recupererCoord(int indiceLiArrAC, int indiceColArrAC) {
 		if (this.indiceLiDepAC == -1) {
 			this.indiceLiDepAC = indiceLiArrAC;
@@ -92,36 +93,84 @@ public class Plateau implements ActionListener {
 			indiceLiDepAC=-1;
 		}
 	}
-	*/
-/*
-	public boolean verifEchec() {
-		int tindiceLiDepAC = indiceLiDepAC;// t pour temporaire
-		int tindiceColDepAC = indiceColDepAC;
-		int tindiceLiArrAC = indiceLiArrAC;
-		int tindiceColArrAC = indiceColArrAC;
-
-		
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				if (grille[i][j].couleur == grille[indiceLiDepAC][indiceColDepAC].couleur && ) {
-				String yo = grille[indiceLiDepAC][indiceColDepAC].couleur;
-
-		}}}
-		// chercher le roi de celui qui viens de bouger
-		// changer les coordonnées d'arrivée avec les corrdonnées de ce roi
-		//pour chaqu'une des pieces adverse 
-			//changer les coodonnées de départ avec les coordonner de la piece
-			// regarder si déplacement valide est ok 
-			// si il y a un retrun true --> return true
-			// si il n'y a pas de return true --> reassigner les variables indices aux vrais indices et return false
-
-		//if (grille[indiceLiDepAC][indiceColDepAC].deplacementValide()) // indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC, "blanc"
-
-		return true;
-		
-	}
 */
 
+	public boolean echec() {
+		int tindiceLiArrAC = indiceLiArrAC; // t pour temporaire
+		int tindiceColArrAC = indiceColArrAC;
+
+		String couleurViensBouger = grille[indiceLiDepAC][indiceColDepAC].getCouleur();
+		grille[indiceLiArrAC][indiceColArrAC] = grille[indiceLiDepAC][indiceColDepAC]; // simulation si la piece bouge
+		grille[indiceLiDepAC][indiceColDepAC] = vide;
+
+		if (couleurViensBouger == "blanc") { // cherche le roi de celui qui viens de bouger
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+					if (grille[i][j].getK() == 29) { // change les coordonnées d'arrivée avec les corrdonnées de ce roi
+						indiceLiArrAC = i;
+						indiceColArrAC = j;
+					}
+				}
+			}
+
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+					if (grille[i][j].getCouleur() == "noir" ) { // pour chaque pieces adverse
+						grille[i][j].setCoordonneesDepart(i, j); // change les coordonnées de deppart avec les corrdonnées de cette piece
+						grille[i][j].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);
+
+						if (grille[i][j].deplacementValide()) {
+							indiceLiArrAC = tindiceLiArrAC; // reassigne les variables indices aux vrais indices
+							indiceColArrAC = tindiceColArrAC;
+							grille[indiceLiDepAC][indiceColDepAC].setCoordonneesDepart(indiceLiDepAC, indiceColDepAC);
+							grille[indiceLiDepAC][indiceColDepAC].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);
+							grille[indiceLiDepAC][indiceColDepAC] = grille[tindiceLiArrAC][tindiceColArrAC]; // remide de la piece a ca place
+							grille[indiceLiArrAC][indiceColArrAC] = vide;
+							return true; // echec
+						}
+					}
+				}
+			}
+		}
+
+		if (couleurViensBouger == "noir") { // cherche le roi de celui qui viens de bouger
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+					if (grille[i][j].getK() == 5) { // change les coordonnées d'arrivée avec les corrdonnées de ce roi
+						indiceLiArrAC = i;
+						indiceColArrAC = j;
+					}
+				}
+			}
+
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+					if (grille[i][j].getCouleur() == "blanc" ) { // pour chaque pieces adverse
+						grille[i][j].setCoordonneesDepart(i, j); // changer les coordonnées de deppart avec les corrdonnées de cette piece
+						grille[i][j].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);
+
+						if (grille[i][j].deplacementValide()) {
+							indiceLiArrAC = tindiceLiArrAC; // réassigne les variables indices aux vrais indices
+							indiceColArrAC = tindiceColArrAC;
+							grille[indiceLiDepAC][indiceColDepAC] = grille[indiceLiArrAC][indiceColArrAC]; // remide de la piece a ca place
+							grille[indiceLiArrAC][indiceColArrAC] = vide;
+							grille[indiceLiDepAC][indiceColDepAC].setCoordonneesDepart(indiceLiDepAC, indiceColDepAC);
+							grille[indiceLiDepAC][indiceColDepAC].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);						
+
+							return true; // echec
+						}
+					}
+				}
+			}
+		}
+		indiceLiArrAC = tindiceLiArrAC; // reassigne les variables indices aux vrais indices
+		indiceColArrAC = tindiceColArrAC;
+		grille[indiceLiDepAC][indiceColDepAC].setCoordonneesDepart(indiceLiDepAC, indiceColDepAC);
+		grille[indiceLiDepAC][indiceColDepAC].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);						
+		grille[indiceLiDepAC][indiceColDepAC] = grille[indiceLiArrAC][indiceColArrAC]; // remide de la piece a ca place
+		grille[indiceLiArrAC][indiceColArrAC] = vide;
+		return false;	
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
@@ -130,11 +179,12 @@ public class Plateau implements ActionListener {
 		indiceLiArrAC = Integer.parseInt(coordonnéesListener[0]);
 		indiceColArrAC = Integer.parseInt(coordonnéesListener[1]);
 
-		if (indiceLiDepAC == -1) {
+		if (indiceLiDepAC == -1) { // si c'est la premiere fois qu'on cique sur les deux
 			indiceLiDepAC = indiceLiArrAC;
 			indiceColDepAC = indiceColArrAC;
+			
 			colorArchive = interf.bouton[indiceLiDepAC][indiceColDepAC].getBackground();
-			interf.bouton[indiceLiDepAC][indiceColDepAC].setBackground(Color.GREEN);
+			interf.bouton[indiceLiDepAC][indiceColDepAC].setBackground(Color.decode("#999696")); // vert pastel : #B4ECB4
 
 			// Active les cases pour le joueur actuel
 			if (grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "blanc") 
@@ -142,21 +192,32 @@ public class Plateau implements ActionListener {
 			if (grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "noir") 
 				interf.activeCasesForNoir();
 			if (grille[indiceLiDepAC][indiceColDepAC] == vide) 
-				JOptionPane.showMessageDialog(null, "Veuillez selectioner une piece", "Erreur", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Veuillez selectioner une piece", "Erreur", JOptionPane.ERROR_MESSAGE);		
 		}
 
-		if (indiceLiDepAC != indiceLiArrAC || indiceColDepAC != indiceColArrAC) {
+		if (indiceLiDepAC != indiceLiArrAC || indiceColDepAC != indiceColArrAC) { // si c'est le deuxième clique
 			grille[indiceLiDepAC][indiceColDepAC].setCoordonneesDepart(indiceLiDepAC, indiceColDepAC);
 			grille[indiceLiDepAC][indiceColDepAC].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);
 
 			System.out.println("################################"); // à supprimer pour la fin
 			System.out.println(grille[indiceLiDepAC][indiceColDepAC]); // à supprimer pour la fin
 
-			if (grille[indiceLiDepAC][indiceColDepAC].deplacementValide()) { // indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC, "blanc"
+
+
+			if (grille[indiceLiDepAC][indiceColDepAC].deplacementValide() && echec() == false) { // indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC, "blanc"
 				bouger(indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC);
 			}
-			else 
-				indiceLiDepAC = -1;		
+
+
+			else {
+				interf.bouton[indiceLiDepAC][indiceColDepAC].setBackground(colorArchive);
+				if (grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "blanc")
+					interf.activeCasesForNoir();
+				if (grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "noir") 
+					interf.activeCasesForBlanc();
+				indiceLiDepAC = -1;
+			}
+
 		}
 	}
 
