@@ -15,27 +15,34 @@ public abstract class Piece {
     boolean estActif;
     public abstract boolean deplacementValide();
 	Image img;
+	int k; // image de chauque Pieces
 
-	public Piece(String c, int k) { // le nom de l'image part 1
+	public Piece(String couleur, int k) { // le nom de l'image part 1
 		ImageIcon imgX = new ImageIcon("src/images/"+k+".png");
 		img = imgX.getImage().getScaledInstance(50, -1,Image.SCALE_DEFAULT);
-		couleur = c;
+		this.couleur = couleur;
+		this.k = k;
 	}
 
 	public Piece() {}
 	
-	/*
+/*
 	public void setForme(String f) { 
 		Piece.forme=f; 
 	}
-	*/
+*/	
 
 	public String toString() { // à supprimer pour la fin
 		return "("+String.valueOf(indLigneDepart)+","+String.valueOf(indColDepart)+") --> ("+String.valueOf(indLigneArrive)+","+String.valueOf(indColArrive)+")";
 	}
 
+
 	public Image getTheImage() {
 		return img;
+	}
+
+	public int getK() {
+		return k;
 	}
 
 	/*
@@ -51,7 +58,7 @@ public abstract class Piece {
 		this.couleur = couleur;
 	}
 
-	public void setCoordonneesDepart(int indLigneDepart, int indColDepart) {
+	public void setCoordonneesDepart(int indLigneDepart, int indColDepart) { // conkat avec arrivée ?
 		this.indLigneDepart=indLigneDepart;
 		this.indColDepart=indColDepart;
 	}
