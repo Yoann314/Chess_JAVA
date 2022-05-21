@@ -4,8 +4,7 @@ public class Cavalier extends Piece {
 	
 	public Cavalier(String c, int img) {
 		super(c, img);
-		//this.getCouleur(c);
-		//this.setForme("cavalier");
+
 		this.estActif=true;
 		this.value = 3;
 	}
@@ -28,7 +27,6 @@ public class Cavalier extends Piece {
 
 	public boolean cheminOk() {
 		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur) return false;
-		
 		return true;
 	}
 }

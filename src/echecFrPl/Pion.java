@@ -1,11 +1,9 @@
 package echecFrPl;
+
 public class Pion extends Piece {
 	
-
 	public Pion(String c, int img) {
 		super(c, img);
-		//this.getCouleur(c);
-		//this.setForme("pion");
 		this.estActif=true;
 		this.value = 1;
 	}
@@ -25,9 +23,8 @@ public class Pion extends Piece {
 
 			if (indLigneDepart == indLigneArrive) return false; // le piece n'a pas bouge
 		}
-
 		return false;
-		}
+	}
 
 	public boolean cheminOk() {
 		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur) return false;
