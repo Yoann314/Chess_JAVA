@@ -6,7 +6,7 @@ import javax.swing.*;
 public class Interface {
 
 	public JFrame fenetre;
-	public JPanel panneau, scoreStart, scoreEnd, contScoreNoir, contScoreBlanc, cimetiereNoir, cimetiereBlanc, interfaceComplete; // cont pour contenant
+	public JPanel panneau, scoreStart, scoreEnd, contScoreNoir, contScoreBlanc, cimetiereNoir, cimetiereBlanc, interfaceComplete, sidePanel; // cont pour contenant
 	public JLabel scoreNoir, scoreBlanc;
 	public MonBouton[][] bouton;
 	Plateau plateau;
@@ -69,10 +69,28 @@ public class Interface {
 
 		scoreStart.add(contScoreNoir);
 		scoreEnd.add(contScoreBlanc);
+		
+		// chronometre + messages
+		
+				//Chronometre chronometreNoir = new Chronometre();
+				//Chronometre chronometreBlanc = new Chronometre();
+				
+				sidePanel = new JPanel(new GridLayout(3,1));
+				//JPanel chronoNoir = new JPanel();
+				//chronoNoir.add(chronometreNoir);
+				JLabel chronoNoir = new JLabel ("chronometre Noir");
+				JLabel messages = new JLabel("Messages : ");
+				//JPanel chronoBlanc = new JPanel();
+				//chronoBlanc.add(chronometreBlanc);
+				JLabel chronoBlanc = new JLabel ("chronometre Blanc");
+				sidePanel.add(chronoNoir);
+				sidePanel.add(messages);
+				sidePanel.add(chronoBlanc);
 
 		// Concatenation de toutes les différentes partie de l'interface
 		interfaceComplete = new JPanel(new BorderLayout());
 		interfaceComplete.add(panneau, BorderLayout.CENTER);
+		interfaceComplete.add(sidePanel, BorderLayout.EAST);
 		interfaceComplete.add(scoreStart, BorderLayout.PAGE_START);
 		interfaceComplete.add(scoreEnd, BorderLayout.PAGE_END);
 
