@@ -5,11 +5,14 @@ import javax.swing.*;
 
 public class Interface {
 
-	public JFrame fenetre;
+	public JFrame fenetre, fenetreSTART;
 	public JPanel panneau, scoreStart, scoreEnd, contScoreNoir, contScoreBlanc, cimetiereNoir, cimetiereBlanc, interfaceComplete, sidePanel; // cont pour contenant
 	public JLabel scoreNoir, scoreBlanc;
 	public MonBouton[][] bouton;
+	public JButton boutonJouer;
 	Plateau plateau;
+	Chronometre chronometre;
+	//Component chronometre;
 
     public Interface(Plateau plateau) {
 		this.plateau = plateau;
@@ -47,6 +50,49 @@ public class Interface {
 				panneau.add(bouton[i][j]);
 			}
 		}
+		
+		// fenetreSTART
+		fenetreSTART = new JFrame("Echec");
+		fenetreSTART.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		
+		ImageIcon img = new ImageIcon("echec.png");
+		Image image = img.getImage().getScaledInstance(100, -1,Image.SCALE_DEFAULT);
+		JLabel labelImage = new JLabel(new ImageIcon(image));
+		
+		// Joueurs
+		JLabel labelJoueur1 = new JLabel("Joueur 1 : ");
+		JTextField saisieJoueur1 = new JTextField(20); 
+		
+		JPanel panneauJoueur1 = new JPanel((new FlowLayout(FlowLayout.LEFT))); //pour avoir deux lignes pour login et mds dans un conteneur
+		panneauJoueur1.add(labelJoueur1); // ajout de composants
+		panneauJoueur1.add(saisieJoueur1);
+		
+		JLabel labelJoueur2 = new JLabel("Joueur 2 : ");
+		JTextField saisieJoueur2 = new JTextField(20); 
+		
+		JPanel panneauJoueur2 = new JPanel((new FlowLayout(FlowLayout.LEFT))); //pour avoir deux lignes pour login et mds dans un conteneur
+		panneauJoueur2.add(labelJoueur2); // ajout de composants
+		panneauJoueur2.add(saisieJoueur2);
+		
+		JPanel panneauCentral = new JPanel(new GridLayout(2,1));
+		panneauCentral.add(panneauJoueur1);
+		panneauCentral.add(panneauJoueur2);
+		
+		//BOUTON
+		boutonJouer = new JButton("Jouer");
+		boutonJouer.addActionListener(plateau);
+		JPanel panelBouton = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		panelBouton.add(boutonJouer);
+		
+		fenetreSTART.setLayout(new BorderLayout());
+		fenetreSTART.add(labelImage, BorderLayout.PAGE_START);
+		fenetreSTART.add(panneauCentral, BorderLayout.CENTER);
+		fenetreSTART.add(panelBouton, BorderLayout.PAGE_END);
+		fenetreSTART.setLocation(200, 150);
+		fenetreSTART.pack(); // pour une dimension optimale de la fenetre
+		fenetreSTART.setVisible(true);
+	
 
 		// Score + Cimetière
 		scoreStart = new JPanel();
@@ -72,32 +118,39 @@ public class Interface {
 		
 		// chronometre + messages
 		
-				//Chronometre chronometreNoir = new Chronometre();
-				//Chronometre chronometreBlanc = new Chronometre();
-				
-				sidePanel = new JPanel(new GridLayout(3,1));
-				//JPanel chronoNoir = new JPanel();
-				//chronoNoir.add(chronometreNoir);
-				JLabel chronoNoir = new JLabel ("chronometre Noir");
-				JLabel messages = new JLabel("Messages : ");
-				//JPanel chronoBlanc = new JPanel();
-				//chronoBlanc.add(chronometreBlanc);
-				JLabel chronoBlanc = new JLabel ("chronometre Blanc");
-				sidePanel.add(chronoNoir);
-				sidePanel.add(messages);
-				sidePanel.add(chronoBlanc);
-
-		// Concatenation de toutes les différentes partie de l'interface
-		interfaceComplete = new JPanel(new BorderLayout());
-		interfaceComplete.add(panneau, BorderLayout.CENTER);
-		interfaceComplete.add(sidePanel, BorderLayout.EAST);
-		interfaceComplete.add(scoreStart, BorderLayout.PAGE_START);
-		interfaceComplete.add(scoreEnd, BorderLayout.PAGE_END);
-
-
-		fenetre.add(interfaceComplete);
-		fenetre.pack();
-		fenetre.setLocationRelativeTo(null);
+			//Chronometre chronometreNoir = new Chronometre();
+			//Chronometre chronometreBlanc = new Chronometre();
+			
+			sidePanel = new JPanel(new GridLayout(3,1));
+			//JPanel chronoNoir = new JPanel();
+			//chronoNoir.add(chronometre);
+			JLabel chronoNoir = new JLabel ("chronometre Noir");
+	
+			Joueur joueur1 = new Joueur(saisieJoueur1.getText());
+			Joueur joueur2 = new Joueur(saisieJoueur2.getText());
+			
+			JLabel message = new JLabel(joueur1+" joue les Blancs et " + joueur2 +" joue les Noirs");
+			//JPanel chronoBlanc = new JPanel();
+			//chronoBlanc.add(chronometreBlanc);
+			JLabel chronoBlanc = new JLabel ("chronometre Blanc");
+			sidePanel.add(chronoNoir);
+			sidePanel.add(message);
+			sidePanel.add(chronoBlanc);
+	
+			// Concatenation de toutes les différentes partie de l'interface
+			interfaceComplete = new JPanel(new BorderLayout());
+			interfaceComplete.add(panneau, BorderLayout.CENTER);
+			interfaceComplete.add(sidePanel, BorderLayout.EAST);
+			interfaceComplete.add(scoreStart, BorderLayout.PAGE_START);
+			interfaceComplete.add(scoreEnd, BorderLayout.PAGE_END);
+			fenetre.add(interfaceComplete);
+			
+			
+			fenetreSTART.pack();
+			fenetreSTART.setLocationRelativeTo(null);
+			
+			fenetre.pack();
+			fenetre.setLocationRelativeTo(null);
 
 		for (int i = 0; i < 8; i++) { // désactive toutes les cases noir et vide pour le premier coup
 			for (int j = 0; j < 8; j++) {					
