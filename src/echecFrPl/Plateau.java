@@ -130,8 +130,6 @@ public class Plateau implements ActionListener {
 		indiceLiArrAC = Integer.parseInt(coordonnéesListener[0]);
 		indiceColArrAC = Integer.parseInt(coordonnéesListener[1]);
 
-		System.out.println(grille[0][4].getCouleur());
-
 		if (indiceLiDepAC == -1) {
 			indiceLiDepAC = indiceLiArrAC;
 			indiceColDepAC = indiceColArrAC;
