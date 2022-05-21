@@ -19,7 +19,15 @@ public class Plateau implements ActionListener {
 		grille = new Piece[8][8]; // on indique les dimensions de la grille;
 		init();
 		interf = new Interface(this);
+		interf.fenetreSTART.setAlwaysOnTop(true);
+		interf.fenetreSTART.setVisible(true);
 		interf.fenetre.setVisible(true);
+		/*
+		new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource()==interf.boutonJouer) {
+					interf.fenetreSTART.setVisible(false);
+					interf.fenetre.setVisible(true); } } }; */
 		indiceLiDepAC = -1;
 	}
 		
