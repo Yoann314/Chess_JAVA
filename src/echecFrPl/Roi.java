@@ -4,7 +4,7 @@ public class Roi extends Piece {
 
 	public Roi(String c, int img) {
 		super(c, img);
-		this.getCouleur(c);
+		//this.getCouleur(c);
 		//this.setForme("roi");
 		this.estActif=true;
 		this.value = -1;
@@ -29,7 +29,7 @@ public class Roi extends Piece {
 	
 	public boolean cheminOk() 
 	{
-		if (Plateau.grille[indLigneArrive][indColArrive] != null && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur) return false;
+		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur) return false;
 		
 		return true;
 	}

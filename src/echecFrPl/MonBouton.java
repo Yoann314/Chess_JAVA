@@ -22,6 +22,11 @@ public class MonBouton extends JButton {
         bg = background;
     }
 
+    public Color getBackground(){
+        return bg;
+    }
+
+
     public void setIcon(Image ic){
         img = ic;
         repaint();

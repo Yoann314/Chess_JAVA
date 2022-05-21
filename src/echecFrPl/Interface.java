@@ -5,15 +5,14 @@ import javax.swing.*;
 
 public class Interface {
 
-	//public JLabel trunToPlayDisplay;
 	public JFrame fenetre;
-
 	public JPanel panneau, scoreStart, scoreEnd, contScoreNoir, contScoreBlanc, cimetiereNoir, cimetiereBlanc, interfaceComplete; // cont pour contenant
 	public JLabel scoreNoir, scoreBlanc;
-
 	public MonBouton[][] bouton;
+	Plateau plateau;
 
     public Interface(Plateau plateau) {
+		this.plateau = plateau;
         fenetre = new JFrame("Chess.fr.pl"); 
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -22,8 +21,8 @@ public class Interface {
 		bouton = new MonBouton[8][8]; // Creation de plateau
 		for (int i = 0; i < bouton.length; i++) {
 			for (int j = 0; j < bouton[i].length; j++) {
-				if(plateau.grille[i][j] != null)
-					bouton[i][j] = new MonBouton(plateau.grille[i][j].getTheImage());
+				if(Plateau.grille[i][j] != plateau.vide)
+					bouton[i][j] = new MonBouton(Plateau.grille[i][j].getTheImage());
 				
 				else
 					bouton[i][j] = new MonBouton();
@@ -81,5 +80,74 @@ public class Interface {
 		fenetre.add(interfaceComplete);
 		fenetre.pack();
 		fenetre.setLocationRelativeTo(null);
+
+		for (int i = 0; i < 8; i++) { // désactive toutes les cases noir et vide pour le premier coup
+			for (int j = 0; j < 8; j++) {					
+				if (Plateau.grille[i][j].getCouleur() == "noir" || Plateau.grille[i][j] == plateau.vide) {
+					bouton[i][j].setEnabled(false);
+				}
+
+				if (Plateau.grille[i][j].getCouleur() == "blanc") {
+					bouton[i][j].setEnabled(true);
+				}
+			}
+		}
 	}
+
+	public void activeCasesForBlanc() { // active les JButton "blanc" et désactive les autres
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {					
+				if (Plateau.grille[i][j].getCouleur() == "blanc") {
+					bouton[i][j].setEnabled(false);
+				}
+
+				if (Plateau.grille[i][j].getCouleur() == "noir" || Plateau.grille[i][j] == plateau.vide) {
+					bouton[i][j].setEnabled(true);
+				}
+			}
+		}
+	}
+
+	public void activeCasesForNoir() {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (Plateau.grille[i][j].getCouleur() == "noir") {
+					bouton[i][j].setEnabled(false);
+				}
+
+				if (Plateau.grille[i][j].getCouleur() == "blanc" || Plateau.grille[i][j] == plateau.vide) {
+					bouton[i][j].setEnabled(true);
+				}
+			}
+		}
+	}
+
+	public void activeCasesBlanc() { // active les JButton "blanc" et désactive les autres
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {					
+				if (Plateau.grille[i][j].getCouleur() == "blanc") {
+					bouton[i][j].setEnabled(true);
+				}
+
+				if (Plateau.grille[i][j].getCouleur() == "noir" || Plateau.grille[i][j] == plateau.vide) {
+					bouton[i][j].setEnabled(false);
+				}
+			}
+		}
+	}
+
+	public void activeCasesNoir() {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (Plateau.grille[i][j].getCouleur() == "noir") {
+					bouton[i][j].setEnabled(true);
+				}
+
+				if (Plateau.grille[i][j].getCouleur() == "blanc" || Plateau.grille[i][j] == plateau.vide) {
+					bouton[i][j].setEnabled(false);
+				}
+			}
+		}
+	}
+	
 }

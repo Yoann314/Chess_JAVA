@@ -4,44 +4,46 @@ public class Pion extends Piece {
 
 	public Pion(String c, int img) {
 		super(c, img);
-		this.getCouleur(c);
+		//this.getCouleur(c);
 		//this.setForme("pion");
 		this.estActif=true;
 		this.value = 1;
 	}
 	
-	public boolean deplacementValide() // nouvelles coordonnees 
-	{
+	public boolean deplacementValide() { // nouvelles coordonnees 
 		if (!cheminOk()) return false;
 		if (indLigneArrive < 8 && indColArrive < 8) {
-			if (Plateau.grille[indLigneDepart][indColDepart].getCouleur(couleur).equals("noir")) {
+			if (Plateau.grille[indLigneDepart][indColDepart].getCouleur() == "noir") {
 				if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart) return true;
 				if(indLigneDepart == 1 && indLigneArrive == indLigneDepart +2 && indColArrive == indColDepart) return true;
 			}
-			if (Plateau.grille[indLigneDepart][indColDepart].getCouleur(couleur).equals("blanc") ) {
+
+			if (Plateau.grille[indLigneDepart][indColDepart].getCouleur() == "blanc") {
 				if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart) return true;
 				if(indLigneDepart == 6 && indLigneArrive == indLigneDepart -2 && indColArrive == indColDepart) return true;
 			}
-		if (indLigneDepart == indLigneArrive) return false; //le piece n'a pas bouge
+
+			if (indLigneDepart == indLigneArrive) return false; // le piece n'a pas bouge
 		}
+
 		return false;
 		}
-	public boolean cheminOk() 
-	{
-		if (Plateau.grille[indLigneArrive][indColArrive] != null && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur) return false;
+
+	public boolean cheminOk() {
+		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur) return false;
 		if (indLigneDepart > indLigneArrive) {
-			if(Plateau.grille[indLigneDepart-1][indColArrive] != null) return false;
-			if(Plateau.grille[indLigneDepart-2][indColArrive] != null) return false;
+			if(Plateau.grille[indLigneDepart-1][indColArrive] != Plateau.vide) return false;
+			if(Plateau.grille[indLigneDepart-2][indColArrive] != Plateau.vide) return false;
 		}
+
 		if (indLigneDepart < indLigneArrive) {
-			if(Plateau.grille[indLigneDepart+1][indColArrive] != null) return false;
-			if(Plateau.grille[indLigneDepart+2][indColArrive] != null) return false;
+			if(Plateau.grille[indLigneDepart+1][indColArrive] != Plateau.vide) return false;
+			if(Plateau.grille[indLigneDepart+2][indColArrive] != Plateau.vide) return false;
 		}
 		return true;
 	}
 
 	public boolean peutManger() {
-		
 		if (indLigneArrive < 8 && indColArrive < 8 && couleur.equals("blanc")) {
 			if( Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -1][indColDepart +1]  ||
 					Plateau.grille[indLigneArrive][indColArrive] == Plateau.grille[indLigneDepart -1][indColDepart -1] )  
@@ -54,8 +56,9 @@ public class Pion extends Piece {
 		}
 		return false;
 	}
-	/* public boolean deplacementValide() // nouvelles coordonnees 
-	{
+
+	/* 
+	public boolean deplacementValide() { // nouvelles coordonnees 
 		if (indLigneArrive < 8 && indColArrive < 8) {
 			if(Plateau.grille[indLigneDepart][indColDepart].couleur == "noir") { 
 				if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart) return true;
@@ -65,8 +68,9 @@ public class Pion extends Piece {
 				if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart) return true;
 				if(indLigneDepart == 6 && indLigneArrive == indLigneDepart -2 && indColArrive == indColDepart) return true;
 			}
-		if (indLigneDepart == indLigneArrive) return false; //le piece n'a pas bouge
+			if (indLigneDepart == indLigneArrive) return false; //le piece n'a pas bouge
 		}
 		return false;
-		}*/
+	}
+	*/
 }

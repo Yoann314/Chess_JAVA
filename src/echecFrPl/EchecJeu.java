@@ -1,3 +1,4 @@
+/*
 package echecFrPl;
 import java.util.Random;
 
@@ -14,7 +15,7 @@ public class EchecJeu {
 		return false;
 	}
 	
-	/*
+
 	public void Roque(int LigneRoi, int ColRoi, int LigneTour, int ColTour) {
 		int nouvelleLigneRoi = LigneTour;
 		int nouvelleColonneRoi = ColTour;
@@ -29,9 +30,9 @@ public class EchecJeu {
 		}
 		}
 	}
-	*/
 	
-	/*
+	
+	
 	public boolean RoiEnEchec(Piece p) {
 		Roi r;
 			int indLigneDepartRoi = r.indLigneDepart; 
@@ -44,14 +45,14 @@ public class EchecJeu {
 		}
 		return false;
 	}
-	*/
+	
 	
 
 	public static void main(String[] args) {
 		Plateau pl = new Plateau();
 
 
-		/*
+		
 		pl.init();
 		if (commencer()) {
 			pl.interf.trunToPlayDisplay.setText("Player 1 you have the White pieces and player 2 you have you have the Black pieces");
@@ -59,6 +60,7 @@ public class EchecJeu {
 
 		else
 			pl.interf.trunToPlayDisplay.setText("Player 1 you have the Black pieces and player 2 you have you have the White pieces");
-		*/
+		
 	}
 }
+*/

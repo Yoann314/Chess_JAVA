@@ -5,7 +5,7 @@ public class Fou extends Piece{
 	
 	public Fou(String c, int img) {
 		super(c, img);
-		this.getCouleur(c);
+		// this.getCouleur(c);
 		//this.setForme("fou");
 		this.estActif=true;
 		this.value = 3;
@@ -26,6 +26,7 @@ public class Fou extends Piece{
 				}
 			return false;
 			}*/
+
 	public boolean deplacementValide() {
 		if (!cheminOk()) return false;
 		//diagonale
@@ -34,43 +35,47 @@ public class Fou extends Piece{
     		if(indLigneDepart-i==indLigneArrive && indColDepart-i==indColArrive)return true;
     		if(indLigneDepart+i==indLigneArrive && indColDepart-i==indColArrive)return true;
     		if(indLigneDepart-i==indLigneArrive && indColDepart+i==indColArrive)return true; 	
+		}
+
+		return false; 
 	}
-		return false; }
 	
-	public boolean cheminOk() 
-	{
-		if (Plateau.grille[indLigneArrive][indColArrive] != null && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur) return false;
+	public boolean cheminOk() {
+		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur) return false;
 		
-		if(indLigneArrive<indLigneDepart && indColArrive<indColDepart){ // vers bas droit
-    		while(indLigneDepart != indLigneArrive+1 && indColDepart != indColArrive+1){
-    			if (Plateau.grille[indLigneArrive+1][indColArrive+1] != null) return false;
+		if(indLigneArrive<indLigneDepart && indColArrive<indColDepart) { // vers bas droit
+    		while(indLigneDepart != indLigneArrive+1 && indColDepart != indColArrive+1) {
+    			if (Plateau.grille[indLigneArrive+1][indColArrive+1] != Plateau.vide) return false;
     			
     			indLigneArrive++;
     			indColArrive++;
     		}
     		return true;
     	}
-    	if(indLigneArrive>indLigneDepart && indColArrive>indColDepart){ // vers haut gauche
-    		while(indLigneDepart != indLigneArrive-1 && indColDepart != indColArrive-1){
-    			if (Plateau.grille[indLigneArrive-1][indColArrive-1] != null)return false;
+
+    	if(indLigneArrive>indLigneDepart && indColArrive>indColDepart) { // vers haut gauche
+    		while(indLigneDepart != indLigneArrive-1 && indColDepart != indColArrive-1) {
+    			if (Plateau.grille[indLigneArrive-1][indColArrive-1] != Plateau.vide)return false;
     			
     			indLigneArrive--;
     			indColArrive--;
     		}
     		return true;
     	}
-    	if(indLigneArrive<indLigneDepart && indColArrive>indColDepart){ // vers haut droit
-    		while(indLigneDepart != indLigneArrive+1 && indColDepart != indColArrive-1){
-    			if (Plateau.grille[indLigneArrive+1][indColArrive-1] != null)return false;
+
+    	if(indLigneArrive<indLigneDepart && indColArrive>indColDepart) { // vers haut droit
+    		while(indLigneDepart != indLigneArrive+1 && indColDepart != indColArrive-1) {
+    			if (Plateau.grille[indLigneArrive+1][indColArrive-1] != Plateau.vide)return false;
     			
     			indLigneArrive++;
     			indColArrive--;
     		}
     		return true;
     	}
-    	if(indLigneArrive>indLigneDepart && indColArrive<indColDepart){ // vers bas gauche
+
+    	if(indLigneArrive>indLigneDepart && indColArrive<indColDepart) { // vers bas gauche
     		while(indLigneDepart != indLigneArrive-1 && indColDepart != indColArrive+1){
-    			if (Plateau.grille[indLigneArrive-1][indColArrive-1] != null)return false;
+    			if (Plateau.grille[indLigneArrive-1][indColArrive-1] != Plateau.vide)return false;
     			
     			indLigneArrive--;
     			indColArrive++;
@@ -81,35 +86,36 @@ public class Fou extends Piece{
         return true;
         
 	}
+	
 	/*public boolean cheminOk() 
 	{
-		if (Plateau.grille[indLigneArrive][indColArrive] != null && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur) return false;
+		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur) return false;
 		
 		if (indLigneDepart < indLigneArrive && indColDepart < indColArrive) {	// vers bas droite
 			for (int i = indLigneDepart+1; i < indLigneArrive; i++) {
 				for (int j = indColDepart+1; j < indColArrive; j++) {
-					if(Plateau.grille[i][j] != null) return false;
+					if(Plateau.grille[i][j] != Plateau.vide) return false;
 					}
 				} 
 			}
 		if (indLigneDepart > indLigneArrive && indColDepart > indColArrive) {	// vers haut gauche
 			for (int i = indLigneDepart-1; i > indLigneArrive; i--) {
 				for (int j = indColDepart-1; j > indColArrive; j--) {
-					if(Plateau.grille[i][j] != null) return false;
+					if(Plateau.grille[i][j] != Plateau.vide) return false;
 					}
 				} 
 			}
 		if (indLigneDepart < indLigneArrive && indColDepart > indColArrive) {	// vers bas gauche
 			for (int i = indLigneDepart+1; i < indLigneArrive; i++) {
 				for (int j = indColDepart-1; j > indColArrive; j--) {
-					if(Plateau.grille[i][j] != null) return false;
+					if(Plateau.grille[i][j] != Plateau.vide) return false;
 					}
 				} 
 			}
 		if (indLigneDepart > indLigneArrive && indColDepart < indColArrive) {	// vers haut droite
 			for (int i = indLigneDepart-1; i > indLigneArrive; i--) {
 				for (int j = indColDepart+1; j < indColArrive; j++) {
-					if(Plateau.grille[i][j] != null) return false;
+					if(Plateau.grille[i][j] != Plateau.vide) return false;
 					}
 				} 
 			}

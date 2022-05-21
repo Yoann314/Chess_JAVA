@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 import java.awt.*;
 
 public abstract class Piece {
+
     public String couleur;
     // public static String forme;
     protected int indLigneDepart;
@@ -15,11 +16,13 @@ public abstract class Piece {
     public abstract boolean deplacementValide();
 	Image img;
 
-	public Piece(String c, int k){ // le nom de l'image part 1
+	public Piece(String c, int k) { // le nom de l'image part 1
 		ImageIcon imgX = new ImageIcon("src/images/"+k+".png");
 		img = imgX.getImage().getScaledInstance(50, -1,Image.SCALE_DEFAULT);
 		couleur = c;
 	}
+
+	public Piece() {}
 	
 	/*
 	public void setForme(String f) { 
@@ -27,7 +30,7 @@ public abstract class Piece {
 	}
 	*/
 
-	public String toString(){
+	public String toString() { // à supprimer pour la fin
 		return "("+String.valueOf(indLigneDepart)+","+String.valueOf(indColDepart)+") --> ("+String.valueOf(indLigneArrive)+","+String.valueOf(indColArrive)+")";
 	}
 
@@ -41,14 +44,24 @@ public abstract class Piece {
     }
 	*/
     
-    public String getCouleur(String c) {
-    	couleur = c;
+    public String getCouleur() {
 		return couleur;
 	}
 	public void setCouleur(String couleur) {
 		this.couleur = couleur;
 	}
 
+	public void setCoordonneesDepart(int indLigneDepart, int indColDepart) {
+		this.indLigneDepart=indLigneDepart;
+		this.indColDepart=indColDepart;
+	}
+    
+    public void setCoordonneesArrive(int indLigneArrive, int indColArrive) {
+		this.indLigneArrive=indLigneArrive;
+		this.indColArrive=indColArrive;
+	}
+
+	/*
 	public int getLigneDepart() { 
 		return this.indLigneDepart; 
 	}
@@ -64,16 +77,6 @@ public abstract class Piece {
 		return this.indColArrive; 
 	}
 
-    public void setCoordonneesDepart(int indLigneDepart, int indColDepart) {
-		this.indLigneDepart=indLigneDepart;
-		this.indColDepart=indColDepart;
-	}
-    
-    public void setCoordonneesArrive(int indLigneArrive, int indColArrive) {
-		this.indLigneArrive=indLigneArrive;
-		this.indColArrive=indColArrive;
-	}
-
     public void getValue(int valeurPiece) {
         this.value = valeurPiece;
     }
@@ -86,6 +89,5 @@ public abstract class Piece {
 		if(actif!=false) this.estActif=false;
 		if(actif==true) this.estActif=true;
 	}
-    
-    
+	*/
 }
