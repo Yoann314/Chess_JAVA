@@ -131,9 +131,8 @@ public class Interface {
 		// chronometre + messages
 		
 			sidePanel = new JPanel(new GridLayout(3,1));
-			JPanel chronoNoir = new JPanel();
 			chronometre=new Chronometre();
-			chronoNoir.add(chronometre.frame);
+			JPanel chronoNoir = chronometre.getViewTime();
 
 			Joueur joueur1 = new Joueur(saisieJoueur1.getText());
 			Joueur joueur2 = new Joueur(saisieJoueur2.getText());
@@ -141,11 +140,10 @@ public class Interface {
 			if (plateau.echec()) { mess = "Attention! Roi en echec!";}
 			else { mess = "";}
 			JLabel message = new JLabel(joueur1+" joue les Blancs et " + joueur2 +" joue les Noirs" +mess);
-
-			JPanel chronoBlanc = new JPanel();
+			
 			chronometre=new Chronometre();
-			chronoBlanc.add(chronometre.frame);
-		
+			JPanel chronoBlanc = chronometre.getViewTime();
+			
 			sidePanel.add(chronoNoir);
 			sidePanel.add(message);
 			sidePanel.add(chronoBlanc);

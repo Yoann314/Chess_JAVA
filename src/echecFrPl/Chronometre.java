@@ -76,6 +76,10 @@ public class Chronometre implements ActionListener{
 	void stop() {
 		timer.stop();
 	}
+
+	public JPanel getViewTime(){
+		return this.frame;
+	}
 	
 	//public static void main(String[] args) {
 	//	Chronometre chronometre = new Chronometre();}
