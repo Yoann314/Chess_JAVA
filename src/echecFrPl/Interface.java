@@ -132,21 +132,22 @@ public class Interface {
 		
 			sidePanel = new JPanel(new GridLayout(3,1));
 			chronometre=new Chronometre();
-			JPanel chronoNoir = chronometre.getViewTime();
+			//JPanel chronoNoir = chronometre.getViewTime();
 
 			Joueur joueur1 = new Joueur(saisieJoueur1.getText());
 			Joueur joueur2 = new Joueur(saisieJoueur2.getText());
 			String mess;
 			if (plateau.echec()) { mess = "Attention! Roi en echec!";}
 			else { mess = "";}
-			JLabel message = new JLabel(joueur1+" joue les Blancs et " + joueur2 +" joue les Noirs" +mess);
+			JLabel messageNoir = new JLabel(joueur2 +" joue les Noirs " +mess);
+			JLabel messageBlanc = new JLabel(joueur1 +" joue les Blancs " +mess);
 			
 			chronometre=new Chronometre();
-			JPanel chronoBlanc = chronometre.getViewTime();
+			JPanel chrono = chronometre.getViewTime();
 			
-			sidePanel.add(chronoNoir);
-			sidePanel.add(message);
-			sidePanel.add(chronoBlanc);
+			sidePanel.add(messageNoir);
+			sidePanel.add(chrono);
+			sidePanel.add(messageBlanc);
 	
 			// Concatenation de toutes les différentes partie de l'interface
 			interfaceComplete = new JPanel(new BorderLayout());
