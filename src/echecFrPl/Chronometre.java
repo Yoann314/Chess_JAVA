@@ -77,7 +77,7 @@ public class Chronometre implements ActionListener{
 		timer.stop();
 	}
 	
-	public static void main(String[] args) {
-		Chronometre chronometre = new Chronometre();}
+	//public static void main(String[] args) {
+	//	Chronometre chronometre = new Chronometre();}
 
 }

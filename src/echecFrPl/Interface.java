@@ -11,7 +11,8 @@ public class Interface {
 	public MonBouton[][] bouton;
 	public JButton boutonJouer;
 	Plateau plateau;
-	Chronometre chronometre;
+	private Chronometre chronometre;
+	public int IntscoreBlanc, IntscoreNoir = 0;
 	//Component chronometre;
 
     public Interface(Plateau plateau) {
@@ -98,14 +99,25 @@ public class Interface {
 		scoreStart = new JPanel();
 		scoreEnd = new JPanel();
 
+		//ImageIcon imgCim = new ImageIcon("images/cimitiere.png");
+		//Image imageCim = imgCim.getImage().getScaledInstance(50, 50,Image.SCALE_DEFAULT);
+		//JLabel imageC = new JLabel(new ImageIcon(imageCim));
+		//JLabel imageC = new JLabel();
+		//imageC.setIcon(imgCim);
+
 		contScoreNoir = new JPanel(new GridLayout(2,1));
 		cimetiereNoir = new JPanel(new GridLayout(2,8));
+		//for (int i=0; i<16; i++ ){
+		//	cimetiereNoir.add(imageC);}
+		
 
 		contScoreBlanc = new JPanel(new GridLayout(2,1));
 		cimetiereBlanc = new JPanel(new GridLayout(2,8));
+		//for (int i=0; i<16; i++ ){
+		//	cimetiereBlanc.add(imageC);}
 
-		scoreNoir = new JLabel("Score des Noirs : ", JLabel.LEFT);
-		scoreBlanc = new JLabel("Score des Blancs : ", JLabel.LEFT);
+		scoreNoir = new JLabel("Score des Noirs : " +IntscoreNoir, JLabel.LEFT);
+		scoreBlanc = new JLabel("Score des Blancs : "+IntscoreBlanc, JLabel.LEFT);
 
 		contScoreNoir.add(cimetiereNoir);
 		contScoreNoir.add(scoreNoir);
@@ -118,21 +130,22 @@ public class Interface {
 		
 		// chronometre + messages
 		
-			//Chronometre chronometreNoir = new Chronometre();
-			//Chronometre chronometreBlanc = new Chronometre();
-			
 			sidePanel = new JPanel(new GridLayout(3,1));
-			//JPanel chronoNoir = new JPanel();
-			//chronoNoir.add(chronometre);
-			JLabel chronoNoir = new JLabel ("chronometre Noir");
-	
+			JPanel chronoNoir = new JPanel();
+			chronometre=new Chronometre();
+			chronoNoir.add(chronometre.frame);
+
 			Joueur joueur1 = new Joueur(saisieJoueur1.getText());
 			Joueur joueur2 = new Joueur(saisieJoueur2.getText());
-			
-			JLabel message = new JLabel(joueur1+" joue les Blancs et " + joueur2 +" joue les Noirs");
-			//JPanel chronoBlanc = new JPanel();
-			//chronoBlanc.add(chronometreBlanc);
-			JLabel chronoBlanc = new JLabel ("chronometre Blanc");
+			String mess;
+			if (plateau.echec()) { mess = "Attention! Roi en echec!";}
+			else { mess = "";}
+			JLabel message = new JLabel(joueur1+" joue les Blancs et " + joueur2 +" joue les Noirs" +mess);
+
+			JPanel chronoBlanc = new JPanel();
+			chronometre=new Chronometre();
+			chronoBlanc.add(chronometre.frame);
+		
 			sidePanel.add(chronoNoir);
 			sidePanel.add(message);
 			sidePanel.add(chronoBlanc);

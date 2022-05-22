@@ -3,7 +3,7 @@ package echecFrPl;
 import java.awt.*;
 import java.awt.event.*;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class Plateau implements ActionListener {
 
@@ -69,6 +69,22 @@ public class Plateau implements ActionListener {
 	}
 	
 	public void bouger(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive) {
+
+		//cimitiere
+		if(grille[indLigneArrive][indColArrive].getCouleur() == "blanc") {
+			ImageIcon imgCim = new ImageIcon(grille[indLigneArrive][indColArrive].getTheImage());
+			JLabel imageC = new JLabel();
+			imageC.setIcon(imgCim);
+			interf.cimetiereNoir.add(imageC);}
+			interf.IntscoreNoir += grille[indLigneArrive][indColArrive].value;
+		if(grille[indLigneArrive][indColArrive].getCouleur() == "noir") {
+			ImageIcon imgCim = new ImageIcon(grille[indLigneArrive][indColArrive].getTheImage());
+			JLabel imageC = new JLabel();
+			imageC.setIcon(imgCim);
+			interf.cimetiereBlanc.add(imageC);}	
+			interf.IntscoreBlanc += grille[indLigneArrive][indColArrive].value;
+		
+		//bouger
 		grille[indLigneArrive][indColArrive] = grille[indLigneDepart][indColDepart];
 		interf.bouton[indLigneArrive][indColArrive].setIcon(grille[indLigneArrive][indColArrive].getTheImage());
 
