@@ -67,7 +67,9 @@ public class Plateau implements ActionListener {
 		grille[7][6] = new Cavalier("blanc",31);
 		grille[7][7] = new Tour("blanc",32);
 	}
-	
+	JPanel cimetiereNoir = new JPanel(new GridLayout(2,8));
+	JPanel cimetiereBlanc = new JPanel(new GridLayout(2,8));
+
 	public void bouger(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive) {
 
 		//cimitiere
@@ -75,14 +77,16 @@ public class Plateau implements ActionListener {
 			ImageIcon imgCim = new ImageIcon(grille[indLigneArrive][indColArrive].getTheImage());
 			JLabel imageC = new JLabel();
 			imageC.setIcon(imgCim);
-			interf.cimetiereNoir.add(imageC);}
-			interf.IntscoreNoir += grille[indLigneArrive][indColArrive].value;
+			cimetiereNoir.add(imageC);				}
+			interf.IntscoreNoir += grille[indLigneArrive][indColArrive].value; //ajout du score
+			grille[indLigneArrive][indColArrive].estActif(false); //piece est considere comme mort
 		if(grille[indLigneArrive][indColArrive].getCouleur() == "noir") {
 			ImageIcon imgCim = new ImageIcon(grille[indLigneArrive][indColArrive].getTheImage());
 			JLabel imageC = new JLabel();
 			imageC.setIcon(imgCim);
-			interf.cimetiereBlanc.add(imageC);}	
-			interf.IntscoreBlanc += grille[indLigneArrive][indColArrive].value;
+			cimetiereBlanc.add(imageC);				}	
+			interf.IntscoreBlanc += grille[indLigneArrive][indColArrive].value;//ajout du score
+			grille[indLigneArrive][indColArrive].estActif(false); //piece est considere comme mort
 		
 		//bouger
 		grille[indLigneArrive][indColArrive] = grille[indLigneDepart][indColDepart];

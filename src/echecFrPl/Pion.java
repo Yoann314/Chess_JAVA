@@ -10,7 +10,7 @@ public class Pion extends Piece {
 	
 	public boolean deplacementValide() { // nouvelles coordonnees 
 		if (!cheminOk()) return false;
-		if (indLigneArrive < 8 && indColArrive < 8 && Plateau.grille[indLigneArrive][indColArrive] == Plateau.vide) {
+		if (Plateau.grille[indLigneArrive][indColArrive] == Plateau.vide) {
 			if (Plateau.grille[indLigneDepart][indColDepart].couleur == "noir") {
 				if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart) return true;
 				if(indLigneDepart == 1 && indLigneArrive == 3 && indColArrive == indColDepart) return true;
@@ -19,7 +19,7 @@ public class Pion extends Piece {
 			if (Plateau.grille[indLigneDepart][indColDepart].couleur == "blanc") {
 				if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart) return true;
 				if(indLigneDepart == 6 && indLigneArrive == 4 && indColArrive == indColDepart) return true;
-			}
+			} }
 
 			// diagonales (pour manger)
 			if(Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide){
@@ -35,7 +35,7 @@ public class Pion extends Piece {
 		
 
 			if (indLigneDepart == indLigneArrive) return false; // le piece n'a pas bouge
-		}
+		
 		return false;
 	}
 

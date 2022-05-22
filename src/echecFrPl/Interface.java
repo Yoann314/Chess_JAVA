@@ -6,7 +6,7 @@ import javax.swing.*;
 public class Interface {
 
 	public JFrame fenetre, fenetreSTART;
-	public JPanel panneau, scoreStart, scoreEnd, contScoreNoir, contScoreBlanc, cimetiereNoir, cimetiereBlanc, interfaceComplete, sidePanel; // cont pour contenant
+	public JPanel panneau, scoreStart, scoreEnd, contScoreNoir, contScoreBlanc , interfaceComplete, sidePanel; // cont pour contenant
 	public JLabel scoreNoir, scoreBlanc;
 	public MonBouton[][] bouton;
 	public JButton boutonJouer;
@@ -106,23 +106,23 @@ public class Interface {
 		//imageC.setIcon(imgCim);
 
 		contScoreNoir = new JPanel(new GridLayout(2,1));
-		cimetiereNoir = new JPanel(new GridLayout(2,8));
+		//cimetiereNoir = new JPanel(new GridLayout(2,8));
 		//for (int i=0; i<16; i++ ){
 		//	cimetiereNoir.add(imageC);}
 		
 
 		contScoreBlanc = new JPanel(new GridLayout(2,1));
-		cimetiereBlanc = new JPanel(new GridLayout(2,8));
+		//cimetiereBlanc = new JPanel(new GridLayout(2,8));
 		//for (int i=0; i<16; i++ ){
 		//	cimetiereBlanc.add(imageC);}
 
 		scoreNoir = new JLabel("Score des Noirs : " +IntscoreNoir, JLabel.LEFT);
 		scoreBlanc = new JLabel("Score des Blancs : "+IntscoreBlanc, JLabel.LEFT);
 
-		contScoreNoir.add(cimetiereNoir);
+		contScoreNoir.add(plateau.cimetiereNoir);
 		contScoreNoir.add(scoreNoir);
 
-		contScoreBlanc.add(cimetiereBlanc);
+		contScoreBlanc.add(plateau.cimetiereBlanc);
 		contScoreBlanc.add(scoreBlanc);
 
 		scoreStart.add(contScoreNoir);

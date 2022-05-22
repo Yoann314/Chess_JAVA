@@ -14,6 +14,7 @@ public abstract class Piece {
     protected int value;
     boolean estActif;
     public abstract boolean deplacementValide();
+	public abstract boolean cheminOk();
 	Image img;
 	int k; // image de chauque Pieces
 
@@ -87,7 +88,7 @@ public abstract class Piece {
     public void getValue(int valeurPiece) {
         this.value = valeurPiece;
     }
-    
+    */
     public boolean getestActif() { 
     	return this.estActif; 
     }
@@ -96,5 +97,5 @@ public abstract class Piece {
 		if(actif!=false) this.estActif=false;
 		if(actif==true) this.estActif=true;
 	}
-	*/
+	
 }
