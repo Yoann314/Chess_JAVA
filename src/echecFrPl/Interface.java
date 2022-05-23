@@ -56,48 +56,32 @@ public class Interface {
 		fenetreSTART = new JFrame("Echec");
 		fenetreSTART.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		
-		ImageIcon img = new ImageIcon("echec.png");
-		Image image = img.getImage().getScaledInstance(100, -1,Image.SCALE_DEFAULT);
+		ImageIcon img = new ImageIcon("src/imagesOld/echec.png");
+		Image image = img.getImage().getScaledInstance(50, 50,Image.SCALE_DEFAULT);
 		JLabel labelImage = new JLabel(new ImageIcon(image));
 		
-					// Joueurs
-		JLabel labelJoueur1 = new JLabel("Joueur 1 : ");
-		JTextField saisieJoueur1 = new JTextField(20); 
-		
-		JPanel panneauJoueur1 = new JPanel((new FlowLayout(FlowLayout.LEFT))); //pour avoir deux lignes pour login et mds dans un conteneur
-		panneauJoueur1.add(labelJoueur1); // ajout de composants
-		panneauJoueur1.add(saisieJoueur1);
-		
-		JLabel labelJoueur2 = new JLabel("Joueur 2 : ");
-		JTextField saisieJoueur2 = new JTextField(20); 
-		
-		JPanel panneauJoueur2 = new JPanel((new FlowLayout(FlowLayout.LEFT))); //pour avoir deux lignes pour login et mds dans un conteneur
-		panneauJoueur2.add(labelJoueur2); // ajout de composants
-		panneauJoueur2.add(saisieJoueur2);
+		JLabel message = new JLabel(" Aux armes! Les Blancs commencent ");
+		JLabel retourALaLigne = new JLabel("                                  ");
+
 		
 		JPanel panneauCentral = new JPanel(new GridLayout(2,1));
-		panneauCentral.add(panneauJoueur1);
-		panneauCentral.add(panneauJoueur2);
+		panneauCentral.add(message);
+		panneauCentral.add(retourALaLigne);
 		
-					//BOUTON
-		boutonJouer = new JButton("Jouer");
-		boutonJouer.addActionListener(plateau);
-		JPanel panelBouton = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		panelBouton.add(boutonJouer);
 		
 		fenetreSTART.setLayout(new BorderLayout());
 		fenetreSTART.add(labelImage, BorderLayout.PAGE_START);
 		fenetreSTART.add(panneauCentral, BorderLayout.CENTER);
-		fenetreSTART.add(panelBouton, BorderLayout.PAGE_END);
 		fenetreSTART.setLocation(200, 150);
 		fenetreSTART.pack(); // pour une dimension optimale de la fenetre
 		fenetreSTART.setVisible(true);
 	
 
+
 		// Score + Cimetière
 		cimetiereNoir = new JPanel(new GridLayout(2,8));
 		cimetiereBlanc = new JPanel(new GridLayout(2,8));
+
 		scoreStart = new JPanel();
 		scoreEnd = new JPanel();
 
@@ -129,20 +113,15 @@ public class Interface {
 		
 		scoreStart.add(contScoreNoir);
 		scoreEnd.add(contScoreBlanc);
-		
+	    
 		// chronometre + messages
 		
 			sidePanel = new JPanel(new GridLayout(3,1));
 			chronometre=new Chronometre();
 			//JPanel chronoNoir = chronometre.getViewTime();
 
-			Joueur joueur1 = new Joueur(saisieJoueur1.getText());
-			Joueur joueur2 = new Joueur(saisieJoueur2.getText());
-			String mess;
-			if (plateau.echec()) { mess = "Attention! Roi en echec!";}
-			else { mess = "";}
-			JLabel messageNoir = new JLabel(joueur2 +" joue les Noirs " +mess);
-			JLabel messageBlanc = new JLabel(joueur1 +" joue les Blancs " +mess);
+			JLabel messageNoir = new JLabel("_______________________________________");
+			JLabel messageBlanc = new JLabel("_______________________________________");
 			
 			chronometre=new Chronometre();
 			JPanel chrono = chronometre.getViewTime();
@@ -237,20 +216,23 @@ public class Interface {
 	}
 	
 	public void ajoutCimtiereNoir(int i, int j) {
-		System.out.println("one est dans cimitiere noir");
-		ImageIcon imgCim = new ImageIcon("src/images/12.png");
-		JLabel imageC = new JLabel(imgCim);		
+		System.out.println("on est dans cimitiere noir avec le piece " +plateau.k);
+		ImageIcon imgCim = new ImageIcon("src/images/"+ plateau.k+".png");
+		Image imageN = imgCim.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
+		JLabel imageC = new JLabel(new ImageIcon(imageN));		
 		cimetiereNoir.add(imageC);
-		intscoreNoir += Plateau.grille[i][j].getValue(); 
+		System.out.println("value de piece mange "+plateau.val);
+		intscoreNoir += plateau.val; 
 	}
 
 	public void ajoutCimtiereBlanc(int i, int j) {
-		System.out.println("one est dans cimitiere blanc");
-		ImageIcon imgCim = new ImageIcon("src/images/7.png");
-		System.out.println("getK de piece mange"+Plateau.grille[i][j].getK());
-		//ImageIcon imgCim = new ImageIcon(Plateau.grille[i][j].getTheImage());
-		JLabel imageC = new JLabel(imgCim);		
+		System.out.println("one est dans cimitiere blanc avec le piece " +plateau.k);
+		ImageIcon imgCim = new ImageIcon("src/images/"+ plateau.k+".png");
+		Image imageB = imgCim.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
+		JLabel imageC = new JLabel(new ImageIcon(imageB));		
 		cimetiereBlanc.add(imageC);
-		intscoreBlanc += Plateau.grille[i][j].getValue(); 
+		System.out.println("value de piece mange "+plateau.val);
+		cimetiereBlanc.add(imageC);
+		intscoreBlanc += plateau.val; 
 	}
 }
