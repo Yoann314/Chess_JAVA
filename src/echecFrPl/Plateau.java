@@ -8,12 +8,10 @@ public class Plateau implements ActionListener {
 
 	public static Piece[][] grille = null; // variable static car commun a tous les objets
 	public static Vide vide = new Vide(); // variable static car commun a tous les objets, c'est toujours la meme
+	public int indiceLiDepAC, indiceColDepAC , indiceLiArrAC, indiceColArrAC, indiceLRoi, indiceCRoi, iMemoireEchec, jMemoireEchec, entreEchecEtMat = 0, turn = 0, iModR, jModR;
+	Piece[][] grilleMemoire = new Piece[1][1];
 	Interface interf;
-	String blanc, noir;
-	public int indiceLiDepAC, indiceColDepAC , indiceLiArrAC, indiceColArrAC;
-	public int turn = 0;
-	public boolean onBouge = false;
-	private Chronometre chrono = new Chronometre();
+	String blanc, noir, couleurViensBouger;
 	Color colorArchive;	
 	String col;
 	int cimI, cimJ;
@@ -70,8 +68,6 @@ public class Plateau implements ActionListener {
 		grille[7][6] = new Cavalier("blanc",31);
 		grille[7][7] = new Tour("blanc",32);
 	}
-	//JPanel cimetiereNoir = new JPanel(new GridLayout(2,8));
-	//JPanel cimetiereBlanc = new JPanel(new GridLayout(2,8));
 
 	public void bouger(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive) {
 		System.out.println("§§§§§§§§§ " + col + " " +cimI + " : " +cimJ);
@@ -123,84 +119,285 @@ public class Plateau implements ActionListener {
 	}
 */
 
-	public boolean echec() {
-		int tindiceLiArrAC = indiceLiArrAC; // t pour temporaire
-		int tindiceColArrAC = indiceColArrAC;
+		public boolean echec(String couleurViensBouger) {
+		//System.out.println("1 " + grille[4][4].getCouleur());
 
-		String couleurViensBouger = grille[indiceLiDepAC][indiceColDepAC].getCouleur();
-		grille[indiceLiArrAC][indiceColArrAC] = grille[indiceLiDepAC][indiceColDepAC]; // simulation si la piece bouge
-		grille[indiceLiDepAC][indiceColDepAC] = vide;
+		int indiceRoi =  -1;
+		String couleurATester = " ";
 
-		if (couleurViensBouger == "blanc") { // cherche le roi de celui qui viens de bouger
-			for (int i = 0; i < 8; i++) {
+		if (couleurViensBouger == "blanc") {
+			indiceRoi = 29;
+			couleurATester = "noir";
+		}
+
+		if (couleurViensBouger == "noir") {
+			indiceRoi = 5;
+			couleurATester = "blanc";
+		}
+
+
+		if (entreEchecEtMat == 0) { // avant echecEtMat
+			grille[indiceLiArrAC][indiceColArrAC] = grille[indiceLiDepAC][indiceColDepAC]; // simulation si la piece bouge
+			grille[indiceLiDepAC][indiceColDepAC] = vide;
+		}
+
+			for (int i = 0; i < 8; i++) { // cherche le roi de celui qui viens de bouger
 				for (int j = 0; j < 8; j++) {
-					if (grille[i][j].getK() == 29) { // change les coordonnées d'arrivée avec les corrdonnées de ce roi
-						indiceLiArrAC = i;
-						indiceColArrAC = j;
+					if (grille[i][j].getK() == indiceRoi) { // change les coordonnées d'arrivée avec les corrdonnées du roi blanc
+						indiceLRoi = i;
+						indiceCRoi = j;
 					}
 				}
 			}
 
-			for (int i = 0; i < 8; i++) {
-				for (int j = 0; j < 8; j++) {
-					if (grille[i][j].getCouleur() == "noir" ) { // pour chaque pieces adverse
-						grille[i][j].setCoordonneesDepart(i, j); // change les coordonnées de deppart avec les corrdonnées de cette piece
-						grille[i][j].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (grille[i][j].getCouleur() == couleurATester ) { // pour chaque pieces adverse
+					grille[i][j].setCoordonneesDepart(i, j); // change les coordonnées de deppart avec les corrdonnées de cette piece
+					if (entreEchecEtMat == 0) 
+						grille[i][j].setCoordonneesArrive(indiceLRoi, indiceCRoi);
 
-						if (grille[i][j].deplacementValide()) {
-							indiceLiArrAC = tindiceLiArrAC; // reassigne les variables indices aux vrais indices
-							indiceColArrAC = tindiceColArrAC;
+					if (entreEchecEtMat == 1) 
+						grille[i][j].setCoordonneesArrive(iModR, jModR);
+
+					//System.out.println(grille[i][j] + " " + grille[i][j].deplacementValide());
+					if (grille[i][j].deplacementValide()) {
+						if (entreEchecEtMat == 0) {
 							grille[indiceLiDepAC][indiceColDepAC].setCoordonneesDepart(indiceLiDepAC, indiceColDepAC);
 							grille[indiceLiDepAC][indiceColDepAC].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);
-							grille[indiceLiDepAC][indiceColDepAC] = grille[tindiceLiArrAC][tindiceColArrAC]; // remide de la piece a ca place
-							grille[indiceLiArrAC][indiceColArrAC] = vide;
-							return true; // echec
-						}
-					}
-				}
-			}
-		}
-
-		if (couleurViensBouger == "noir") { // cherche le roi de celui qui viens de bouger
-			for (int i = 0; i < 8; i++) {
-				for (int j = 0; j < 8; j++) {
-					if (grille[i][j].getK() == 5) { // change les coordonnées d'arrivée avec les corrdonnées de ce roi
-						indiceLiArrAC = i;
-						indiceColArrAC = j;
-					}
-				}
-			}
-
-			for (int i = 0; i < 8; i++) {
-				for (int j = 0; j < 8; j++) {
-					if (grille[i][j].getCouleur() == "blanc" ) { // pour chaque pieces adverse
-						grille[i][j].setCoordonneesDepart(i, j); // changer les coordonnées de deppart avec les corrdonnées de cette piece
-						grille[i][j].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);
-
-						if (grille[i][j].deplacementValide()) {
-							indiceLiArrAC = tindiceLiArrAC; // réassigne les variables indices aux vrais indices
-							indiceColArrAC = tindiceColArrAC;
 							grille[indiceLiDepAC][indiceColDepAC] = grille[indiceLiArrAC][indiceColArrAC]; // remide de la piece a ca place
 							grille[indiceLiArrAC][indiceColArrAC] = vide;
-							grille[indiceLiDepAC][indiceColDepAC].setCoordonneesDepart(indiceLiDepAC, indiceColDepAC);
-							grille[indiceLiDepAC][indiceColDepAC].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);						
-
-							return true; // echec
+							JOptionPane.showMessageDialog(null, "Votre Roi est en echec par la piece au coordonées : " + (i+1) + " : " + (j+1), "Echec", JOptionPane.ERROR_MESSAGE);		
 						}
+						return true; // echec
 					}
 				}
 			}
 		}
-		indiceLiArrAC = tindiceLiArrAC; // reassigne les variables indices aux vrais indices
-		indiceColArrAC = tindiceColArrAC;
-		grille[indiceLiDepAC][indiceColDepAC].setCoordonneesDepart(indiceLiDepAC, indiceColDepAC);
-		grille[indiceLiDepAC][indiceColDepAC].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);						
-		grille[indiceLiDepAC][indiceColDepAC] = grille[indiceLiArrAC][indiceColArrAC]; // remide de la piece a ca place
-		grille[indiceLiArrAC][indiceColArrAC] = vide;
-		System.out.println("ECHEC************** " + grille[indiceLiArrAC][indiceColArrAC].getCouleur());
-		System.out.println("ECHEC getK************** " + grille[indiceLiArrAC][indiceColArrAC].getK());
+
+		if (entreEchecEtMat == 0) {
+			grille[indiceLiDepAC][indiceColDepAC].setCoordonneesDepart(indiceLiDepAC, indiceColDepAC);
+			grille[indiceLiDepAC][indiceColDepAC].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);	
+			grille[indiceLiDepAC][indiceColDepAC] = grille[indiceLiArrAC][indiceColArrAC]; // remise de la piece a ca place
+			grille[indiceLiArrAC][indiceColArrAC] = vide;
+		}					
+		
+		//System.out.println("3 " + grille[4][4].getCouleur());
+		//System.out.println("Couleur a tester pour manger le roi: " + couleurATester);
+		//System.out.println("Indice roi : " + indiceLRoi + " " + indiceCRoi);
+
 		return false;	
-	}	
+	}
+	
+	public boolean echecEtMat() {
+		int a = indiceLRoi, a1 = indiceLRoi+1, a11 = indiceLRoi-1, b = indiceCRoi, b1 = indiceCRoi+1, b11 = indiceCRoi-1;
+		
+		String couleurATesterMat = " ";
+
+		if (couleurViensBouger == "blanc")
+			couleurATesterMat = "noir";
+
+		if (couleurViensBouger == "noir")
+			couleurATesterMat = "blanc";
+
+		grille[indiceLiArrAC][indiceColArrAC] = grille[indiceLiDepAC][indiceColDepAC]; // simulation si la piece bouge
+		grille[indiceLiDepAC][indiceColDepAC] = vide;
+		if (echec(couleurATesterMat)) { // Si le roi adverse est en echec
+			System.out.println("le roi est en echec");
+			
+			// test si l'attant peut etre manger
+			for (int i = 0; i < 8; i++) { 
+				for (int j = 0; j < 8; j++) {
+					if (grille[i][j].getCouleur() == couleurATesterMat) { // Esce qu'1 noir peut manger l'attaquant
+						grille[i][j].setCoordonneesDepart(i, j);
+						grille[i][j].setCoordonneesArrive(iMemoireEchec, jMemoireEchec); // attaquant 
+						if (grille[i][j].deplacementValide()) {
+							grille[indiceLiDepAC][indiceColDepAC].setCoordonneesDepart(indiceLiDepAC, indiceColDepAC);
+							grille[indiceLiDepAC][indiceColDepAC].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);
+							System.out.println("attaquant peut etre manger");
+							return false; // l'attaquant peut etre manger
+						}
+					}
+				}
+			}
+			
+		
+			// tester si une piece de peut s'interposer entre l'attaquant et le roi de
+
+
+			// test si le roi peut etre bouger
+
+			//if (a >= 0 && a < 8 && a1 >= 0 && a1 < 8 && a11 >= 0 && a11 < 8 && b >= 0 && b < 8 && b1 >= 0 && b1 < 8 && b11 >= 0 && b11 < 8) { // rentre pas dedans pb...
+				// grille[a][b].setCoordonneesDepart(a, b); 
+				grille[a][b].setCoordonneesArrive(a1, b); // test roi i+1 j+0   1/8
+				if (grille[a][b].deplacementValide()) {
+					grilleMemoire[1][1] = grille[a1][b]; // au cas ou il y ai une piece adverse
+					grille[a1][b] = grille[a][b]; 
+					grille[a][b] = vide;
+
+					if (!echec(couleurATesterMat)) { // si le roi n'est pas en echec
+						grille[a][b] = grille[a1][b]; // remise en place des Pieces
+						grille[a1][b] = grilleMemoire[1][1]; 
+						System.out.println("le roi peut fuire 1");
+						return false;
+					}
+
+					else { // remise en place des Pieces
+						grille[a][b] = grille[a1][b]; // remise en place des Pieces
+						grille[a1][b] = grilleMemoire[1][1]; 
+					}
+				}
+
+				//grille[a][b].setCoordonneesDepart(a, b); 
+				grille[a][b].setCoordonneesArrive(a1, b1); // test roi i+1 j+1   2/8
+				if (grille[a][b].deplacementValide()) {
+					grilleMemoire[1][1] = grille[a1][b1]; // au cas ou il y ai une piece adverse
+					grille[a1][b1] = grille[a][b]; 
+					grille[a][b] = vide;
+
+					if (!echec(couleurATesterMat)) { // si le roi n'est pas en echec
+						grille[a][b] = grille[a1][b1]; // remise en place des Pieces
+						grille[a1][b1] = grilleMemoire[1][1]; 
+						System.out.println("le roi peut fuire 2");
+						return false;
+					}
+
+					else { 
+						grille[a][b] = grille[a1][b1]; // remise en place des Pieces
+						grille[a1][b1] = grilleMemoire[1][1]; 
+					}
+				}
+
+				//grille[a][b].setCoordonneesDepart(a, b); 
+				grille[a][b].setCoordonneesArrive(a, b1); // test roi i+0 j+1   3/8
+				if (grille[a][b].deplacementValide()) {
+					grilleMemoire[1][1] = grille[a][b1]; // au cas ou il y ai une piece adverse
+					grille[a][b1] = grille[a][b]; 
+					grille[a][b] = vide;
+
+					if (!echec(couleurATesterMat)) { // si le roi n'est pas en echec
+						grille[a][b] = grille[a][b1]; // remise en place des Pieces
+						grille[a][b1] = grilleMemoire[1][1]; 
+						System.out.println("le roi peut fuire 3");
+						return false;
+					}
+
+					else { 
+						grille[a][b] = grille[a][b1]; // remise en place des Pieces
+						grille[a][b1] = grilleMemoire[1][1];
+					}
+				} 
+
+				//grille[a][b].setCoordonneesDepart(a, b); 
+				grille[a][b].setCoordonneesArrive(a11, b1); // test roi i-1 j+1   4/8
+				if (grille[a][b].deplacementValide()) {
+					grilleMemoire[1][1] = grille[a11][b1]; // au cas ou il y ai une piece adverse
+					grille[a11][b1] = grille[a][b]; 
+					grille[a][b] = vide;
+
+					if (!echec(couleurATesterMat)) { // si le roi n'est pas en echec
+						grille[a][b] = grille[a11][b1]; // remise en place des Pieces
+						grille[a11][b1] = grilleMemoire[1][1];
+						System.out.println("le roi peut fuire 4"); 
+						return false;
+					}
+
+					else {
+						grille[a][b] = grille[a11][b1]; // remise en place des Pieces
+						grille[a11][b1] = grilleMemoire[1][1];
+					}
+				}
+
+				//grille[a][b].setCoordonneesDepart(a, b); 
+				grille[a][b].setCoordonneesArrive(a11, b); // test roi i-1 j+0   5/8
+				if (grille[a][b].deplacementValide()) {
+					grilleMemoire[1][1] = grille[a11][b]; // au cas ou il y ai une piece adverse
+					grille[a11][b] = grille[a][b]; 
+					grille[a][b] = vide;
+
+					if (!echec(couleurATesterMat)) { // si le roi n'est pas en echec
+						grille[a][b] = grille[a11][b]; // remise en place des Pieces
+						grille[a11][b] = grilleMemoire[1][1]; 
+						System.out.println("le roi peut fuire 5");
+						return false;
+					}
+
+					else { 
+						grille[a][b] = grille[a11][b]; // remise en place des Pieces
+						grille[a11][b] = grilleMemoire[1][1];
+					}
+				}
+
+				//grille[a][b].setCoordonneesDepart(a, b); 
+				grille[a][b].setCoordonneesArrive(a11, b11); // test roi i-1 j-1   6/8
+				if (grille[a][b].deplacementValide()) {
+					grilleMemoire[1][1] = grille[a11][b11]; // au cas ou il y ai une piece adverse
+					grille[a11][b11] = grille[a][b]; 
+					grille[a][b] = vide;
+
+					if (!echec(couleurATesterMat)) { // si le roi n'est pas en echec
+						grille[a][b] = grille[a11][b11]; // remise en place des Pieces
+						grille[a11][b11] = grilleMemoire[1][1]; 
+						System.out.println("le roi peut fuire 6");
+						return false;
+					}
+
+					else { 
+						grille[a][b] = grille[a11][b11]; // remise en place des Pieces
+						grille[a11][b11] = grilleMemoire[1][1];
+					}
+				}
+
+				//grille[a][b].setCoordonneesDepart(a, b); 
+				grille[a][b].setCoordonneesArrive(a, b11); // test roi i+0 j-1   7/8
+				if (grille[a][b].deplacementValide()) {
+					grilleMemoire[1][1] = grille[a][b11]; // au cas ou il y ai une piece adverse
+					grille[a][b11] = grille[a][b]; 
+					grille[a][b] = vide;
+
+					if (!echec(couleurATesterMat)) { // si le roi n'est pas en echec
+						grille[a][b] = grille[a][b11]; // remise en place des Pieces
+						grille[a][b11] = grilleMemoire[1][1]; 
+						System.out.println("le roi peut fuire 7");
+						return false;
+					}
+
+					else { 
+						grille[a][b] = grille[a][b11]; // remise en place des Pieces
+						grille[a][b11] = grilleMemoire[1][1];
+					}
+				}
+
+				System.out.println("coucou");
+
+				grille[a][b].setCoordonneesDepart(a, b); 
+				grille[a][b].setCoordonneesArrive(a1, b11); // test roi i+1 j-1   8/8
+				iModR = a1;
+				jModR = b11;
+				if (grille[a][b].deplacementValide()) {
+					grilleMemoire[1][1] = grille[a1][b11]; // au cas ou il y ai une piece adverse
+					grille[a1][b11] = grille[a][b]; 
+					grille[a][b] = vide;
+
+					if (!echec(couleurATesterMat)) { // si le roi n'est pas en echec
+						grille[a][b] = grille[a1][b11]; // remise en place des Pieces
+						grille[a1][b11] = grilleMemoire[1][1]; 
+						System.out.println("le roi peut fuire 8");
+						return false;
+					}
+
+					else { 
+						grille[a][b] = grille[a1][b11]; 
+						grille[a1][b11] = grilleMemoire[1][1];
+					}
+				}
+			//}
+			return true;
+		}	
+		
+		return false;	
+	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
@@ -239,10 +436,16 @@ public class Plateau implements ActionListener {
 			cimI = indiceLiArrAC;
 			cimJ = indiceColArrAC;
 			System.out.println("................. " + col);
-
-			if (grille[indiceLiDepAC][indiceColDepAC].deplacementValide() && echec() == false) { // indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC, "blanc"
-			System.out.println("%%%%%%%%%% " + indiceLiArrAC);
+			
+			couleurViensBouger = grille[indiceLiDepAC][indiceColDepAC].getCouleur();
+			if (grille[indiceLiDepAC][indiceColDepAC].deplacementValide() && !echec(couleurViensBouger)) { // indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC, "blanc"
 				bouger(indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC);
+				entreEchecEtMat = 1;
+				if (echecEtMat())
+					JOptionPane.showMessageDialog(null, "Les " + couleurViensBouger + " gagne !!!!!", "Echec et mat", JOptionPane.ERROR_MESSAGE);		
+				
+				entreEchecEtMat = 0;
+				indiceLiDepAC = -1;
 
 				onBouge = true;
 				chrono.stopN();
