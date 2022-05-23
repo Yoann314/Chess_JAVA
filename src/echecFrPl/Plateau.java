@@ -2,7 +2,6 @@ package echecFrPl;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 
 public class Plateau implements ActionListener {
@@ -13,7 +12,11 @@ public class Plateau implements ActionListener {
 	String blanc, noir;
 	public int indiceLiDepAC, indiceColDepAC , indiceLiArrAC, indiceColArrAC;
 	public int turn = 0;
+	public boolean onBouge = false;
+	private Chronometre chrono = new Chronometre();
 	Color colorArchive;	
+	String col;
+	int cimI, cimJ;
 
 	public Plateau() {
 		grille = new Piece[8][8]; // on indique les dimensions de la grille;
@@ -67,27 +70,23 @@ public class Plateau implements ActionListener {
 		grille[7][6] = new Cavalier("blanc",31);
 		grille[7][7] = new Tour("blanc",32);
 	}
-	JPanel cimetiereNoir = new JPanel(new GridLayout(2,8));
-	JPanel cimetiereBlanc = new JPanel(new GridLayout(2,8));
+	//JPanel cimetiereNoir = new JPanel(new GridLayout(2,8));
+	//JPanel cimetiereBlanc = new JPanel(new GridLayout(2,8));
 
 	public void bouger(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive) {
-
+		System.out.println("§§§§§§§§§ " + col + " " +cimI + " : " +cimJ);
 		//cimitiere
-		if(grille[indLigneArrive][indColArrive].getCouleur() == "blanc") {
-			ImageIcon imgCim = new ImageIcon(grille[indLigneArrive][indColArrive].getTheImage());
-			JLabel imageC = new JLabel();
-			imageC.setIcon(imgCim);
-			cimetiereNoir.add(imageC);				}
-			interf.IntscoreNoir += grille[indLigneArrive][indColArrive].value; //ajout du score
-			grille[indLigneArrive][indColArrive].estActif(false); //piece est considere comme mort
-		if(grille[indLigneArrive][indColArrive].getCouleur() == "noir") {
-			ImageIcon imgCim = new ImageIcon(grille[indLigneArrive][indColArrive].getTheImage());
-			JLabel imageC = new JLabel();
-			imageC.setIcon(imgCim);
-			cimetiereBlanc.add(imageC);				}	
-			interf.IntscoreBlanc += grille[indLigneArrive][indColArrive].value;//ajout du score
-			grille[indLigneArrive][indColArrive].estActif(false); //piece est considere comme mort
-		
+		if(col == "blanc") {
+			interf.ajoutCimtiereNoir(cimI, cimJ);
+			System.out.println(grille[cimI][cimJ].getValue() +" va au cimitiereNoir");
+		}
+							
+		if(col == "noir") {
+			interf.ajoutCimtiereBlanc(cimI, cimJ);
+			System.out.println(grille[cimI][cimJ].getValue() +" va au cimitiereBlanc");
+		}
+			
+							
 		//bouger
 		grille[indLigneArrive][indColArrive] = grille[indLigneDepart][indColDepart];
 		interf.bouton[indLigneArrive][indColArrive].setIcon(grille[indLigneArrive][indColArrive].getTheImage());
@@ -99,6 +98,7 @@ public class Plateau implements ActionListener {
 		// active les cases pour le joueur suivant
 		if (grille[indLigneArrive][indColArrive].getCouleur() == "blanc")
 			interf.activeCasesNoir();
+
 		if (grille[indLigneArrive][indColArrive].getCouleur() == "noir") 
 			interf.activeCasesBlanc();
 
@@ -197,11 +197,14 @@ public class Plateau implements ActionListener {
 		grille[indiceLiDepAC][indiceColDepAC].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);						
 		grille[indiceLiDepAC][indiceColDepAC] = grille[indiceLiArrAC][indiceColArrAC]; // remide de la piece a ca place
 		grille[indiceLiArrAC][indiceColArrAC] = vide;
+		System.out.println("ECHEC************** " + grille[indiceLiArrAC][indiceColArrAC].getCouleur());
+		System.out.println("ECHEC getK************** " + grille[indiceLiArrAC][indiceColArrAC].getK());
 		return false;	
-	}
+	}	
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
+		onBouge=false;
 		String a = ae.getActionCommand();
 		String[] coordonnéesListener = a.split("-");
 		indiceLiArrAC = Integer.parseInt(coordonnéesListener[0]);
@@ -229,13 +232,45 @@ public class Plateau implements ActionListener {
 
 			System.out.println("################################"); // à supprimer pour la fin
 			System.out.println(grille[indiceLiDepAC][indiceColDepAC]); // à supprimer pour la fin
-
-
+			//System.out.println("@@@@@@@@@@ " + grille[indiceLiArrAC][indiceColArrAC].getCouleur());
+			System.out.println("%%%%%%%%%% " + indiceLiArrAC);
+			System.out.println("DEBUT getK************** " + grille[indiceLiArrAC][indiceColArrAC].getK());
+			col = grille[indiceLiArrAC][indiceColArrAC].getCouleur();
+			cimI = indiceLiArrAC;
+			cimJ = indiceColArrAC;
+			System.out.println("................. " + col);
 
 			if (grille[indiceLiDepAC][indiceColDepAC].deplacementValide() && echec() == false) { // indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC, "blanc"
+			System.out.println("%%%%%%%%%% " + indiceLiArrAC);
 				bouger(indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC);
+
+				onBouge = true;
+				chrono.stopN();
+				chrono.startB();
+			if (chrono.startedB==false && chrono.startedN==true) {
+				chrono.startedB=true;
+				chrono.startedN=false;
+				chrono.startB();
+				chrono.stopN();
+			}
+			if (chrono.startedB==false && chrono.startedN==false) {
+				chrono.startedB=true;
+				chrono.startB();
+			}
+			chrono.stopB();
+			chrono.startN();
+			if (chrono.startedN==false && chrono.startedB==true) {
+				chrono.startedN=true;
+				chrono.startedB=false;
+				chrono.startN();
+				chrono.stopB();
+			}
+			if (chrono.startedN==false && chrono.startedB==false) {
+				chrono.startedN=true;
+				chrono.startN();
 			}
 
+			}
 
 			else {
 				interf.bouton[indiceLiDepAC][indiceColDepAC].setBackground(colorArchive);

@@ -33,16 +33,16 @@ public class Pion extends Piece {
 					}
 			}
 		
-
 			if (indLigneDepart == indLigneArrive) return false; // le piece n'a pas bouge
-		
+		//	System.out.println("DepValPion getK************** " + this.getK());
+
 		return false;
 	}
 
 	public boolean cheminOk() {
 		if (Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur && Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide) return false;
 
-		if (indLigneDepart > indLigneArrive) { //blancs
+		if (Plateau.grille[indLigneDepart][indColDepart].couleur == "blanc") { 
 			if(Plateau.grille[indLigneDepart-1][indColDepart] != Plateau.vide) return false;
 			if(Plateau.grille[indLigneDepart-2][indColDepart] != Plateau.vide) return false;
 			//diagonales
@@ -50,7 +50,7 @@ public class Pion extends Piece {
 				//if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart -1) return true;
 		}
 
-		if (indLigneDepart < indLigneArrive) { //noirs
+		if (indLigneDepart < indLigneArrive) { 
 			if(Plateau.grille[indLigneDepart+1][indColDepart] != Plateau.vide) return false;
 			if(Plateau.grille[indLigneDepart+2][indColDepart] != Plateau.vide) return false;
 			//diagonales

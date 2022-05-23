@@ -69,6 +69,10 @@ public abstract class Piece {
 		this.indColArrive=indColArrive;
 	}
 
+	public int getValue() {
+        return value;
+    }
+
 	/*
 	public int getLigneDepart() { 
 		return this.indLigneDepart; 
@@ -85,9 +89,6 @@ public abstract class Piece {
 		return this.indColArrive; 
 	}
 
-    public void getValue(int valeurPiece) {
-        this.value = valeurPiece;
-    }
     */
     public boolean getestActif() { 
     	return this.estActif; 

@@ -4,7 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Chronometre implements ActionListener{
-	
+	Plateau plateau;
 	JPanel frame = new JPanel();
 	JButton startButtonB = new JButton("START BLANCS");
 	JButton startButtonN = new JButton("START NOIRS");
@@ -93,6 +93,31 @@ public class Chronometre implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		/*if (plateau.onBouge) {
+			System.out.println("chrono marche");
+			startB();
+			if (startedN==false && startedB==true) {
+				startedN=true;
+				startedB=false;
+				startN();
+				stopB();
+			}
+			if (startedN==false && startedB==false) {
+				startedN=true;
+				startN();
+			}
+			if (startedB==false && startedN==true) {
+				startedB=true;
+				startedN=false;
+				startB();
+				stopN();
+			}
+			if (startedB==false && startedN==false) {
+				startedB=true;
+				startB();
+			}
+			
+		}*/
 		
 		if (e.getSource()==startButtonN) {
 			stopB();
