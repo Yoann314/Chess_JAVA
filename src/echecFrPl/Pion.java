@@ -19,17 +19,18 @@ public class Pion extends Piece {
 			if (Plateau.grille[indLigneDepart][indColDepart].couleur == "blanc") {
 				if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart) return true;
 				if(indLigneDepart == 6 && indLigneArrive == 4 && indColArrive == indColDepart) return true;
-			} }
+			} 
+		}
 
 			// diagonales (pour manger)
-			if(Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide){
-				if (Plateau.grille[indLigneDepart][indColDepart].couleur == "blanc") {
-					if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart +1) return true;
-					if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart -1) return true;
-					}
-				if (Plateau.grille[indLigneDepart][indColDepart].couleur == "noir") {
-					if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart +1) return true;
-					if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart -1) return true;
+		if(Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide){
+			if (Plateau.grille[indLigneDepart][indColDepart].couleur == "blanc") {
+				if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart +1) return true;
+				if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart -1) return true;
+				}
+			if (Plateau.grille[indLigneDepart][indColDepart].couleur == "noir") {
+				if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart +1) return true;
+				if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart -1) return true;
 					}
 			}
 		
@@ -40,22 +41,22 @@ public class Pion extends Piece {
 	}
 
 	public boolean cheminOk() {
-		if (Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur && Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide) return false;
+		if (Plateau.grille[indLigneArrive][indColArrive].couleur == Plateau.grille[indLigneDepart][indColDepart].couleur) return false;
 
 		if (Plateau.grille[indLigneDepart][indColDepart].couleur == "blanc") { 
 			if(Plateau.grille[indLigneDepart-1][indColDepart] != Plateau.vide) return false;
 			if(Plateau.grille[indLigneDepart-2][indColDepart] != Plateau.vide) return false;
 			//diagonales
-				//if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart +1) return true;
-				//if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart -1) return true;
+				if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart +1) return true;
+				if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart -1) return true;
 		}
 
 		if (indLigneDepart < indLigneArrive) { 
 			if(Plateau.grille[indLigneDepart+1][indColDepart] != Plateau.vide) return false;
 			if(Plateau.grille[indLigneDepart+2][indColDepart] != Plateau.vide) return false;
 			//diagonales
-				//if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart +1) return true;
-				//if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart -1) return true;
+				if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart +1) return true;
+				if(indLigneArrive == indLigneDepart +1 && indColArrive == indColDepart -1) return true;
 		}
 		return true;
 	}
