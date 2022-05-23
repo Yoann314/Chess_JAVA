@@ -12,7 +12,4 @@ public class Joueur {
 	public Joueur(String pseudo) {
 		this.pseudo = pseudo;
 	}
-
-	public static void main(String[] args) {
-	}
 }
