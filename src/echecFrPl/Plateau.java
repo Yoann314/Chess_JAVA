@@ -17,6 +17,7 @@ public class Plateau implements ActionListener {
 	int cimI, cimJ, k, val;
 	boolean startedB = false;
 	boolean startedN = false;
+	public int intscoreBlanc, intscoreNoir = 0;
 
 	public Plateau() {
 		grille = new Piece[8][8]; // on indique les dimensions de la grille;
@@ -76,10 +77,12 @@ public class Plateau implements ActionListener {
 		//cimitiere
 		if(col == "blanc") {
 			interf.ajoutCimtiereNoir(cimI, cimJ);
+			intscoreNoir += val; 
 		}
 							
 		if(col == "noir") {
 			interf.ajoutCimtiereBlanc(cimI, cimJ);
+			intscoreBlanc += val; 
 		}
 			
 							
@@ -427,7 +430,6 @@ public class Plateau implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		onBouge=false;
 		String a = ae.getActionCommand();
 		String[] coordonnéesListener = a.split("-");
 		indiceLiArrAC = Integer.parseInt(coordonnéesListener[0]);
