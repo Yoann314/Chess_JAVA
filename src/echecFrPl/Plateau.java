@@ -11,10 +11,12 @@ public class Plateau implements ActionListener {
 	public int indiceLiDepAC, indiceColDepAC , indiceLiArrAC, indiceColArrAC, indiceLRoi, indiceCRoi, iMemoireEchec, jMemoireEchec, entreEchecEtMat = 0, turn = 0, iModR, jModR;
 	Piece[][] grilleMemoire = new Piece[1][1];
 	Interface interf;
-	String blanc, noir, couleurViensBouger;
+	String blanc, noir, couleurViensBouger, col;
+	private Chronometre chrono = new Chronometre();
 	Color colorArchive;	
-	String col;
-	int cimI, cimJ;
+	int cimI, cimJ, k, val;
+	boolean startedB = false;
+	boolean startedN = false;
 
 	public Plateau() {
 		grille = new Piece[8][8]; // on indique les dimensions de la grille;
@@ -74,12 +76,10 @@ public class Plateau implements ActionListener {
 		//cimitiere
 		if(col == "blanc") {
 			interf.ajoutCimtiereNoir(cimI, cimJ);
-			System.out.println(grille[cimI][cimJ].getValue() +" va au cimitiereNoir");
 		}
 							
 		if(col == "noir") {
 			interf.ajoutCimtiereBlanc(cimI, cimJ);
-			System.out.println(grille[cimI][cimJ].getValue() +" va au cimitiereBlanc");
 		}
 			
 							
@@ -100,6 +100,32 @@ public class Plateau implements ActionListener {
 
 		indiceLiDepAC = -1;
 		turn++;
+	
+		//chrono 
+			if(startedN==true) chrono.timerN.stop();
+				chrono.timerB.start();
+			if (startedB==false && startedN==true) {
+				startedB=true;
+				startedN=false;
+				chrono.timerB.start();
+				chrono.timerN.stop();
+			}
+			if (startedB==false && startedN==false) {
+				startedB=true;
+				chrono.timerB.start();
+			}
+			chrono.timerB.stop();
+			chrono.timerN.start();
+			if (startedN==false && startedB==true) {
+				startedN=true;
+				startedB=false;
+				chrono.timerN.start();
+				chrono.timerB.stop();
+			}
+			if (startedN==false && startedB==false) {
+				chrono.startedN=true;
+				chrono.timerN.start();
+			}
 	}
 	
 	public boolean verifierGagnant() {
@@ -431,6 +457,8 @@ public class Plateau implements ActionListener {
 			System.out.println(grille[indiceLiDepAC][indiceColDepAC]); // à supprimer pour la fin
 			//System.out.println("@@@@@@@@@@ " + grille[indiceLiArrAC][indiceColArrAC].getCouleur());
 			System.out.println("%%%%%%%%%% " + indiceLiArrAC);
+			k = grille[indiceLiArrAC][indiceColArrAC].getK();
+			val = grille[indiceLiArrAC][indiceColArrAC].getValue();
 			System.out.println("DEBUT getK************** " + grille[indiceLiArrAC][indiceColArrAC].getK());
 			col = grille[indiceLiArrAC][indiceColArrAC].getCouleur();
 			cimI = indiceLiArrAC;
@@ -446,32 +474,6 @@ public class Plateau implements ActionListener {
 				
 				entreEchecEtMat = 0;
 				indiceLiDepAC = -1;
-
-				onBouge = true;
-				chrono.stopN();
-				chrono.startB();
-			if (chrono.startedB==false && chrono.startedN==true) {
-				chrono.startedB=true;
-				chrono.startedN=false;
-				chrono.startB();
-				chrono.stopN();
-			}
-			if (chrono.startedB==false && chrono.startedN==false) {
-				chrono.startedB=true;
-				chrono.startB();
-			}
-			chrono.stopB();
-			chrono.startN();
-			if (chrono.startedN==false && chrono.startedB==true) {
-				chrono.startedN=true;
-				chrono.startedB=false;
-				chrono.startN();
-				chrono.stopB();
-			}
-			if (chrono.startedN==false && chrono.startedB==false) {
-				chrono.startedN=true;
-				chrono.startN();
-			}
 
 			}
 
