@@ -17,7 +17,7 @@ public class Plateau implements ActionListener {
 	int cimI, cimJ, k, val;
 	boolean startedB = false;
 	boolean startedN = false;
-	public int intscoreBlanc, intscoreNoir = 0;
+	public int intscoreBlanc, intscoreNoir, roiNoirMoved, tourNoirMoved, roiBlancMoved,tourBlancMoved = 0;
 
 	public Plateau() {
 		grille = new Piece[8][8]; // on indique les dimensions de la grille;
@@ -145,6 +145,32 @@ public class Plateau implements ActionListener {
 				chrono.startedN=true;
 				chrono.timerN.start();
 			}
+	}
+	
+	public void roque(int indLiRoi, int indColRoi, int indLiTour, int indColTour) {
+		System.out.println("............ On est dans roque");
+		int nouvellesIndLiRoi = indLiTour, nouvellesIndColRoi = indColTour, 
+		nouvellesIndLiTour = indLiRoi, nouvellesIndColTour = indColRoi;
+		
+		System.out.println(".............. indices du Roi avant :"+indLiRoi+" : "+indColRoi);
+		System.out.println(".............. indices de Tour avant :"+indLiTour+" : "+indColTour);
+		grille[nouvellesIndLiTour][nouvellesIndColTour] = grille[indLiRoi][indColRoi];
+		grille[nouvellesIndLiRoi][nouvellesIndColRoi] = grille[indLiTour][indColTour];
+
+		System.out.println(".............. nouvelles indices du Roi :"+nouvellesIndLiRoi+" : "+nouvellesIndColRoi);
+		System.out.println(".............. nouvelles indices de Tour :"+nouvellesIndLiTour+" : "+nouvellesIndColTour);
+		interf.bouton[nouvellesIndLiTour][nouvellesIndColTour].setIcon(grille[indLiTour][indColTour].getTheImage());
+		interf.bouton[nouvellesIndLiRoi][nouvellesIndColRoi].setIcon(grille[indLiRoi][indColRoi].getTheImage());
+
+		// active les cases pour le joueur suivant
+		if (grille[indLiTour][indColTour].getCouleur() == "blanc")
+			interf.activeCasesNoir();
+
+		if (grille[indLiTour][indColTour].getCouleur() == "noir") 
+			interf.activeCasesBlanc();
+
+		indiceLiDepAC = -1;
+		turn++;
 	}
 	
 	public boolean verifierGagnant() {
@@ -453,6 +479,7 @@ public class Plateau implements ActionListener {
 			System.out.println("################################"); // à supprimer pour la fin
 			System.out.println(grille[indiceLiDepAC][indiceColDepAC]); // à supprimer pour la fin
 
+			//Fonctionnement du cimetiere
 			k = grille[indiceLiArrAC][indiceColArrAC].getK();
 			val = grille[indiceLiArrAC][indiceColArrAC].getValue();
 			col = grille[indiceLiArrAC][indiceColArrAC].getCouleur();
@@ -460,8 +487,34 @@ public class Plateau implements ActionListener {
 			cimJ = indiceColArrAC;
 			
 			couleurViensBouger = grille[indiceLiDepAC][indiceColDepAC].getCouleur();
+			
+			
+			// Cas roque
+			if (grille[indiceLiDepAC][indiceColDepAC].deplacementValide() && !echec(couleurViensBouger)) {
+				if (roiBlancMoved == 0 && tourBlancMoved ==0 || roiNoirMoved ==0 & tourNoirMoved ==0) {
+					System.out.println("hello");
+					if (grille[indiceLiDepAC][indiceColDepAC].getValue() == -1 && grille[indiceLiArrAC][indiceColArrAC].getValue() == 5 ||
+						grille[indiceLiDepAC][indiceColDepAC].getValue() == 5 && grille[indiceLiArrAC][indiceColArrAC].getValue() == -1 ) {
+							System.out.println("juste avant la roque");
+							roque(indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC);
+						}
+					}
+				}
+			
+			// Cas bouger
 			if (grille[indiceLiDepAC][indiceColDepAC].deplacementValide() && !echec(couleurViensBouger)) { // indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC, "blanc"
 				bouger(indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC);
+				
+				//condition pour le roque (roi et tour ne peuvent pas bouger aucun fois avant la roque)
+				if(grille[indiceLiArrAC][indiceColArrAC].getValue() == -1 
+					&& grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "noir") roiNoirMoved +=1;
+				if(grille[indiceLiArrAC][indiceColArrAC].getValue() == 5
+					&& grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "noir") tourNoirMoved +=1;
+				if(grille[indiceLiArrAC][indiceColArrAC].getValue() == -1 
+					&& grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "blanc") roiBlancMoved +=1;
+				if(grille[indiceLiArrAC][indiceColArrAC].getValue() == 5
+					&& grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "blanc") tourBlancMoved +=1;
+				
 				entreEchecEtMat = 1;
 				/*
 				if (echecEtMat())
