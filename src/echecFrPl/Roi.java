@@ -19,6 +19,11 @@ public class Roi extends Piece {
 			if(indLigneArrive == indLigneDepart -1 && indColArrive == indColDepart -1)return true;
 			if(indLigneArrive == indLigneDepart +1 &&  indColArrive == indColDepart -1) return true;
 			if(indLigneArrive == indLigneDepart -1 &&  indColArrive == indColDepart +1) return true;
+			// Roque
+			if (indLigneDepart == 0 || indLigneDepart == 7 ) { //Roi noir
+				if(indLigneArrive == indLigneDepart &&  indColArrive == indColDepart +3) return true;
+				if(indLigneArrive == indLigneDepart &&  indColArrive == indColDepart -4) return true;
+			}
 		}
 
 		if (indLigneDepart == indLigneArrive && indColDepart == indColArrive) return false; //le piece n'a pas bouge
@@ -27,8 +32,10 @@ public class Roi extends Piece {
 	}
 	
 	public boolean cheminOk() {
-		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur) return false;
-		
+		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur
+		&& Plateau.grille[indLigneArrive][indColArrive].getValue() != 5) return false; 
+		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur
+		&& Plateau.grille[indLigneArrive][indColArrive].getValue() == 5) return true; // pour le tour (Roque)
 		return true;
 	}
 }
