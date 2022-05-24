@@ -169,10 +169,6 @@ public class Plateau implements ActionListener {
 		indiceLiDepAC = -1;
 		turn++;
 	}
-	
-	public boolean verifierGagnant() {
-		return false;
-	}
 
 	public boolean echec(String couleurViensBouger) {
 		int indiceRoi =  -1;
@@ -219,7 +215,7 @@ public class Plateau implements ActionListener {
 							grille[indiceLiDepAC][indiceColDepAC].setCoordonneesArrive(indiceLiArrAC, indiceColArrAC);
 							grille[indiceLiDepAC][indiceColDepAC] = grille[indiceLiArrAC][indiceColArrAC]; // remide de la piece a ca place
 							grille[indiceLiArrAC][indiceColArrAC] = vide;
-							JOptionPane.showMessageDialog(null, "Votre Roi est en echec par la piece au coordonées : " + (i+1) + " : " + (j+1), "Echec", JOptionPane.ERROR_MESSAGE);		
+							JOptionPane.showMessageDialog(null, "Roi " + grille[indiceLRoi][indiceCRoi].getCouleur()  + " en echec par la pièce au coordonées : " + (i+1) + ":" + (j+1), "Echec", JOptionPane.ERROR_MESSAGE);		
 						}
 						return true; // echec
 					}
