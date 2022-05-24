@@ -509,8 +509,8 @@ public class Plateau implements ActionListener {
 						interf.activeCasesForBlanc();
 					indiceLiDepAC = -1;
 				}
-				dejaRoque = false;
 			}
+		dejaRoque = false;
 		}
 	}
 
