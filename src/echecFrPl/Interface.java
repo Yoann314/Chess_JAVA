@@ -237,4 +237,12 @@ public class Interface {
 		intscoreBlanc += plateau.val; // incrémentation du score
 		scoreBlanc.setText("Score des Blanc : " + intscoreBlanc); // update du JLabel
 	}
+	
+	public void setIntscoreBlanc(int intscoreBlanc) {
+		this.intscoreBlanc = intscoreBlanc;
+	}
+
+	public void setIntscoreNoir(int intscoreNoir) {
+		this.intscoreNoir = intscoreNoir;
+	}
 }
