@@ -73,7 +73,6 @@ public class Plateau implements ActionListener {
 	}
 
 	public void bouger(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive) {
-		System.out.println("§§§§§§§§§ " + col + " " +cimI + " : " +cimJ);
 		//cimitiere
 		if(col == "blanc") {
 			interf.ajoutCimtiereNoir(cimI, cimJ);
@@ -135,22 +134,7 @@ public class Plateau implements ActionListener {
 		return false;
 	}
 
-/*
-	public void recupererCoord(int indiceLiArrAC, int indiceColArrAC) {
-		if (this.indiceLiDepAC == -1) {
-			this.indiceLiDepAC = indiceLiArrAC;
-			this.indiceColDepAC = indiceColArrAC;
-		}
-			
-		if (this.indiceLiDepAC != indiceLiArrAC || this.indiceColDepAC != indiceColArrAC) {
-			indiceLiDepAC=-1;
-		}
-	}
-*/
-
-		public boolean echec(String couleurViensBouger) {
-		//System.out.println("1 " + grille[4][4].getCouleur());
-
+	public boolean echec(String couleurViensBouger) {
 		int indiceRoi =  -1;
 		String couleurATester = " ";
 
@@ -164,20 +148,19 @@ public class Plateau implements ActionListener {
 			couleurATester = "blanc";
 		}
 
-
 		if (entreEchecEtMat == 0) { // avant echecEtMat
 			grille[indiceLiArrAC][indiceColArrAC] = grille[indiceLiDepAC][indiceColDepAC]; // simulation si la piece bouge
 			grille[indiceLiDepAC][indiceColDepAC] = vide;
 		}
 
-			for (int i = 0; i < 8; i++) { // cherche le roi de celui qui viens de bouger
-				for (int j = 0; j < 8; j++) {
-					if (grille[i][j].getK() == indiceRoi) { // change les coordonnées d'arrivée avec les corrdonnées du roi blanc
-						indiceLRoi = i;
-						indiceCRoi = j;
-					}
+		for (int i = 0; i < 8; i++) { // cherche le roi de celui qui viens de bouger
+			for (int j = 0; j < 8; j++) {
+				if (grille[i][j].getK() == indiceRoi) { // change les coordonnées d'arrivée avec les corrdonnées du roi blanc
+					indiceLRoi = i;
+					indiceCRoi = j;
 				}
 			}
+		}
 
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
@@ -210,11 +193,6 @@ public class Plateau implements ActionListener {
 			grille[indiceLiDepAC][indiceColDepAC] = grille[indiceLiArrAC][indiceColArrAC]; // remise de la piece a ca place
 			grille[indiceLiArrAC][indiceColArrAC] = vide;
 		}					
-		
-		//System.out.println("3 " + grille[4][4].getCouleur());
-		//System.out.println("Couleur a tester pour manger le roi: " + couleurATester);
-		//System.out.println("Indice roi : " + indiceLRoi + " " + indiceCRoi);
-
 		return false;	
 	}
 	
@@ -457,23 +435,21 @@ public class Plateau implements ActionListener {
 
 			System.out.println("################################"); // à supprimer pour la fin
 			System.out.println(grille[indiceLiDepAC][indiceColDepAC]); // à supprimer pour la fin
-			//System.out.println("@@@@@@@@@@ " + grille[indiceLiArrAC][indiceColArrAC].getCouleur());
-			System.out.println("%%%%%%%%%% " + indiceLiArrAC);
+
 			k = grille[indiceLiArrAC][indiceColArrAC].getK();
 			val = grille[indiceLiArrAC][indiceColArrAC].getValue();
-			System.out.println("DEBUT getK************** " + grille[indiceLiArrAC][indiceColArrAC].getK());
 			col = grille[indiceLiArrAC][indiceColArrAC].getCouleur();
 			cimI = indiceLiArrAC;
 			cimJ = indiceColArrAC;
-			System.out.println("................. " + col);
 			
 			couleurViensBouger = grille[indiceLiDepAC][indiceColDepAC].getCouleur();
 			if (grille[indiceLiDepAC][indiceColDepAC].deplacementValide() && !echec(couleurViensBouger)) { // indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC, "blanc"
 				bouger(indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC);
 				entreEchecEtMat = 1;
+				/*
 				if (echecEtMat())
 					JOptionPane.showMessageDialog(null, "Les " + couleurViensBouger + " gagne !!!!!", "Echec et mat", JOptionPane.ERROR_MESSAGE);		
-				
+				*/
 				entreEchecEtMat = 0;
 				indiceLiDepAC = -1;
 
