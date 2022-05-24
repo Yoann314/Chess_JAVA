@@ -95,13 +95,13 @@ public class Interface {
 		//JLabel imageC = new JLabel();
 		//imageC.setIcon(imgCim);
 
-		contScoreNoir = new JPanel(new GridLayout(2,1));
+		contScoreNoir = new JPanel(new GridLayout(1,1));
 		//cimetiereNoir = new JPanel(new GridLayout(2,8));
 		//for (int i=0; i<16; i++ ){
 		//	cimetiereNoir.add(imageC);}
 		
 
-		contScoreBlanc = new JPanel(new GridLayout(2,1));
+		contScoreBlanc = new JPanel(new GridLayout(1,1));
 		//cimetiereBlanc = new JPanel(new GridLayout(2,8));
 		//for (int i=0; i<16; i++ ){
 		//	cimetiereBlanc.add(imageC);}
@@ -109,18 +109,18 @@ public class Interface {
 		scoreNoir = new JLabel("Score des Noirs : " + plateau.intscoreNoir, JLabel.LEFT);
 		scoreBlanc = new JLabel("Score des Blancs : "+ plateau.intscoreBlanc, JLabel.LEFT);
 
-		contScoreNoir.add(cimetiereNoir);
+		//contScoreNoir.add(cimetiereNoir);
 		contScoreNoir.add(scoreNoir);
 
 		contScoreBlanc.add(scoreBlanc);
-		contScoreBlanc.add(cimetiereBlanc);
+		//contScoreBlanc.add(cimetiereBlanc);
 		
 		scoreStart.add(contScoreNoir);
 		scoreEnd.add(contScoreBlanc);
 	    
 		// chronometre + messages
 		
-			sidePanel = new JPanel(new GridLayout(3,1));
+			sidePanel = new JPanel(new GridLayout(6,1));
 			chronometre=new Chronometre();
 			//JPanel chronoNoir = chronometre.getViewTime();
 
@@ -130,15 +130,18 @@ public class Interface {
 			chronometre=new Chronometre();
 			JPanel chrono = chronometre.getViewTime();
 			
+			sidePanel.add(cimetiereNoir);
 			sidePanel.add(messageNoir);
 			sidePanel.add(chrono);
+			sidePanel.add(matPanel);
 			sidePanel.add(messageBlanc);
+			sidePanel.add(cimetiereBlanc);
 	
 			// Concatenation de toutes les différentes partie de l'interface
 			interfaceComplete = new JPanel(new BorderLayout());
 			interfaceComplete.add(panneau, BorderLayout.CENTER);
 			interfaceComplete.add(sidePanel, BorderLayout.EAST);
-			interfaceComplete.add(matPanel, BorderLayout.WEST);
+			//interfaceComplete.add(matPanel, BorderLayout.WEST);
 			//interfaceComplete.add(matButton, BorderLayout.WEST);
 			interfaceComplete.add(scoreStart, BorderLayout.PAGE_START);
 			interfaceComplete.add(scoreEnd, BorderLayout.PAGE_END);
