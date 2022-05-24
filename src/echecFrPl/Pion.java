@@ -59,7 +59,7 @@ public class Pion extends Piece {
 
 			// tout droit
 			if(Plateau.grille[indLigneDepart+1][indColDepart] != Plateau.vide) return false;
-			if(indLigneDepart == 1 && indLigneArrive == 3 && indColArrive == indColDepart) return true;
+			if(indLigneDepart == 1 && indLigneArrive == 3 && indColArrive == indColDepart)
 				if(Plateau.grille[indLigneDepart+2][indColDepart] != Plateau.vide) return false;
 			
 		}
