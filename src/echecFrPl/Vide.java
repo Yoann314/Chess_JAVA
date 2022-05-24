@@ -12,7 +12,6 @@ public class Vide extends Piece {
 
     @Override
     public boolean cheminOk() {
-        // TODO Auto-generated method stub
         return false;
     }    
 }

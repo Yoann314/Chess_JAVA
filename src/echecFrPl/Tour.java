@@ -4,9 +4,10 @@ public class Tour extends Piece {
 	
 	public Tour(String c, int img) {
 		super(c, img);
-		this.estActif=true;
 		this.value = 5;
+		this.pieceBouge = false;
 	}
+	
 	public boolean deplacementValide() { // nouvelles coordonnees 
 		if (!cheminOk()) return false;
 		if (indLigneArrive < 8 && indColArrive < 8) {		
@@ -17,10 +18,8 @@ public class Tour extends Piece {
 	}
 	
 	public boolean cheminOk() {
-		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur
-		&& Plateau.grille[indLigneArrive][indColArrive].getValue() != -1) return false; 
-		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur
-		&& Plateau.grille[indLigneArrive][indColArrive].getValue() == -1) return true; // pour le tour (Roque)
+		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur && Plateau.grille[indLigneArrive][indColArrive].getValue() != -1) return false; 
+//		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur && Plateau.grille[indLigneArrive][indColArrive].getValue() == -1) return true; // pour le tour (Roque)
 
 		if (indLigneDepart != indLigneArrive && indColDepart == indColArrive) { //bouge sur les horizontales
 			if (indLigneDepart < indLigneArrive) {	// de haut en bas du plateau
@@ -52,4 +51,3 @@ public class Tour extends Piece {
 		return true;
 	}
 }
-	

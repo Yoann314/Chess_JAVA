@@ -25,36 +25,29 @@ public class Chronometre implements ActionListener{
 	
 	ActionListener actionListenerB = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
 				elapsedTimeB -=1000;
 				minutesB = (elapsedTimeB/60000);
 				secondsB = (elapsedTimeB/1000) %60 ; //modulo 60, pour ne pas avoir 61 secondes...
 				seconds_stringB = String.format("%02d", secondsB);
 				minutes_stringB = String.format("%02d", minutesB);
 				timeLabelB.setText(minutes_stringB +" : "+seconds_stringB);
-				}
-		};
+		}};
 	
 	Timer timerB = new Timer(1000,actionListenerB);
 	
 	ActionListener actionListenerN = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
 				elapsedTimeN -=1000;
 				minutesN = (elapsedTimeN/60000);
 				secondsN = (elapsedTimeN/1000) %60 ; //modulo 60, pour ne pas avoir 61 secondes...
 				seconds_stringN = String.format("%02d", secondsN);
 				minutes_stringN = String.format("%02d", minutesN);
 				timeLabelN.setText(minutes_stringN +" : "+seconds_stringN);
+	}};
 
-		}
-	};
-	
 	Timer timerN = new Timer(1000,actionListenerN);
 	
-	
-	Chronometre(){
-		
+	Chronometre() {
 		timeLabelB.setText(minutes_stringB +" : "+seconds_stringB);
 		timeLabelB.setBounds(25,15,100,50);
 		timeLabelB.setFont(new Font("Courier New", Font.PLAIN, 20));
@@ -80,45 +73,18 @@ public class Chronometre implements ActionListener{
 		startButtonN.setBackground(Color.GREEN);
 		startButtonN.setFocusable(false);
 		startButtonN.addActionListener(this);
-		
-		
+			
 		frame.add(startButtonB);
 		frame.add(startButtonN);
 		frame.add(timeLabelB);
 		frame.add(timeLabelN);
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(300,150);
 		frame.setLayout(null);
 		frame.setVisible(true);
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		/*if (plateau.onBouge) {
-			System.out.println("chrono marche");
-			startB();
-			if (startedN==false && startedB==true) {
-				startedN=true;
-				startedB=false;
-				startN();
-				stopB();
-			}
-			if (startedN==false && startedB==false) {
-				startedN=true;
-				startN();
-			}
-			if (startedB==false && startedN==true) {
-				startedB=true;
-				startedN=false;
-				startB();
-				stopN();
-			}
-			if (startedB==false && startedN==false) {
-				startedB=true;
-				startB();
-			}
-			
-		}*/
-		
 		if (e.getSource()==startButtonN) {
 			stopB();
 			startN();
@@ -132,7 +98,7 @@ public class Chronometre implements ActionListener{
 				startedN=true;
 				startN();
 			}
-			}
+		}
 		
 		if (e.getSource()==startButtonB) {
 			stopN();
@@ -147,9 +113,7 @@ public class Chronometre implements ActionListener{
 				startedB=true;
 				startB();
 			}
-		
-		}
-		
+		}	
 	}
 
 	void startB() {
@@ -171,9 +135,4 @@ public class Chronometre implements ActionListener{
 	public JPanel getViewTime(){
 		return this.frame;
 	}
-	
-	//public static void main(String[] args) {
-	//	Chronometre chronometre = new Chronometre();}
-
 }
-

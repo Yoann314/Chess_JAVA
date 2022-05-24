@@ -41,7 +41,7 @@ public class Reine extends Piece {
 		if(indLigneArrive>indLigneDepart && indColArrive>indColDepart){ // vers haut gauche
 			while(indLigneDepart != indLigneArrive-1 && indColDepart != indColArrive-1){
 				if (Plateau.grille[indLigneArrive-1][indColArrive-1] != Plateau.vide)return false;
-				
+
 				indLigneArrive--;
 				indColArrive--;
 			}
@@ -99,4 +99,3 @@ public class Reine extends Piece {
 		return true;
 	}
 }
-	

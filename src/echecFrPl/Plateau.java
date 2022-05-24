@@ -15,9 +15,8 @@ public class Plateau implements ActionListener {
 	private Chronometre chrono = new Chronometre();
 	Color colorArchive;	
 	int cimI, cimJ, k, val;
-	boolean startedB = false;
-	boolean startedN = false;
-	public int intscoreBlanc, intscoreNoir, roiNoirMoved, tourNoirMoved, roiBlancMoved,tourBlancMoved = 0;
+	boolean startedB = false, startedN = false, dejaRoque = false;
+	public int intscoreBlanc, intscoreNoir;
 
 	public Plateau() {
 		grille = new Piece[8][8]; // on indique les dimensions de la grille;
@@ -26,14 +25,7 @@ public class Plateau implements ActionListener {
 		interf.fenetreSTART.setAlwaysOnTop(true);
 		interf.fenetreSTART.setVisible(true);
 		interf.fenetre.setVisible(true);
-		/*
-		new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource()==interf.boutonJouer) {
-					interf.fenetreSTART.setVisible(false);
-					interf.fenetre.setVisible(true); } } }; */
 		indiceLiDepAC = -1;
-
 	}
 		
 	public void init() {
@@ -84,7 +76,8 @@ public class Plateau implements ActionListener {
 			interf.ajoutCimtiereBlanc(cimI, cimJ);
 			intscoreBlanc += val; 
 		}
-			
+		
+		grille[indLigneDepart][indColDepart].setPieceBouge(true);
 							
 		//bouger
 		grille[indLigneArrive][indColArrive] = grille[indLigneDepart][indColDepart];
@@ -93,18 +86,7 @@ public class Plateau implements ActionListener {
 		grille[indLigneDepart][indColDepart] = vide;
 		interf.bouton[indLigneDepart][indColDepart].setIcon((Image)null);
 		
-		if (grille[indLigneArrive][indColArrive].getCouleur() == "blanc" && grille[indLigneArrive][indColArrive].getValue() == 1 && indLigneArrive == 0) {
-			grille[indLigneArrive][indColArrive] = new Reine("blanc",28);
-			interf.bouton[indLigneArrive][indColArrive].setIcon(grille[indLigneArrive][indColArrive].getTheImage());
-			interf.setIntscoreNoir(intscoreNoir += 9);
-			interf.scoreNoir.setText("Score des Noirs : " + intscoreNoir);
-		}
-
-		if (grille[indLigneArrive][indColArrive].getCouleur() == "noir" && grille[indLigneArrive][indColArrive].getValue() == 1 && indLigneArrive == 0) {
-			grille[indLigneArrive][indColArrive] = new Reine("noir",4);
-			interf.setIntscoreBlanc(intscoreBlanc += 9);
-			interf.scoreBlanc.setText("Score des Blanc : " + intscoreBlanc);
-		}
+		promotion(indLigneDepart, indColDepart, indLigneArrive, indColArrive); // promotion d'un pion en reine
 		
 		interf.bouton[indiceLiDepAC][indiceColDepAC].setBackground(colorArchive);
 		// active les cases pour le joueur suivant
@@ -115,7 +97,6 @@ public class Plateau implements ActionListener {
 			interf.activeCasesBlanc();
 
 		indiceLiDepAC = -1;
-		turn++;
 	
 		//chrono 
 			if(startedN==true) chrono.timerN.stop();
@@ -143,31 +124,52 @@ public class Plateau implements ActionListener {
 				chrono.timerN.start();
 			}
 	}
-	
-	public void roque(int indLiRoi, int indColRoi, int indLiTour, int indColTour) {
-		System.out.println("............ On est dans roque");
-		int nouvellesIndLiRoi = indLiTour, nouvellesIndColRoi = indColTour, 
-		nouvellesIndLiTour = indLiRoi, nouvellesIndColTour = indColRoi;
-		
-		System.out.println(".............. indices du Roi avant :"+indLiRoi+" : "+indColRoi);
-		System.out.println(".............. indices de Tour avant :"+indLiTour+" : "+indColTour);
-		grille[nouvellesIndLiTour][nouvellesIndColTour] = grille[indLiRoi][indColRoi];
-		grille[nouvellesIndLiRoi][nouvellesIndColRoi] = grille[indLiTour][indColTour];
 
-		System.out.println(".............. nouvelles indices du Roi :"+nouvellesIndLiRoi+" : "+nouvellesIndColRoi);
-		System.out.println(".............. nouvelles indices de Tour :"+nouvellesIndLiTour+" : "+nouvellesIndColTour);
-		interf.bouton[nouvellesIndLiTour][nouvellesIndColTour].setIcon(grille[indLiTour][indColTour].getTheImage());
-		interf.bouton[nouvellesIndLiRoi][nouvellesIndColRoi].setIcon(grille[indLiRoi][indColRoi].getTheImage());
+	public void promotion(int indLigneDepart, int indColDepart, int indLigneArrive, int indColArrive){
+		if (grille[indLigneArrive][indColArrive].getCouleur() == "blanc" && grille[indLigneArrive][indColArrive].getValue() == 1 && indLigneArrive == 0) { // promotion en reine
+			grille[indLigneArrive][indColArrive] = new Reine("blanc",28);
+			interf.bouton[indLigneArrive][indColArrive].setIcon(grille[indLigneArrive][indColArrive].getTheImage());
+			interf.setIntscoreNoir(intscoreNoir += 9);
+			interf.scoreNoir.setText("Score des Noirs : " + intscoreNoir);
+		}
 
-		// active les cases pour le joueur suivant
-		if (grille[indLiTour][indColTour].getCouleur() == "blanc")
-			interf.activeCasesNoir();
+		if (grille[indLigneArrive][indColArrive].getCouleur() == "noir" && grille[indLigneArrive][indColArrive].getValue() == 1 && indLigneArrive == 7) { // promotion en reine
+			grille[indLigneArrive][indColArrive] = new Reine("noir",4);
+			interf.bouton[indLigneArrive][indColArrive].setIcon(grille[indLigneArrive][indColArrive].getTheImage());
+			interf.setIntscoreBlanc(intscoreBlanc += 9);
+			interf.scoreBlanc.setText("Score des Blanc : " + intscoreBlanc);
+		}
+	}
 
-		if (grille[indLiTour][indColTour].getCouleur() == "noir") 
-			interf.activeCasesBlanc();
+	public void roque(int iDep, int jDep, int iArr, int jArr) {
+		int a = indiceLiDepAC;
+		if (grille[iDep][jDep].getK() == 29 && grille[iDep][jDep].getPieceBouge() == false && iArr == 7 && jArr == 6 && grille[7][7].getPieceBouge() == false && grille[iDep][jDep+1] == vide) { // roi blanc droite
+			bouger(iDep, jDep, iArr, jArr); // bouger le roi
+			indiceLiDepAC = a;
+			bouger(7, 7, 7, 5); // bouger la tour
+			dejaRoque = true;
+		}
 
-		indiceLiDepAC = -1;
-		turn++;
+		if (grille[iDep][jDep].getK() == 29 && grille[iDep][jDep].getPieceBouge() == false && iArr == 7 && jArr == 2 && grille[7][0].getPieceBouge() == false && grille[iDep][jDep-1] == vide && grille[iDep][jDep-3] == vide) { // roi blanc gauche
+			bouger(iDep, jDep, iArr, jArr);
+			indiceLiDepAC = a;
+			bouger(7, 0, 7, 3);
+			dejaRoque = true;
+		}
+
+		if (grille[iDep][jDep].getK() == 5 && grille[iDep][jDep].getPieceBouge() == false && iArr == 0 && jArr == 6 && grille[0][7].getPieceBouge() == false && grille[iDep][jDep+1] == vide) { // roi noir droite
+			bouger(iDep, jDep, iArr, jArr);
+			indiceLiDepAC = a;
+			bouger(0, 7, 0, 5);
+			dejaRoque = true;
+		}
+
+		if (grille[iDep][jDep].getK() == 5 && grille[iDep][jDep].getPieceBouge() == false && iArr == 0 && jArr == 2 && grille[0][0].getPieceBouge() == false && grille[iDep][jDep-1] == vide && grille[iDep][jDep-3] == vide) { // roi noir gauche
+			bouger(iDep, jDep, iArr, jArr);
+			indiceLiDepAC = a;
+			bouger(0, 0, 0, 3);
+			dejaRoque = true;
+		}
 	}
 
 	public boolean echec(String couleurViensBouger) {
@@ -441,7 +443,6 @@ public class Plateau implements ActionListener {
 		return false;	
 	}
 	
-
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		String a = ae.getActionCommand();
@@ -452,7 +453,7 @@ public class Plateau implements ActionListener {
 		//bouton echec et mat
 		if (ae.getSource()==interf.matButton) {
 			JOptionPane.showMessageDialog(null, " Roi est en echec et mat ", "Echec et Mat", JOptionPane.ERROR_MESSAGE);		
-}
+		}
 
 		if (indiceLiDepAC == -1) { // si c'est la premiere fois qu'on cique sur les deux
 			indiceLiDepAC = indiceLiArrAC;
@@ -483,60 +484,37 @@ public class Plateau implements ActionListener {
 			col = grille[indiceLiArrAC][indiceColArrAC].getCouleur();
 			cimI = indiceLiArrAC;
 			cimJ = indiceColArrAC;
-			
+
 			couleurViensBouger = grille[indiceLiDepAC][indiceColDepAC].getCouleur();
-			
-			
-			// Cas roque
-			if (grille[indiceLiDepAC][indiceColDepAC].deplacementValide() && !echec(couleurViensBouger)) {
-				if (roiBlancMoved == 0 && tourBlancMoved ==0 || roiNoirMoved ==0 & tourNoirMoved ==0) {
-					System.out.println("hello");
-					if (grille[indiceLiDepAC][indiceColDepAC].getValue() == -1 && grille[indiceLiArrAC][indiceColArrAC].getValue() == 5 ||
-						grille[indiceLiDepAC][indiceColDepAC].getValue() == 5 && grille[indiceLiArrAC][indiceColArrAC].getValue() == -1 ) {
-							System.out.println("juste avant la roque");
-							roque(indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC);
-						}
-					}
+			roque(indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC);
+
+			if (!dejaRoque) {
+				if (grille[indiceLiDepAC][indiceColDepAC].deplacementValide() && !echec(couleurViensBouger)) { // indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC, "blanc"
+					bouger(indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC);
+					/*
+					entreEchecEtMat = 1;
+					if (echecEtMat())
+						JOptionPane.showMessageDialog(null, "Les " + couleurViensBouger + " gagne !!!!!", "Echec et mat", JOptionPane.ERROR_MESSAGE);		
+					
+					entreEchecEtMat = 0;
+					*/
+					indiceLiDepAC = -1;
 				}
-			
-			// Cas bouger
-			if (grille[indiceLiDepAC][indiceColDepAC].deplacementValide() && !echec(couleurViensBouger)) { // indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC, "blanc"
-				bouger(indiceLiDepAC, indiceColDepAC, indiceLiArrAC, indiceColArrAC);
-				
-				//condition pour le roque (roi et tour ne peuvent pas bouger aucun fois avant la roque)
-				if(grille[indiceLiArrAC][indiceColArrAC].getValue() == -1 
-					&& grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "noir") roiNoirMoved +=1;
-				if(grille[indiceLiArrAC][indiceColArrAC].getValue() == 5
-					&& grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "noir") tourNoirMoved +=1;
-				if(grille[indiceLiArrAC][indiceColArrAC].getValue() == -1 
-					&& grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "blanc") roiBlancMoved +=1;
-				if(grille[indiceLiArrAC][indiceColArrAC].getValue() == 5
-					&& grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "blanc") tourBlancMoved +=1;
-				
-				entreEchecEtMat = 1;
-				/*
-				if (echecEtMat())
-					JOptionPane.showMessageDialog(null, "Les " + couleurViensBouger + " gagne !!!!!", "Echec et mat", JOptionPane.ERROR_MESSAGE);		
-				*/
-				entreEchecEtMat = 0;
-				indiceLiDepAC = -1;
 
+				else {
+					interf.bouton[indiceLiDepAC][indiceColDepAC].setBackground(colorArchive);
+					if (grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "blanc")
+						interf.activeCasesForNoir();
+					if (grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "noir") 
+						interf.activeCasesForBlanc();
+					indiceLiDepAC = -1;
+				}
+				dejaRoque = false;
 			}
-
-			else {
-				interf.bouton[indiceLiDepAC][indiceColDepAC].setBackground(colorArchive);
-				if (grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "blanc")
-					interf.activeCasesForNoir();
-				if (grille[indiceLiDepAC][indiceColDepAC].getCouleur() == "noir") 
-					interf.activeCasesForBlanc();
-				indiceLiDepAC = -1;
-			}
-
 		}
 	}
 
 	public static void main(String[] args) {
 		Plateau pl = new Plateau();
-		// pl.interf.activeCases();
 	}
 }

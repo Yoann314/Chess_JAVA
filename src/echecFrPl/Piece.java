@@ -6,13 +6,8 @@ import java.awt.*;
 public abstract class Piece {
 
     public String couleur;
-    // public static String forme;
-    protected int indLigneDepart;
-	protected int indColDepart;
-    protected int indLigneArrive;
-	protected int indColArrive;
-    protected int value;
-    boolean estActif;
+    protected int indLigneDepart, indColDepart, indLigneArrive, indColArrive, value;
+    boolean estActif, pieceBouge;
     public abstract boolean deplacementValide();
 	public abstract boolean cheminOk();
 	Image img;
@@ -25,18 +20,21 @@ public abstract class Piece {
 		this.k = k;
 	}
 
-	public Piece() {}
-	
-/*
-	public void setForme(String f) { 
-		Piece.forme=f; 
-	}
-*/	
+	public Piece() {}	
 
+	/*
 	public String toString() { // à supprimer pour la fin
 		return "("+String.valueOf(indLigneDepart)+","+String.valueOf(indColDepart)+") --> ("+String.valueOf(indLigneArrive)+","+String.valueOf(indColArrive)+")";
 	}
+	*/
+	
+	public boolean getPieceBouge(){
+		return pieceBouge;
+	}
 
+	public void setPieceBouge(boolean pieceBouge){
+		this.pieceBouge = pieceBouge;
+	}
 
 	public Image getTheImage() {
 		return img;
@@ -45,12 +43,6 @@ public abstract class Piece {
 	public int getK() {
 		return k;
 	}
-
-	/*
-    public void Joueur(String c) { 
-    	this.setCouleur(c); 
-    }
-	*/
     
     public String getCouleur() {
 		return couleur;
@@ -73,23 +65,6 @@ public abstract class Piece {
         return value;
     }
 
-	/*
-	public int getLigneDepart() { 
-		return this.indLigneDepart; 
-	}
-	
-	public int getColDepart() { 
-		return this.indColDepart; 
-	}
-	public int getLigneArrive() { 
-		return this.indLigneArrive; 
-	}
-	
-	public int getColArrive() { 
-		return this.indColArrive; 
-	}
-
-    */
     public boolean getestActif() { 
     	return this.estActif; 
     }
@@ -98,5 +73,4 @@ public abstract class Piece {
 		if(actif!=false) this.estActif=false;
 		if(actif==true) this.estActif=true;
 	}
-	
 }

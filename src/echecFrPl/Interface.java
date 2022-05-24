@@ -1,10 +1,10 @@
 package echecFrPl;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 public class Interface {
-
 	public JFrame fenetre, fenetreSTART;
 	public JPanel panneau, scoreStart, scoreEnd, contScoreNoir, contScoreBlanc , interfaceComplete, sidePanel, cimetiereNoir, cimetiereBlanc, matPanel; // cont pour contenant
 	public JLabel scoreNoir, scoreBlanc;
@@ -13,7 +13,6 @@ public class Interface {
 	Plateau plateau;
 	private Chronometre chronometre;
 	public int intscoreBlanc = 0, intscoreNoir = 0;
-	//Component chronometre;
 
     public Interface(Plateau plateau) {
 		this.plateau = plateau;
@@ -79,7 +78,13 @@ public class Interface {
 		//bouton EchecMat
 		matPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		matButton = new JButton(" Echec et Mat ");
-		matButton.addActionListener(plateau);
+
+		matButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Félicitation ! Les " + plateau.couleurViensBouger + " gagne !!!  🎉  🎊 ", "Fin de partie", JOptionPane.PLAIN_MESSAGE);
+       			System.out.println("");;
+			}
+		});
 		matPanel.add(matButton);
 
 		// Score + Cimetière
@@ -89,71 +94,48 @@ public class Interface {
 		scoreStart = new JPanel();
 		scoreEnd = new JPanel();
 
-		//ImageIcon imgCim = new ImageIcon("images/cimitiere.png");
-		//Image imageCim = imgCim.getImage().getScaledInstance(50, 50,Image.SCALE_DEFAULT);
-		//JLabel imageC = new JLabel(new ImageIcon(imageCim));
-		//JLabel imageC = new JLabel();
-		//imageC.setIcon(imgCim);
-
 		contScoreNoir = new JPanel(new GridLayout(1,1));
-		//cimetiereNoir = new JPanel(new GridLayout(2,8));
-		//for (int i=0; i<16; i++ ){
-		//	cimetiereNoir.add(imageC);}
-		
-
 		contScoreBlanc = new JPanel(new GridLayout(1,1));
-		//cimetiereBlanc = new JPanel(new GridLayout(2,8));
-		//for (int i=0; i<16; i++ ){
-		//	cimetiereBlanc.add(imageC);}
 
 		scoreNoir = new JLabel("Score des Noirs : " + plateau.intscoreNoir, JLabel.LEFT);
 		scoreBlanc = new JLabel("Score des Blancs : "+ plateau.intscoreBlanc, JLabel.LEFT);
 
-		//contScoreNoir.add(cimetiereNoir);
 		contScoreNoir.add(scoreNoir);
-
 		contScoreBlanc.add(scoreBlanc);
-		//contScoreBlanc.add(cimetiereBlanc);
 		
 		scoreStart.add(contScoreNoir);
 		scoreEnd.add(contScoreBlanc);
 	    
 		// chronometre + messages
-		
-			sidePanel = new JPanel(new GridLayout(6,1));
-			chronometre=new Chronometre();
-			//JPanel chronoNoir = chronometre.getViewTime();
+		sidePanel = new JPanel(new GridLayout(6,1));
+		chronometre=new Chronometre();
 
-			JLabel messageNoir = new JLabel("_______________________________________");
-			JLabel messageBlanc = new JLabel("_______________________________________");
+		JLabel messageNoir = new JLabel("_______________________________________");
+		JLabel messageBlanc = new JLabel("_______________________________________");
+		
+		chronometre=new Chronometre();
+		JPanel chrono = chronometre.getViewTime();
+		
+		sidePanel.add(cimetiereNoir);
+		sidePanel.add(messageNoir);
+		sidePanel.add(chrono);
+		sidePanel.add(matPanel);
+		sidePanel.add(messageBlanc);
+		sidePanel.add(cimetiereBlanc);
+
+		// Concatenation de toutes les différentes partie de l'interface
+		interfaceComplete = new JPanel(new BorderLayout());
+		interfaceComplete.add(panneau, BorderLayout.CENTER);
+		interfaceComplete.add(sidePanel, BorderLayout.EAST);
+		interfaceComplete.add(scoreStart, BorderLayout.PAGE_START);
+		interfaceComplete.add(scoreEnd, BorderLayout.PAGE_END);
 			
-			chronometre=new Chronometre();
-			JPanel chrono = chronometre.getViewTime();
-			
-			sidePanel.add(cimetiereNoir);
-			sidePanel.add(messageNoir);
-			sidePanel.add(chrono);
-			sidePanel.add(matPanel);
-			sidePanel.add(messageBlanc);
-			sidePanel.add(cimetiereBlanc);
-	
-			// Concatenation de toutes les différentes partie de l'interface
-			interfaceComplete = new JPanel(new BorderLayout());
-			interfaceComplete.add(panneau, BorderLayout.CENTER);
-			interfaceComplete.add(sidePanel, BorderLayout.EAST);
-			//interfaceComplete.add(matPanel, BorderLayout.WEST);
-			//interfaceComplete.add(matButton, BorderLayout.WEST);
-			interfaceComplete.add(scoreStart, BorderLayout.PAGE_START);
-			interfaceComplete.add(scoreEnd, BorderLayout.PAGE_END);
-			
-			
-			
-			fenetreSTART.pack();
-			fenetreSTART.setLocationRelativeTo(null);
-			
-			fenetre.add(interfaceComplete);
-			fenetre.pack();
-			fenetre.setLocationRelativeTo(null);
+		fenetreSTART.pack();
+		fenetreSTART.setLocationRelativeTo(null);
+		
+		fenetre.add(interfaceComplete);
+		fenetre.pack();
+		fenetre.setLocationRelativeTo(null);
 
 		for (int i = 0; i < 8; i++) { // désactive toutes les cases noir et vide pour le premier coup
 			for (int j = 0; j < 8; j++) {					
@@ -225,23 +207,18 @@ public class Interface {
 	}
 	
 	public void ajoutCimtiereNoir(int i, int j) {
-		System.out.println("on est dans cimitiere noir avec le piece " +plateau.k);
 		ImageIcon imgCim = new ImageIcon("src/images/"+ plateau.k+".png");
-		Image imageN = imgCim.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
+		Image imageN = imgCim.getImage().getScaledInstance(30, 50,Image.SCALE_DEFAULT);
 		JLabel imageC = new JLabel(new ImageIcon(imageN));		
 		cimetiereNoir.add(imageC);
-		System.out.println("value de piece mange "+plateau.val);
 		intscoreNoir += plateau.val; // incrémentation du score
 		scoreNoir.setText("Score des Noirs : " + intscoreNoir); // update du JLabel
 	}
 
 	public void ajoutCimtiereBlanc(int i, int j) {
-		System.out.println("one est dans cimitiere blanc avec le piece " +plateau.k);
 		ImageIcon imgCim = new ImageIcon("src/images/"+ plateau.k+".png");
-		Image imageB = imgCim.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
+		Image imageB = imgCim.getImage().getScaledInstance(30, 50,Image.SCALE_DEFAULT);
 		JLabel imageC = new JLabel(new ImageIcon(imageB));		
-		cimetiereBlanc.add(imageC);
-		System.out.println("value de piece mange "+plateau.val);
 		cimetiereBlanc.add(imageC);
 		intscoreBlanc += plateau.val; // incrémentation du score
 		scoreBlanc.setText("Score des Blanc : " + intscoreBlanc); // update du JLabel

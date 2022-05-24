@@ -26,7 +26,6 @@ public class MonBouton extends JButton {
         return bg;
     }
 
-
     public void setIcon(Image ic){
         img = ic;
         repaint();
