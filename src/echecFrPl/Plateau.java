@@ -33,6 +33,7 @@ public class Plateau implements ActionListener {
 					interf.fenetreSTART.setVisible(false);
 					interf.fenetre.setVisible(true); } } }; */
 		indiceLiDepAC = -1;
+
 	}
 		
 	public void init() {
@@ -455,6 +456,11 @@ public class Plateau implements ActionListener {
 		String[] coordonnéesListener = a.split("-");
 		indiceLiArrAC = Integer.parseInt(coordonnéesListener[0]);
 		indiceColArrAC = Integer.parseInt(coordonnéesListener[1]);
+
+		//bouton echec et mat
+		if (ae.getSource()==interf.matButton) {
+			JOptionPane.showMessageDialog(null, " Roi est en echec et mat ", "Echec et Mat", JOptionPane.ERROR_MESSAGE);		
+}
 
 		if (indiceLiDepAC == -1) { // si c'est la premiere fois qu'on cique sur les deux
 			indiceLiDepAC = indiceLiArrAC;

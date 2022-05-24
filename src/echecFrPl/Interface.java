@@ -6,10 +6,10 @@ import javax.swing.*;
 public class Interface {
 
 	public JFrame fenetre, fenetreSTART;
-	public JPanel panneau, scoreStart, scoreEnd, contScoreNoir, contScoreBlanc , interfaceComplete, sidePanel, cimetiereNoir, cimetiereBlanc; // cont pour contenant
+	public JPanel panneau, scoreStart, scoreEnd, contScoreNoir, contScoreBlanc , interfaceComplete, sidePanel, cimetiereNoir, cimetiereBlanc, matPanel; // cont pour contenant
 	public JLabel scoreNoir, scoreBlanc;
 	public MonBouton[][] bouton;
-	public JButton boutonJouer;
+	public JButton matButton;
 	Plateau plateau;
 	private Chronometre chronometre;
 	public int intscoreBlanc = 0, intscoreNoir = 0;
@@ -76,7 +76,11 @@ public class Interface {
 		fenetreSTART.pack(); // pour une dimension optimale de la fenetre
 		fenetreSTART.setVisible(true);
 	
-
+		//bouton EchecMat
+		matPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		matButton = new JButton(" Echec et Mat ");
+		matButton.addActionListener(plateau);
+		matPanel.add(matButton);
 
 		// Score + Cimetière
 		cimetiereNoir = new JPanel(new GridLayout(2,8));
@@ -134,6 +138,8 @@ public class Interface {
 			interfaceComplete = new JPanel(new BorderLayout());
 			interfaceComplete.add(panneau, BorderLayout.CENTER);
 			interfaceComplete.add(sidePanel, BorderLayout.EAST);
+			interfaceComplete.add(matPanel, BorderLayout.WEST);
+			//interfaceComplete.add(matButton, BorderLayout.WEST);
 			interfaceComplete.add(scoreStart, BorderLayout.PAGE_START);
 			interfaceComplete.add(scoreEnd, BorderLayout.PAGE_END);
 			
