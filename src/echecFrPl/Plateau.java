@@ -93,21 +93,17 @@ public class Plateau implements ActionListener {
 		grille[indLigneDepart][indColDepart] = vide;
 		interf.bouton[indLigneDepart][indColDepart].setIcon((Image)null);
 		
-		if (grille[indLigneArrive][indColArrive].getCouleur() == "blanc") {
-			if(indLigneArrive == 0) {
-				grille[indLigneArrive][indColArrive] = new Reine("blanc",28);
-				interf.bouton[indLigneArrive][indColArrive].setIcon(grille[indLigneArrive][indColArrive].getTheImage());
-				interf.setIntscoreBlanc(intscoreBlanc += 9);
-				interf.scoreBlanc.setText("Score des Blanc : " + intscoreBlanc);
-			}
+		if (grille[indLigneArrive][indColArrive].getCouleur() == "blanc" && grille[indLigneArrive][indColArrive].getValue() == 1 && indLigneArrive == 0) {
+			grille[indLigneArrive][indColArrive] = new Reine("blanc",28);
+			interf.bouton[indLigneArrive][indColArrive].setIcon(grille[indLigneArrive][indColArrive].getTheImage());
+			interf.setIntscoreNoir(intscoreNoir += 9);
+			interf.scoreNoir.setText("Score des Noirs : " + intscoreNoir);
 		}
 
-		if (grille[indLigneArrive][indColArrive].getCouleur() == "noir") {
-			if(indLigneArrive == 0) {
-				grille[indLigneArrive][indColArrive] = new Reine("noir",4);
-				interf.setIntscoreNoir(intscoreNoir += 9);
-				interf.scoreNoir.setText("Score des Noirs : " + intscoreNoir);
-			}
+		if (grille[indLigneArrive][indColArrive].getCouleur() == "noir" && grille[indLigneArrive][indColArrive].getValue() == 1 && indLigneArrive == 0) {
+			grille[indLigneArrive][indColArrive] = new Reine("noir",4);
+			interf.setIntscoreBlanc(intscoreBlanc += 9);
+			interf.scoreBlanc.setText("Score des Blanc : " + intscoreBlanc);
 		}
 		
 		interf.bouton[indiceLiDepAC][indiceColDepAC].setBackground(colorArchive);
