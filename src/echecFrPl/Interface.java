@@ -12,7 +12,7 @@ public class Interface {
 	public JButton boutonJouer;
 	Plateau plateau;
 	private Chronometre chronometre;
-	//public int intscoreBlanc, intscoreNoir = 0;
+	public int intscoreBlanc = 0, intscoreNoir = 0;
 	//Component chronometre;
 
     public Interface(Plateau plateau) {
@@ -222,7 +222,8 @@ public class Interface {
 		JLabel imageC = new JLabel(new ImageIcon(imageN));		
 		cimetiereNoir.add(imageC);
 		System.out.println("value de piece mange "+plateau.val);
-		//intscoreNoir += plateau.val; 
+		intscoreNoir += plateau.val; // incrémentation du score
+		scoreNoir.setText("Score des Noirs : " + intscoreNoir); // update du JLabel
 	}
 
 	public void ajoutCimtiereBlanc(int i, int j) {
@@ -233,6 +234,7 @@ public class Interface {
 		cimetiereBlanc.add(imageC);
 		System.out.println("value de piece mange "+plateau.val);
 		cimetiereBlanc.add(imageC);
-		//intscoreBlanc += plateau.val; 
+		intscoreBlanc += plateau.val; // incrémentation du score
+		scoreBlanc.setText("Score des Blanc : " + intscoreBlanc); // update du JLabel
 	}
 }
