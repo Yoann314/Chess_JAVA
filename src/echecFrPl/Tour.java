@@ -17,8 +17,11 @@ public class Tour extends Piece {
 	}
 	
 	public boolean cheminOk() {
-		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur) return false;
-		
+		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur
+		&& Plateau.grille[indLigneArrive][indColArrive].getValue() != -1) return false; 
+		if (Plateau.grille[indLigneArrive][indColArrive] != Plateau.vide && Plateau.grille[indLigneArrive][indColArrive].couleur == this.couleur
+		&& Plateau.grille[indLigneArrive][indColArrive].getValue() == -1) return true; // pour le tour (Roque)
+
 		if (indLigneDepart != indLigneArrive && indColDepart == indColArrive) { //bouge sur les horizontales
 			if (indLigneDepart < indLigneArrive) {	// de haut en bas du plateau
 				for (int i = indLigneDepart+1; i < indLigneArrive; i++) {
@@ -36,13 +39,13 @@ public class Tour extends Piece {
 		if (indLigneDepart == indLigneArrive && indColDepart != indColArrive) { //bouge sur les verticales
 			if (indColDepart < indColArrive) {	// de gauche a droite du plateau
 				for (int i = indColDepart +1; i < indColArrive; i++) {
-					if(Plateau.grille[indLigneDepart][i] != Plateau.vide) return false;
+					if(Plateau.grille[indLigneDepart][i] != Plateau.vide && Plateau.grille[indLigneDepart][i].getValue() != -1) return false;
 				}
 			}
 
 			if (indColDepart > indColArrive) {	// de droite a gauche du plateau
 				for (int i = indColDepart -1; i > indColArrive; i--) {
-					if(Plateau.grille[indLigneDepart][i] != Plateau.vide) return false;
+					if(Plateau.grille[indLigneDepart][i] != Plateau.vide  && Plateau.grille[indLigneDepart][i].getValue() != -1) return false;
 				}
 			}
 		}
